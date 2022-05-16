@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "mytripit",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/malakamm/development/my_trip_it/amplify/backend/api/mytripit/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authmytripitb9904f2a"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": []
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-mytripit-staging-165744-authRole",
+      "UnauthRoleArn": "arn:aws:iam::279012124572:role/amplify-mytripit-staging-165744-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::279012124572:role/amplify-mytripit-staging-165744-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-mytripit-staging-165744-deployment",
+      "UnauthRoleName": "amplify-mytripit-staging-165744-unauthRole",
+      "StackName": "amplify-mytripit-staging-165744",
+      "StackId": "arn:aws:cloudformation:us-east-1:279012124572:stack/amplify-mytripit-staging-165744/7a8965e0-d14b-11ec-9d7c-0a95cf010f27",
+      "AmplifyAppId": "d2511skaxerxwo"
+    },
+    "categories": {
+      "auth": {
+        "mytripitb9904f2a": {}
+      }
+    }
+  }
+}

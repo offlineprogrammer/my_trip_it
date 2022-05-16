@@ -1,0 +1,14 @@
+type Trip @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  tripName: String!
+  Plans: [Plan] @hasMany(indexName: "byTrip", fields: ["id"])
+}
+
+type Plan @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  planName: String!
+  expensevalue: Float!
+   tripID: ID! @index(name: "byTrip", sortKeyFields: ["planName"])
+  trip: Trip! @belongsTo(fields: ["tripID"])
+  createdAt: AWSDateTime!
+}
