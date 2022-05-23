@@ -19,23 +19,19 @@
 
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
-import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 
 
-/** This is an auto generated class representing the Trip type in your schema. */
+/** This is an auto generated class representing the Profile type in your schema. */
 @immutable
-class Trip extends Model {
-  static const classType = const _TripModelType();
+class Profile extends Model {
+  static const classType = const _ProfileModelType();
   final String id;
-  final String? _tripName;
-  final String? _destination;
-  final TemporalDateTime? _startDate;
-  final TemporalDateTime? _endDate;
-  final String? _description;
-  final List<Plan>? _Plans;
+  final String? _userId;
+  final String? _firstName;
+  final String? _lastName;
+  final String? _homeCity;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -47,9 +43,9 @@ class Trip extends Model {
     return id;
   }
   
-  String get tripName {
+  String get userId {
     try {
-      return _tripName!;
+      return _userId!;
     } catch(e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -60,9 +56,9 @@ class Trip extends Model {
     }
   }
   
-  String get destination {
+  String get firstName {
     try {
-      return _destination!;
+      return _firstName!;
     } catch(e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -73,9 +69,9 @@ class Trip extends Model {
     }
   }
   
-  TemporalDateTime get startDate {
+  String get lastName {
     try {
-      return _startDate!;
+      return _lastName!;
     } catch(e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -86,9 +82,9 @@ class Trip extends Model {
     }
   }
   
-  TemporalDateTime get endDate {
+  String get homeCity {
     try {
-      return _endDate!;
+      return _homeCity!;
     } catch(e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -97,14 +93,6 @@ class Trip extends Model {
           underlyingException: e.toString()
           );
     }
-  }
-  
-  String? get description {
-    return _description;
-  }
-  
-  List<Plan>? get Plans {
-    return _Plans;
   }
   
   TemporalDateTime? get createdAt {
@@ -115,17 +103,15 @@ class Trip extends Model {
     return _updatedAt;
   }
   
-  const Trip._internal({required this.id, required tripName, required destination, required startDate, required endDate, description, Plans, createdAt, updatedAt}): _tripName = tripName, _destination = destination, _startDate = startDate, _endDate = endDate, _description = description, _Plans = Plans, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Profile._internal({required this.id, required userId, required firstName, required lastName, required homeCity, createdAt, updatedAt}): _userId = userId, _firstName = firstName, _lastName = lastName, _homeCity = homeCity, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Trip({String? id, required String tripName, required String destination, required TemporalDateTime startDate, required TemporalDateTime endDate, String? description, List<Plan>? Plans}) {
-    return Trip._internal(
+  factory Profile({String? id, required String userId, required String firstName, required String lastName, required String homeCity}) {
+    return Profile._internal(
       id: id == null ? UUID.getUUID() : id,
-      tripName: tripName,
-      destination: destination,
-      startDate: startDate,
-      endDate: endDate,
-      description: description,
-      Plans: Plans != null ? List<Plan>.unmodifiable(Plans) : Plans);
+      userId: userId,
+      firstName: firstName,
+      lastName: lastName,
+      homeCity: homeCity);
   }
   
   bool equals(Object other) {
@@ -135,14 +121,12 @@ class Trip extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Trip &&
+    return other is Profile &&
       id == other.id &&
-      _tripName == other._tripName &&
-      _destination == other._destination &&
-      _startDate == other._startDate &&
-      _endDate == other._endDate &&
-      _description == other._description &&
-      DeepCollectionEquality().equals(_Plans, other._Plans);
+      _userId == other._userId &&
+      _firstName == other._firstName &&
+      _lastName == other._lastName &&
+      _homeCity == other._homeCity;
   }
   
   @override
@@ -152,13 +136,12 @@ class Trip extends Model {
   String toString() {
     var buffer = new StringBuffer();
     
-    buffer.write("Trip {");
+    buffer.write("Profile {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("tripName=" + "$_tripName" + ", ");
-    buffer.write("destination=" + "$_destination" + ", ");
-    buffer.write("startDate=" + (_startDate != null ? _startDate!.format() : "null") + ", ");
-    buffer.write("endDate=" + (_endDate != null ? _endDate!.format() : "null") + ", ");
-    buffer.write("description=" + "$_description" + ", ");
+    buffer.write("userId=" + "$_userId" + ", ");
+    buffer.write("firstName=" + "$_firstName" + ", ");
+    buffer.write("lastName=" + "$_lastName" + ", ");
+    buffer.write("homeCity=" + "$_homeCity" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -166,49 +149,36 @@ class Trip extends Model {
     return buffer.toString();
   }
   
-  Trip copyWith({String? id, String? tripName, String? destination, TemporalDateTime? startDate, TemporalDateTime? endDate, String? description, List<Plan>? Plans}) {
-    return Trip._internal(
+  Profile copyWith({String? id, String? userId, String? firstName, String? lastName, String? homeCity}) {
+    return Profile._internal(
       id: id ?? this.id,
-      tripName: tripName ?? this.tripName,
-      destination: destination ?? this.destination,
-      startDate: startDate ?? this.startDate,
-      endDate: endDate ?? this.endDate,
-      description: description ?? this.description,
-      Plans: Plans ?? this.Plans);
+      userId: userId ?? this.userId,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      homeCity: homeCity ?? this.homeCity);
   }
   
-  Trip.fromJson(Map<String, dynamic> json)  
+  Profile.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _tripName = json['tripName'],
-      _destination = json['destination'],
-      _startDate = json['startDate'] != null ? TemporalDateTime.fromString(json['startDate']) : null,
-      _endDate = json['endDate'] != null ? TemporalDateTime.fromString(json['endDate']) : null,
-      _description = json['description'],
-      _Plans = json['Plans'] is List
-        ? (json['Plans'] as List)
-          .where((e) => e?['serializedData'] != null)
-          .map((e) => Plan.fromJson(new Map<String, dynamic>.from(e['serializedData'])))
-          .toList()
-        : null,
+      _userId = json['userId'],
+      _firstName = json['firstName'],
+      _lastName = json['lastName'],
+      _homeCity = json['homeCity'],
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'tripName': _tripName, 'destination': _destination, 'startDate': _startDate?.format(), 'endDate': _endDate?.format(), 'description': _description, 'Plans': _Plans?.map((Plan? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'userId': _userId, 'firstName': _firstName, 'lastName': _lastName, 'homeCity': _homeCity, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
-  static final QueryField ID = QueryField(fieldName: "trip.id");
-  static final QueryField TRIPNAME = QueryField(fieldName: "tripName");
-  static final QueryField DESTINATION = QueryField(fieldName: "destination");
-  static final QueryField STARTDATE = QueryField(fieldName: "startDate");
-  static final QueryField ENDDATE = QueryField(fieldName: "endDate");
-  static final QueryField DESCRIPTION = QueryField(fieldName: "description");
-  static final QueryField PLANS = QueryField(
-    fieldName: "Plans",
-    fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: (Plan).toString()));
+  static final QueryField ID = QueryField(fieldName: "profile.id");
+  static final QueryField USERID = QueryField(fieldName: "userId");
+  static final QueryField FIRSTNAME = QueryField(fieldName: "firstName");
+  static final QueryField LASTNAME = QueryField(fieldName: "lastName");
+  static final QueryField HOMECITY = QueryField(fieldName: "homeCity");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Trip";
-    modelSchemaDefinition.pluralName = "Trips";
+    modelSchemaDefinition.name = "Profile";
+    modelSchemaDefinition.pluralName = "Profiles";
     
     modelSchemaDefinition.authRules = [
       AuthRule(
@@ -227,40 +197,27 @@ class Trip extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Trip.TRIPNAME,
+      key: Profile.USERID,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Trip.DESTINATION,
+      key: Profile.FIRSTNAME,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Trip.STARTDATE,
+      key: Profile.LASTNAME,
       isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Trip.ENDDATE,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Trip.DESCRIPTION,
-      isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
-    modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(
-      key: Trip.PLANS,
-      isRequired: false,
-      ofModelName: (Plan).toString(),
-      associatedKey: Plan.TRIP
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Profile.HOMECITY,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
@@ -279,11 +236,11 @@ class Trip extends Model {
   });
 }
 
-class _TripModelType extends ModelType<Trip> {
-  const _TripModelType();
+class _ProfileModelType extends ModelType<Profile> {
+  const _ProfileModelType();
   
   @override
-  Trip fromJson(Map<String, dynamic> jsonData) {
-    return Trip.fromJson(jsonData);
+  Profile fromJson(Map<String, dynamic> jsonData) {
+    return Profile.fromJson(jsonData);
   }
 }

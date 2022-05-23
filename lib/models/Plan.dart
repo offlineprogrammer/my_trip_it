@@ -30,7 +30,6 @@ class Plan extends Model {
   static const classType = const _PlanModelType();
   final String id;
   final String? _planName;
-  final double? _expensevalue;
   final Trip? _trip;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
@@ -46,19 +45,6 @@ class Plan extends Model {
   String get planName {
     try {
       return _planName!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
-  }
-  
-  double get expensevalue {
-    try {
-      return _expensevalue!;
     } catch(e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -99,13 +85,12 @@ class Plan extends Model {
     return _updatedAt;
   }
   
-  const Plan._internal({required this.id, required planName, required expensevalue, required trip, required createdAt, updatedAt}): _planName = planName, _expensevalue = expensevalue, _trip = trip, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Plan._internal({required this.id, required planName, required trip, required createdAt, updatedAt}): _planName = planName, _trip = trip, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Plan({String? id, required String planName, required double expensevalue, required Trip trip, required TemporalDateTime createdAt}) {
+  factory Plan({String? id, required String planName, required Trip trip, required TemporalDateTime createdAt}) {
     return Plan._internal(
       id: id == null ? UUID.getUUID() : id,
       planName: planName,
-      expensevalue: expensevalue,
       trip: trip,
       createdAt: createdAt);
   }
@@ -120,7 +105,6 @@ class Plan extends Model {
     return other is Plan &&
       id == other.id &&
       _planName == other._planName &&
-      _expensevalue == other._expensevalue &&
       _trip == other._trip &&
       _createdAt == other._createdAt;
   }
@@ -135,7 +119,6 @@ class Plan extends Model {
     buffer.write("Plan {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("planName=" + "$_planName" + ", ");
-    buffer.write("expensevalue=" + (_expensevalue != null ? _expensevalue!.toString() : "null") + ", ");
     buffer.write("trip=" + (_trip != null ? _trip!.toString() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
@@ -144,11 +127,10 @@ class Plan extends Model {
     return buffer.toString();
   }
   
-  Plan copyWith({String? id, String? planName, double? expensevalue, Trip? trip, TemporalDateTime? createdAt}) {
+  Plan copyWith({String? id, String? planName, Trip? trip, TemporalDateTime? createdAt}) {
     return Plan._internal(
       id: id ?? this.id,
       planName: planName ?? this.planName,
-      expensevalue: expensevalue ?? this.expensevalue,
       trip: trip ?? this.trip,
       createdAt: createdAt ?? this.createdAt);
   }
@@ -156,7 +138,6 @@ class Plan extends Model {
   Plan.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
       _planName = json['planName'],
-      _expensevalue = (json['expensevalue'] as num?)?.toDouble(),
       _trip = json['trip']?['serializedData'] != null
         ? Trip.fromJson(new Map<String, dynamic>.from(json['trip']['serializedData']))
         : null,
@@ -164,12 +145,11 @@ class Plan extends Model {
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'planName': _planName, 'expensevalue': _expensevalue, 'trip': _trip?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'planName': _planName, 'trip': _trip?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
   static final QueryField ID = QueryField(fieldName: "plan.id");
   static final QueryField PLANNAME = QueryField(fieldName: "planName");
-  static final QueryField EXPENSEVALUE = QueryField(fieldName: "expensevalue");
   static final QueryField TRIP = QueryField(
     fieldName: "trip",
     fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: (Trip).toString()));
@@ -198,12 +178,6 @@ class Plan extends Model {
       key: Plan.PLANNAME,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Plan.EXPENSEVALUE,
-      isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.double)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
