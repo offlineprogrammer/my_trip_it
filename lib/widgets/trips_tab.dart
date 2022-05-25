@@ -2,23 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../models/ModelProvider.dart';
 import '../services/api_service.dart';
-import '../widgets/add_trip.dart';
-import '../widgets/bottom_navigation_bar.dart';
-import '../widgets/tab_item.dart';
+import 'add_trip.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({
+class TripsTab extends StatefulWidget {
+  const TripsTab({
     Key? key,
-    required this.title,
   }) : super(key: key);
 
-  final String title;
-
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<TripsTab> createState() => _TripsTabState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _TripsTabState extends State<TripsTab> {
   final APIService _apiService = APIService();
   List<Trip> _trips = const [];
 
@@ -54,28 +49,10 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  var _currentTab = TabItem.trips;
-
-  void _selectTab(TabItem tabItem) {
-    print(tabItem);
-    setState(() => _currentTab = tabItem);
-  }
-
-  Widget _buildBody() {
-    return tabPage[_currentTab]!; // TODO: return a widget representing a page
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: _buildBody(),
-      bottomNavigationBar: AppBottomNavigationBar(
-        currentTab: _currentTab,
-        onSelectTab: _selectTab,
-      ),
+    return const Center(
+      child: Text('Home Page'),
     );
   }
 }

@@ -1,33 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
+import 'tab_item.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
-  const AppBottomNavigationBar({Key? key}) : super(key: key);
+  const AppBottomNavigationBar(
+      {Key? key, required this.currentTab, required this.onSelectTab})
+      : super(key: key);
+
+  final TabItem currentTab;
+  final ValueChanged<TabItem> onSelectTab;
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.map),
-          label: 'Map',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
+      type: BottomNavigationBarType.fixed,
+      items: [
+        _buildItem(TabItem.trips),
+        _buildItem(TabItem.uploads),
+        _buildItem(TabItem.profile),
       ],
-      currentIndex: _selectedIndex,
-      onTap: (int index) {
-        setState(() {
-          _selectedIndex = index;
-        });
-      },
+      selectedItemColor: Colors.amber,
+      unselectedItemColor: Colors.grey,
+      onTap: (index) => onSelectTab(
+        TabItem.values[index],
+      ),
+    );
+  }
+
+  BottomNavigationBarItem _buildItem(TabItem tabItem) {
+    return BottomNavigationBarItem(
+      icon: tabIcon[tabItem]!,
+      label: tabName[tabItem],
     );
   }
 }
