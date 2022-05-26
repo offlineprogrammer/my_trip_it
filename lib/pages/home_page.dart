@@ -57,7 +57,6 @@ class _HomePageState extends State<HomePage> {
   var _currentTab = TabItem.trips;
 
   void _selectTab(TabItem tabItem) {
-    print(tabItem);
     setState(() => _currentTab = tabItem);
   }
 
