@@ -16,7 +16,7 @@ class AppBottomNavigationBar extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       items: [
         _buildItem(TabItem.trips),
-        _buildItem(TabItem.uploads),
+        _buildItem(TabItem.past_trips),
         _buildItem(TabItem.profile),
       ],
       selectedItemColor: Colors.amber,

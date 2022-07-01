@@ -51,8 +51,22 @@ class _TripsTabState extends State<TripsTab> {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Home Page'),
+    return Column(
+      children: [
+        const Center(
+          child: Text('Home Page'),
+        ),
+        Align(
+          alignment: Alignment.bottomRight,
+          // add your floating action button
+          child: FloatingActionButton(
+            onPressed: () {
+              _showAddTripDialog(context);
+            },
+            child: Icon(Icons.add),
+          ),
+        ),
+      ],
     );
   }
 }

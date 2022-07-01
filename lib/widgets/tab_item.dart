@@ -4,11 +4,11 @@ import 'package:my_trip_it/widgets/uploads_tab.dart';
 
 import 'trips_tab.dart';
 
-enum TabItem { trips, uploads, profile }
+enum TabItem { trips, past_trips, profile }
 
 const Map<TabItem, String> tabName = {
   TabItem.trips: 'Trips',
-  TabItem.uploads: 'Uploads',
+  TabItem.past_trips: 'Past Trips',
   TabItem.profile: 'Profile',
 };
 
@@ -16,7 +16,7 @@ const Map<TabItem, Widget> tabIcon = {
   TabItem.trips: Icon(
     Icons.trip_origin_sharp,
   ),
-  TabItem.uploads: Icon(
+  TabItem.past_trips: Icon(
     Icons.book_sharp,
   ),
   TabItem.profile: Icon(
@@ -26,6 +26,6 @@ const Map<TabItem, Widget> tabIcon = {
 
 const Map<TabItem, Widget> tabPage = {
   TabItem.trips: TripsTab(),
-  TabItem.uploads: UploadsTab(),
+  TabItem.past_trips: UploadsTab(),
   TabItem.profile: ProfileTab(),
 };
