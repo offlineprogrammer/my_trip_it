@@ -1,31 +1,26 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../models/ModelProvider.dart';
-import '../services/api_service.dart';
 import 'package:intl/intl.dart';
 
-class AddTrip extends StatefulWidget {
-  const AddTrip(this.apiService, {Key? key}) : super(key: key);
+import '../main.dart';
+import '../models/ModelProvider.dart';
 
-  final APIService apiService;
-
-  @override
-  State<AddTrip> createState() => _AddTripState();
-}
-
-class _AddTripState extends State<AddTrip> {
-  final TextEditingController _tripNameController = TextEditingController();
-  final TextEditingController _destinationController = TextEditingController();
-  final TextEditingController _startDateController = TextEditingController();
-  final TextEditingController _endDateController = TextEditingController();
-  final TextEditingController _descriptionController = TextEditingController();
+class AddTrip extends HookConsumerWidget {
+  AddTrip({Key? key}) : super(key: key);
 
   final formGlobalKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _tripNameController = useTextEditingController();
+    final _destinationController = useTextEditingController();
+    final _startDateController = useTextEditingController();
+    final _endDateController = useTextEditingController();
+    final _descriptionController = useTextEditingController();
+
     return AlertDialog(
       title: const Text(
         'Add Trip here',
@@ -97,11 +92,7 @@ class _AddTripState extends State<AddTrip> {
                     if (pickedDate != null) {
                       String formattedDate =
                           DateFormat('yyyy-MM-dd').format(pickedDate);
-
-                      setState(() {
-                        _startDateController.text = formattedDate;
-                        //  dateinput.text = formattedDate; //set output date to TextField value.
-                      });
+                      _startDateController.text = formattedDate;
                     } else {
                       print("Date is not selected");
                     }
@@ -134,16 +125,12 @@ class _AddTripState extends State<AddTrip> {
                       String formattedDate = //pickedDate.toIso8601String();
                           DateFormat('yyyy-MM-dd').format(pickedDate);
 
+                      _endDateController.text = formattedDate;
+
                       print(
                           formattedDate); //formatted date output using intl package =>  2021-03-16
                       //you can implement different kind of Date Format here according to your requirement
 
-                      setState(() {
-                        setState(() {
-                          _endDateController.text = formattedDate;
-                          //  dateinput.text = formattedDate; //set output date to TextField value.
-                        });
-                      });
                     } else {
                       print("Date is not selected");
                     }
@@ -185,10 +172,13 @@ class _AddTripState extends State<AddTrip> {
                   destination: _destinationController.text,
                   startDate: TemporalDateTime(
                       DateTime.parse(_startDateController.text)),
-                  endDate:
-                      TemporalDateTime(DateTime.parse(_endDateController.text)),
+                  endDate: TemporalDateTime(
+                    DateTime.parse(_endDateController.text),
+                  ),
                   description: _descriptionController.text,
                 );
+                final Future<void> addTrip =
+                    ref.read(tripsProvider.notifier).add(trip);
 
                 Navigator.of(context).pop(trip);
               }

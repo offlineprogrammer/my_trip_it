@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_trip_it/widgets/profile_tab.dart';
-import 'package:my_trip_it/widgets/uploads_tab.dart';
 
+import 'profile_tab.dart';
 import 'trips_tab.dart';
+import 'uploads_tab.dart';
 
 enum TabItem { trips, past_trips, profile }
 

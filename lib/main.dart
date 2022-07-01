@@ -1,8 +1,5 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_api/amplify_api.dart';
@@ -12,10 +9,14 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'amplifyconfiguration.dart';
 import 'models/ModelProvider.dart';
 import 'pages/home_page.dart';
+import 'providers/trips_provider.dart';
+
+final tripsProvider =
+    StateNotifierProvider<TripsProvider, List<Trip>>((ref) => TripsProvider());
 
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
-void main() => runApp(const MyApp());
+void main() => runApp(const ProviderScope(child: MyApp()));
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
