@@ -10,9 +10,18 @@ import 'amplifyconfiguration.dart';
 import 'models/ModelProvider.dart';
 import 'pages/home_page.dart';
 import 'providers/trips_provider.dart';
+import 'services/api_service.dart';
+import 'app_constants.dart' as constants;
+
+final apiServiceProvider = Provider<APIService>((ref) => APIService());
+// final tripsProvider =
+//     StateNotifierProvider<TripsProvider, List<Trip>>((ref) => TripsProvider());
 
 final tripsProvider =
-    StateNotifierProvider<TripsProvider, List<Trip>>((ref) => TripsProvider());
+    StateNotifierProvider<TripsProvider, AsyncValue<List<Trip?>?>>((ref) {
+  APIService _service = ref.read(apiServiceProvider);
+  return TripsProvider(_service);
+});
 
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
@@ -67,6 +76,10 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         builder: Authenticator.builder(),
         home: buildApp(context),
+        theme: ThemeData(
+          primarySwatch: constants.tripIt_colorPrimary,
+          backgroundColor: const Color(0xff82CFEA),
+        ),
         scaffoldMessengerKey: scaffoldMessengerKey,
       ),
     );

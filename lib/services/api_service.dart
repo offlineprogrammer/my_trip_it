@@ -1,22 +1,23 @@
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../main.dart';
 import '../models/ModelProvider.dart';
 
 class APIService {
-  Future<List<Trip?>?> getTrips() async {
+  Future<AsyncValue<List<Trip?>?>> getTrips() async {
     try {
       final request = ModelQueries.list(Trip.classType);
       final response = await Amplify.API.query(request: request).response;
       List<Trip?>? trips = response.data?.items;
 
-      return trips;
+      return AsyncData(trips);
     } on Exception catch (e) {
       _showError(e);
+      return const AsyncError("Something went wrong");
     }
-    return null;
   }
 
   Future<void> updateTrip(Trip updatedTrip) async {
