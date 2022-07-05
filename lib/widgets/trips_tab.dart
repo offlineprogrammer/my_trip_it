@@ -5,6 +5,7 @@ import 'package:my_trip_it/widgets/trip_item.dart';
 import '../main.dart';
 import '../models/ModelProvider.dart';
 import 'add_trip.dart';
+import '/app_constants.dart' as constants;
 
 class TripsTab extends HookConsumerWidget {
   const TripsTab({Key? key}) : super(key: key);
@@ -33,7 +34,7 @@ class TripsTab extends HookConsumerWidget {
               crossAxisSpacing: 4.0,
               padding: const EdgeInsets.all(4.0),
               childAspectRatio:
-                  (orientation == Orientation.portrait) ? 1.3 : 1.3,
+                  (orientation == Orientation.portrait) ? 0.9 : 1.4,
               children: data!
                   .map(
                     (tripData) => TripItem(
@@ -43,14 +44,20 @@ class TripsTab extends HookConsumerWidget {
                   .toList(),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomRight,
-            // add your floating action button
-            child: FloatingActionButton(
-              onPressed: () {
-                _showAddTripDialog(context);
-              },
-              child: Icon(Icons.add),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Align(
+              alignment: Alignment.bottomRight,
+
+              // add your floating action button
+              child: FloatingActionButton(
+                onPressed: () {
+                  _showAddTripDialog(context);
+                },
+                child: const Icon(Icons.add),
+                backgroundColor:
+                    const Color(constants.tripIt_colorPrimaryDarkValue),
+              ),
             ),
           ),
         ],
