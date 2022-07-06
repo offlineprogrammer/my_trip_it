@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'profile_tab.dart';
 import 'trips_tab.dart';
+import 'trips_tab_builder.dart';
 import 'uploads_tab.dart';
 
 enum TabItem { trips, past_trips, profile }
@@ -25,7 +26,7 @@ const Map<TabItem, Widget> tabIcon = {
 };
 
 const Map<TabItem, Widget> tabPage = {
-  TabItem.trips: TripsTab(),
+  TabItem.trips: TripsTabBuilder(),
   TabItem.past_trips: UploadsTab(),
   TabItem.profile: ProfileTab(),
 };

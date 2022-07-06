@@ -10,6 +10,8 @@ import '/app_constants.dart' as constants;
 class TripsTab extends HookConsumerWidget {
   const TripsTab({Key? key}) : super(key: key);
 
+  static String name = "Screen 2";
+
   void _showAddTripDialog(BuildContext context) async {
     await showDialog<Trip>(
       context: context,

@@ -34,7 +34,6 @@ class Trip extends Model {
   final String? _destination;
   final TemporalDateTime? _startDate;
   final TemporalDateTime? _endDate;
-  final String? _description;
   final List<Plan>? _Plans;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
@@ -99,10 +98,6 @@ class Trip extends Model {
     }
   }
   
-  String? get description {
-    return _description;
-  }
-  
   List<Plan>? get Plans {
     return _Plans;
   }
@@ -115,16 +110,15 @@ class Trip extends Model {
     return _updatedAt;
   }
   
-  const Trip._internal({required this.id, required tripName, required destination, required startDate, required endDate, description, Plans, createdAt, updatedAt}): _tripName = tripName, _destination = destination, _startDate = startDate, _endDate = endDate, _description = description, _Plans = Plans, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Trip._internal({required this.id, required tripName, required destination, required startDate, required endDate, Plans, createdAt, updatedAt}): _tripName = tripName, _destination = destination, _startDate = startDate, _endDate = endDate, _Plans = Plans, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Trip({String? id, required String tripName, required String destination, required TemporalDateTime startDate, required TemporalDateTime endDate, String? description, List<Plan>? Plans}) {
+  factory Trip({String? id, required String tripName, required String destination, required TemporalDateTime startDate, required TemporalDateTime endDate, List<Plan>? Plans}) {
     return Trip._internal(
       id: id == null ? UUID.getUUID() : id,
       tripName: tripName,
       destination: destination,
       startDate: startDate,
       endDate: endDate,
-      description: description,
       Plans: Plans != null ? List<Plan>.unmodifiable(Plans) : Plans);
   }
   
@@ -141,7 +135,6 @@ class Trip extends Model {
       _destination == other._destination &&
       _startDate == other._startDate &&
       _endDate == other._endDate &&
-      _description == other._description &&
       DeepCollectionEquality().equals(_Plans, other._Plans);
   }
   
@@ -158,7 +151,6 @@ class Trip extends Model {
     buffer.write("destination=" + "$_destination" + ", ");
     buffer.write("startDate=" + (_startDate != null ? _startDate!.format() : "null") + ", ");
     buffer.write("endDate=" + (_endDate != null ? _endDate!.format() : "null") + ", ");
-    buffer.write("description=" + "$_description" + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -166,14 +158,13 @@ class Trip extends Model {
     return buffer.toString();
   }
   
-  Trip copyWith({String? id, String? tripName, String? destination, TemporalDateTime? startDate, TemporalDateTime? endDate, String? description, List<Plan>? Plans}) {
+  Trip copyWith({String? id, String? tripName, String? destination, TemporalDateTime? startDate, TemporalDateTime? endDate, List<Plan>? Plans}) {
     return Trip._internal(
       id: id ?? this.id,
       tripName: tripName ?? this.tripName,
       destination: destination ?? this.destination,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
-      description: description ?? this.description,
       Plans: Plans ?? this.Plans);
   }
   
@@ -183,7 +174,6 @@ class Trip extends Model {
       _destination = json['destination'],
       _startDate = json['startDate'] != null ? TemporalDateTime.fromString(json['startDate']) : null,
       _endDate = json['endDate'] != null ? TemporalDateTime.fromString(json['endDate']) : null,
-      _description = json['description'],
       _Plans = json['Plans'] is List
         ? (json['Plans'] as List)
           .where((e) => e?['serializedData'] != null)
@@ -194,7 +184,7 @@ class Trip extends Model {
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'tripName': _tripName, 'destination': _destination, 'startDate': _startDate?.format(), 'endDate': _endDate?.format(), 'description': _description, 'Plans': _Plans?.map((Plan? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'tripName': _tripName, 'destination': _destination, 'startDate': _startDate?.format(), 'endDate': _endDate?.format(), 'Plans': _Plans?.map((Plan? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
   static final QueryField ID = QueryField(fieldName: "trip.id");
@@ -202,7 +192,6 @@ class Trip extends Model {
   static final QueryField DESTINATION = QueryField(fieldName: "destination");
   static final QueryField STARTDATE = QueryField(fieldName: "startDate");
   static final QueryField ENDDATE = QueryField(fieldName: "endDate");
-  static final QueryField DESCRIPTION = QueryField(fieldName: "description");
   static final QueryField PLANS = QueryField(
     fieldName: "Plans",
     fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: (Plan).toString()));
@@ -248,12 +237,6 @@ class Trip extends Model {
       key: Trip.ENDDATE,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Trip.DESCRIPTION,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.hasMany(

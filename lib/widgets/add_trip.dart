@@ -175,7 +175,6 @@ class AddTrip extends HookConsumerWidget {
                   endDate: TemporalDateTime(
                     DateTime.parse(_endDateController.text),
                   ),
-                  description: _descriptionController.text,
                 );
                 final Future<void> addTrip =
                     ref.read(tripsProvider.notifier).add(trip);

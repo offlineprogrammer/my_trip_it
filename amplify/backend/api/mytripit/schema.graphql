@@ -4,7 +4,7 @@ type Trip @model @auth(rules: [{ allow: owner }]) {
   destination: String!
   startDate: AWSDateTime!
   endDate: AWSDateTime!
-  description: String
+  
   Plans: [Plan] @hasMany(indexName: "byTrip", fields: ["id"])
 }
 
