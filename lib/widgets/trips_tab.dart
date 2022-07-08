@@ -56,9 +56,9 @@ class TripsTab extends HookConsumerWidget {
                 onPressed: () {
                   _showAddTripDialog(context);
                 },
-                child: const Icon(Icons.add),
                 backgroundColor:
                     const Color(constants.tripIt_colorPrimaryDarkValue),
+                child: const Icon(Icons.add),
               ),
             ),
           ),

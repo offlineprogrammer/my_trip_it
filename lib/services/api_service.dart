@@ -20,6 +20,19 @@ class APIService {
     }
   }
 
+  Future<AsyncValue<Trip?>> getTrip(String id) async {
+    try {
+      final request = ModelQueries.list(Trip.classType, where: Trip.ID.eq(id));
+      final response = await Amplify.API.query(request: request).response;
+      final data = response.data?.items.first;
+
+      return AsyncData(data);
+    } on Exception catch (e) {
+      _showError(e);
+      return const AsyncError("Something went wrong");
+    }
+  }
+
   Future<void> updateTrip(Trip updatedTrip) async {
     try {
       final request = ModelMutations.update(updatedTrip);

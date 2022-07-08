@@ -10,14 +10,10 @@ class TripsProvider extends StateNotifier<AsyncValue<List<Trip?>?>> {
   }
 
   Future<void> add(Trip trip) async {
-    print(state.value.toString());
     state = const AsyncValue.loading();
-    print(state.value.toString());
+
     await _apiService.saveTrip(trip);
     getAll();
-    print(state.value.toString());
-    state = const AsyncValue.loading();
-    print(state.value.toString());
   }
 
   void getAll() async {
@@ -25,5 +21,11 @@ class TripsProvider extends StateNotifier<AsyncValue<List<Trip?>?>> {
     final _list = await _apiService.getTrips();
 
     state = _list;
+  }
+
+  Future<AsyncValue<Trip?>> get(String id) async {
+    state = const AsyncValue.loading();
+
+    return await _apiService.getTrip(id);
   }
 }

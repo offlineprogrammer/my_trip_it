@@ -14,7 +14,10 @@ class TripItem extends StatelessWidget {
         splashColor: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(15),
         onTap: () {
-          Navigator.of(context).pushNamed("selectedTrip");
+          Navigator.of(context).pushNamed(
+            "selectedTrip",
+            arguments: {'selectedTrip': trip},
+          );
         },
         child: Card(
           clipBehavior: Clip.antiAlias,
