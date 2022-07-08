@@ -5,7 +5,7 @@ import '../services/api_service.dart';
 
 class TripsProvider extends StateNotifier<AsyncValue<List<Trip?>?>> {
   final APIService _apiService;
-  TripsProvider(this._apiService) : super(AsyncLoading()) {
+  TripsProvider(this._apiService) : super(const AsyncLoading()) {
     getAll();
   }
 
@@ -27,5 +27,19 @@ class TripsProvider extends StateNotifier<AsyncValue<List<Trip?>?>> {
     state = const AsyncValue.loading();
 
     return await _apiService.getTrip(id);
+  }
+
+  void uploadImage({required String id}) {
+    // state = [
+    //   for (final todo in state)
+    //     if (todo.id == id)
+    //       Todo(
+    //         id: todo.id,
+    //         completed: todo.completed,
+    //         description: description,
+    //       )
+    //     else
+    //       todo,
+    // ];
   }
 }

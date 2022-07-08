@@ -1,3 +1,4 @@
+import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -23,6 +24,23 @@ final tripsProvider =
   return TripsProvider(_service);
 });
 
+// final selectedtripProvider = StateNotifierProvider.family<Trip, String>(
+// 	(ref, id) async {
+
+//       final tripProvider = ref.watch(tripsProvider).;
+
+//   return tripProvider. tripsProvider.get(id);
+//     }
+// );
+
+// final productProvider =
+//     StreamProvider.autoDispose.family<Trip, String>((ref, id) {
+//   // dataStore is an API we can use to access our DB
+//   final dataStore = ref.watch(tripsProvider).;
+//   // return a stream with the given product ID
+//   return dataStore...get(id);
+// });
+
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
 void main() => runApp(const ProviderScope(child: MyApp()));
@@ -47,7 +65,8 @@ class _MyAppState extends State<MyApp> {
     try {
       await Amplify.addPlugins([
         AmplifyAuthCognito(),
-        AmplifyAPI(modelProvider: ModelProvider.instance)
+        AmplifyAPI(modelProvider: ModelProvider.instance),
+        AmplifyStorageS3()
       ]);
       await Amplify.configure(amplifyconfig);
       setState(() {

@@ -1,10 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_trip_it/models/Trip.dart';
+import '../services/storage_service.dart';
 import '/app_constants.dart' as constants;
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 class SelectedTripTab extends HookConsumerWidget {
   const SelectedTripTab({Key? key}) : super(key: key);
+
+  Future<void> uploadImage(BuildContext context) async {
+    final StorageService storageService = StorageService();
+    final picker = ImagePicker();
+    // Select image from user's gallery
+    final XFile? pickedFile =
+        await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile == null) {
+      print('No image selected');
+      return;
+    }
+
+    final file = File(pickedFile.path);
+    showDialog<String>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Dialog(
+            // The background color
+            backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: ValueListenableBuilder(
+                valueListenable: storageService.uploadProgress,
+                builder: (context, value, child) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const CircularProgressIndicator(),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                          '${(double.parse(value.toString()) * 100).toInt()} %'),
+                      Container(
+                          alignment: Alignment.topCenter,
+                          margin: const EdgeInsets.all(20),
+                          child: LinearProgressIndicator(
+                            value: double.parse(value.toString()),
+                            backgroundColor: Colors.grey,
+                            color: Colors.purple,
+                            minHeight: 10,
+                          )),
+                    ],
+                  );
+                },
+              ),
+            ),
+          );
+        });
+    await storageService.uploadFile(file);
+
+    Navigator.of(context, rootNavigator: true).pop();
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -53,7 +111,9 @@ class SelectedTripTab extends HookConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
-                    onPressed: () {}, // => controller.setKidTaskImage(),
+                    onPressed: () {
+                      uploadImage(context);
+                    },
                     icon: const Icon(Icons.camera_enhance_sharp),
                   ),
                 ],
