@@ -18,9 +18,9 @@ class TripsProvider extends StateNotifier<AsyncValue<List<Trip?>?>> {
 
   void getAll() async {
     state = const AsyncLoading();
-    final _list = await _apiService.getTrips();
+    final list = await _apiService.getTrips();
 
-    state = _list;
+    state = list;
   }
 
   Future<AsyncValue<Trip?>> get(String id) async {
@@ -29,17 +29,8 @@ class TripsProvider extends StateNotifier<AsyncValue<List<Trip?>?>> {
     return await _apiService.getTrip(id);
   }
 
-  void uploadImage({required String id}) {
-    // state = [
-    //   for (final todo in state)
-    //     if (todo.id == id)
-    //       Todo(
-    //         id: todo.id,
-    //         completed: todo.completed,
-    //         description: description,
-    //       )
-    //     else
-    //       todo,
-    // ];
+  Future<void> update(Trip updatedTrip) async {
+    await _apiService.updateTrip(updatedTrip);
+    getAll();
   }
 }

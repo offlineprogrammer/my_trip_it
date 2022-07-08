@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_trip_it/models/Trip.dart';
@@ -35,10 +36,22 @@ class TripItem extends StatelessWidget {
                   child: Stack(
                     children: [
                       Positioned.fill(
-                        child: Image.asset(
-                          'images/amplify.png',
-                          fit: BoxFit.contain,
-                        ),
+                        child: trip.tripImageUrl != null
+                            ? Stack(children: [
+                                const Center(
+                                    child: CircularProgressIndicator()),
+                                CachedNetworkImage(
+                                  imageUrl: trip.tripImageUrl!,
+                                  width: double.maxFinite,
+                                  height: 500,
+                                  alignment: Alignment.topCenter,
+                                  fit: BoxFit.fill,
+                                ),
+                              ])
+                            : Image.asset(
+                                'images/amplify.png',
+                                fit: BoxFit.contain,
+                              ),
                       ),
                       Positioned(
                         bottom: 16,

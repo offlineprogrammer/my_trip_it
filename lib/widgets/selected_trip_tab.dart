@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_trip_it/models/Trip.dart';
@@ -5,11 +6,13 @@ import '../services/storage_service.dart';
 import '/app_constants.dart' as constants;
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import '../main.dart';
 
 class SelectedTripTab extends HookConsumerWidget {
   const SelectedTripTab({Key? key}) : super(key: key);
 
-  Future<void> uploadImage(BuildContext context) async {
+  Future<void> uploadImage(
+      BuildContext context, WidgetRef ref, Trip selectedTrip) async {
     final StorageService storageService = StorageService();
     final picker = ImagePicker();
     // Select image from user's gallery
@@ -59,8 +62,10 @@ class SelectedTripTab extends HookConsumerWidget {
             ),
           );
         });
-    await storageService.uploadFile(file);
+    final imageUrl = await storageService.uploadFile(file);
 
+    final updatedTrip = selectedTrip.copyWith(tripImageUrl: imageUrl);
+    ref.read(tripsProvider.notifier).update(updatedTrip);
     Navigator.of(context, rootNavigator: true).pop();
   }
 
@@ -102,17 +107,29 @@ class SelectedTripTab extends HookConsumerWidget {
                 color: const Color(constants
                     .tripIt_colorPrimaryDarkValue), //Color(0xffE1E5E4),
                 height: 150,
-                child: Image.asset(
-                  'images/amplify.png',
-                  fit: BoxFit.contain,
-                ),
+
+                child: selectedTrip.tripImageUrl != null
+                    ? Stack(children: [
+                        const Center(child: CircularProgressIndicator()),
+                        CachedNetworkImage(
+                          imageUrl: selectedTrip.tripImageUrl!,
+                          width: double.maxFinite,
+                          height: 500,
+                          alignment: Alignment.topCenter,
+                          fit: BoxFit.fill,
+                        ),
+                      ])
+                    : Image.asset(
+                        'images/amplify.png',
+                        fit: BoxFit.contain,
+                      ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   IconButton(
                     onPressed: () {
-                      uploadImage(context);
+                      uploadImage(context, ref, selectedTrip);
                     },
                     icon: const Icon(Icons.camera_enhance_sharp),
                   ),

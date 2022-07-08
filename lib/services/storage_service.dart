@@ -7,27 +7,6 @@ import 'dart:io';
 class StorageService {
   ValueNotifier<double> uploadProgress = ValueNotifier<double>(0);
 
-  Future<List<Map<String, String>>?> getStorageItems() async {
-    List<Map<String, String>> files = [];
-
-    try {
-      final ListResult result = await Amplify.Storage.list();
-      final List<StorageItem> storageItems = result.items.reversed.toList();
-      await Future.forEach<StorageItem>(storageItems, (file) async {
-        final String fileUrl = await getImageUrl(file.key);
-
-        files.add({
-          "key": file.key,
-          "url": fileUrl,
-        });
-      });
-      return files;
-    } on Exception catch (e) {
-      _showError(e);
-    }
-    return null;
-  }
-
   Future<String> getImageUrl(String key) async {
     final GetUrlResult result = await Amplify.Storage.getUrl(
       key: key,
@@ -36,16 +15,20 @@ class StorageService {
     return result.url;
   }
 
-  Future<void> uploadFile(File file) async {
+  Future<String?> uploadFile(File file) async {
     try {
+      final key = DateTime.now().toString();
       await Amplify.Storage.uploadFile(
           local: file,
-          key: DateTime.now().toString(),
+          key: key,
           onProgress: (progress) {
             uploadProgress.value = progress.getFractionCompleted();
           });
+
+      return await getImageUrl(key);
     } on Exception catch (e) {
       _showError(e);
+      return null;
     }
   }
 
