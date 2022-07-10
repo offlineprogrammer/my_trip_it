@@ -15,8 +15,6 @@ import 'services/api_service.dart';
 import 'app_constants.dart' as constants;
 
 final apiServiceProvider = Provider<APIService>((ref) => APIService());
-// final tripsProvider =
-//     StateNotifierProvider<TripsProvider, List<Trip>>((ref) => TripsProvider());
 
 final tripsProvider =
     StateNotifierProvider<TripsProvider, AsyncValue<List<Trip?>?>>((ref) {
@@ -24,22 +22,7 @@ final tripsProvider =
   return TripsProvider(_service);
 });
 
-// final selectedtripProvider = StateNotifierProvider.family<Trip, String>(
-// 	(ref, id) async {
-
-//       final tripProvider = ref.watch(tripsProvider).;
-
-//   return tripProvider. tripsProvider.get(id);
-//     }
-// );
-
-// final productProvider =
-//     StreamProvider.autoDispose.family<Trip, String>((ref, id) {
-//   // dataStore is an API we can use to access our DB
-//   final dataStore = ref.watch(tripsProvider).;
-//   // return a stream with the given product ID
-//   return dataStore...get(id);
-// });
+final selectedTrip = Provider<Trip>((ref) => throw UnimplementedError());
 
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 

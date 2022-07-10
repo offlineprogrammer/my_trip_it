@@ -71,10 +71,7 @@ class SelectedTripTab extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final arguments = (ModalRoute.of(context)?.settings.arguments ??
-        <String, dynamic>{}) as Map;
-
-    final Trip selectedTrip = arguments['selectedTrip'];
+    final trip = ref.watch(selectedTrip);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -95,7 +92,7 @@ class SelectedTripTab extends HookConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                selectedTrip.tripName,
+                trip.tripName,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 20,
@@ -108,11 +105,11 @@ class SelectedTripTab extends HookConsumerWidget {
                     .tripIt_colorPrimaryDarkValue), //Color(0xffE1E5E4),
                 height: 150,
 
-                child: selectedTrip.tripImageUrl != null
+                child: trip.tripImageUrl != null
                     ? Stack(children: [
                         const Center(child: CircularProgressIndicator()),
                         CachedNetworkImage(
-                          imageUrl: selectedTrip.tripImageUrl!,
+                          imageUrl: trip.tripImageUrl!,
                           width: double.maxFinite,
                           height: 500,
                           alignment: Alignment.topCenter,
@@ -129,7 +126,7 @@ class SelectedTripTab extends HookConsumerWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      uploadImage(context, ref, selectedTrip);
+                      uploadImage(context, ref, trip);
                     },
                     icon: const Icon(Icons.camera_enhance_sharp),
                   ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'profile_tab.dart';
-import 'trips_tab.dart';
 import 'trips_tab_builder.dart';
 import 'uploads_tab.dart';
 

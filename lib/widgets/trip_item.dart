@@ -1,8 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:my_trip_it/models/Trip.dart';
+import '../main.dart';
 import '/app_constants.dart' as constants;
+import 'selected_trip_tab.dart';
 
 class TripItem extends StatelessWidget {
   const TripItem({Key? key, required this.trip}) : super(key: key);
