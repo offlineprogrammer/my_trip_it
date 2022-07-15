@@ -1,14 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:my_trip_it/models/Trip.dart';
-import '../main.dart';
-import '/app_constants.dart' as constants;
-import 'selected_trip_tab.dart';
+import '/common/app_constants.dart' as constants;
+import '../../../models/Trip.dart';
 
-class TripItem extends StatelessWidget {
-  const TripItem({Key? key, required this.trip}) : super(key: key);
+class TripCard extends StatelessWidget {
+  const TripCard({Key? key, required this.trip}) : super(key: key);
 
   final Trip trip;
 
@@ -17,12 +14,7 @@ class TripItem extends StatelessWidget {
     return InkWell(
         splashColor: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(15),
-        onTap: () {
-          Navigator.of(context).pushNamed(
-            "selectedTrip",
-            arguments: {'selectedTrip': trip},
-          );
-        },
+        onTap: () {},
         child: Card(
           clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(
@@ -85,8 +77,6 @@ class TripItem extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // This array contains the three line description on each card
-                      // demo.
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8),
                         child: Text(

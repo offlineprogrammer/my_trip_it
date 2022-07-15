@@ -8,21 +8,10 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 
 import 'amplifyconfiguration.dart';
+import 'features/trip/presentation/trips_list_page.dart';
 import 'models/ModelProvider.dart';
-import 'pages/home_page.dart';
-import 'providers/trips_provider.dart';
-import 'services/api_service.dart';
-import 'app_constants.dart' as constants;
 
-final apiServiceProvider = Provider<APIService>((ref) => APIService());
-
-final tripsProvider =
-    StateNotifierProvider<TripsProvider, AsyncValue<List<Trip?>?>>((ref) {
-  APIService _service = ref.read(apiServiceProvider);
-  return TripsProvider(_service);
-});
-
-final selectedTrip = Provider<Trip>((ref) => throw UnimplementedError());
+import 'common/app_constants.dart' as constants;
 
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
@@ -67,9 +56,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget buildApp(BuildContext context) {
-    return _amplifyConfigured
-        ? const HomePage(title: 'Amplify TripIT')
-        : _waitForAmplify();
+    return _amplifyConfigured ? const TripsListPage() : _waitForAmplify();
   }
 
   @override
