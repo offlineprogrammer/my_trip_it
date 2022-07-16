@@ -17,6 +17,18 @@ class TripsRepository {
       debugPrint(e.toString());
     }
   }
+
+  Stream<Trip?> getTrip(String id) {
+    return getTrips().map((trips) => _getTrip(trips, id));
+  }
+
+  static Trip? _getTrip(List<Trip?> trips, String id) {
+    try {
+      return trips.firstWhere((trip) => trip!.id == id);
+    } catch (e) {
+      return null;
+    }
+  }
 }
 
 final tripsRepositoryProvider = Provider<TripsRepository>((ref) {
@@ -27,4 +39,10 @@ final tripsRepositoryProvider = Provider<TripsRepository>((ref) {
 final tripsListStreamProvider = StreamProvider.autoDispose<List<Trip?>>((ref) {
   final tripsRepository = ref.watch(tripsRepositoryProvider);
   return tripsRepository.getTrips();
+});
+
+final tripProvider =
+    StreamProvider.autoDispose.family<Trip?, String>((ref, id) {
+  final tripsRepository = ref.watch(tripsRepositoryProvider);
+  return tripsRepository.getTrip(id);
 });

@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import '../../../router/routes.dart';
 import '/common/app_constants.dart' as constants;
-import '../../../models/Trip.dart';
+import '../../../../models/Trip.dart';
 
 class TripCard extends StatelessWidget {
   const TripCard({Key? key, required this.trip}) : super(key: key);
@@ -14,7 +16,12 @@ class TripCard extends StatelessWidget {
     return InkWell(
         splashColor: Theme.of(context).primaryColor,
         borderRadius: BorderRadius.circular(15),
-        onTap: () {},
+        onTap: () {
+          context.goNamed(
+            AppRoute.trip.name,
+            params: {'id': trip.id},
+          );
+        },
         child: Card(
           clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../common/navigation_drawer.dart';
-import '../data/trips_repository.dart';
+import '../../../../common/navigation_drawer.dart';
+import '../../data/trips_repository.dart';
 import 'trip_card.dart';
 import '/common/app_constants.dart' as constants;
 

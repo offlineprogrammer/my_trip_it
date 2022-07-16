@@ -1,5 +1,6 @@
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -8,7 +9,9 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 
 import 'amplifyconfiguration.dart';
-import 'features/trip/presentation/trips_list_page.dart';
+import 'features/router/routes.dart';
+import 'features/trip/presentation/trip_page/trip_page.dart';
+import 'features/trip/presentation/trips_list/trips_list_page.dart';
 import 'models/ModelProvider.dart';
 
 import 'common/app_constants.dart' as constants;
@@ -61,10 +64,30 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final _router = GoRouter(
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, state) =>
+              _amplifyConfigured ? const TripsListPage() : _waitForAmplify(),
+        ),
+        GoRoute(
+          path: '/trip/:id',
+          name: AppRoute.trip.name,
+          builder: (context, state) {
+            final tripId = state.params['id']!;
+            return TripPage(tripId: tripId);
+          },
+        ),
+      ],
+    );
+
     return Authenticator(
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routeInformationParser: _router.routeInformationParser,
+        routeInformationProvider: _router.routeInformationProvider,
+        routerDelegate: _router.routerDelegate,
         builder: Authenticator.builder(),
-        home: buildApp(context),
         theme: ThemeData(
           primarySwatch: constants.tripIt_colorPrimary,
           backgroundColor: const Color(0xff82CFEA),
