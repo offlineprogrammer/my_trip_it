@@ -19,7 +19,6 @@ class TripController {
       final tripsRepository = ref.read(tripsRepositoryProvider);
 
       await tripsRepository.updateTripImage(tripId, fileKey, imageUrl);
-      print('Uploaded');
     }
   }
 }
