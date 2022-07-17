@@ -29,10 +29,10 @@ class TripsAPIService {
 
       Trip? createdTrip = response.data;
       if (createdTrip == null) {
-        debugPrint('errors: ' + response.errors.toString());
+        debugPrint('errors: ${response.errors}');
         return;
       }
-      debugPrint('Mutation result: ' + createdTrip.tripName);
+      debugPrint('Mutation result: ${createdTrip.tripName}');
     } on Exception catch (e) {
       debugPrint(e.toString());
     }

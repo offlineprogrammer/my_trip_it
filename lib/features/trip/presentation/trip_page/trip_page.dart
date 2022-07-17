@@ -23,8 +23,8 @@ class TripPage extends StatelessWidget {
     }
 
     final file = File(pickedFile.path);
-    final imageUrl =
-        await ref.read(tripControllerProvider).uploadFile(file, tripId);
+
+    await ref.read(tripControllerProvider).uploadFile(file, tripId);
   }
 
   @override

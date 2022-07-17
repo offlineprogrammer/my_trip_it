@@ -57,11 +57,11 @@ class AddTrip extends HookConsumerWidget {
               autocorrect: false,
               decoration: const InputDecoration(hintText: "Trip Destination"),
               textInputAction: TextInputAction.next,
-              validator: (name) {
-                if (name != null && name.isNotEmpty) {
+              validator: (value) {
+                if (value != null && value.isNotEmpty) {
                   return null;
                 } else {
-                  return 'Enter a valid expense name';
+                  return 'Enter a valid destination';
                 }
               },
             ),
@@ -72,28 +72,25 @@ class AddTrip extends HookConsumerWidget {
               autocorrect: false,
               decoration: const InputDecoration(hintText: "Start Date"),
               textInputAction: TextInputAction.next,
-              validator: (name) {
-                if (name != null && name.isNotEmpty) {
+              validator: (value) {
+                if (value != null && value.isNotEmpty) {
                   return null;
                 } else {
-                  return 'Enter a valid expense name';
+                  return 'Enter a valid date';
                 }
               },
               onTap: () async {
                 DateTime? pickedDate = await showDatePicker(
                     context: context,
                     initialDate: DateTime.now(),
-                    firstDate: DateTime(
-                        2000), //DateTime.now() - not to allow to choose before today.
+                    firstDate: DateTime(2000),
                     lastDate: DateTime(2101));
 
                 if (pickedDate != null) {
                   String formattedDate =
                       DateFormat('yyyy-MM-dd').format(pickedDate);
                   startDateController.text = formattedDate;
-                } else {
-                  print("Date is not selected");
-                }
+                } else {}
               },
             ),
             TextFormField(
@@ -103,36 +100,26 @@ class AddTrip extends HookConsumerWidget {
               autocorrect: false,
               decoration: const InputDecoration(hintText: "End Date"),
               textInputAction: TextInputAction.next,
-              validator: (name) {
-                if (name != null && name.isNotEmpty) {
+              validator: (value) {
+                if (value != null && value.isNotEmpty) {
                   return null;
                 } else {
-                  return 'Enter a valid expense name';
+                  return 'Enter a valid date';
                 }
               },
               onTap: () async {
                 DateTime? pickedDate = await showDatePicker(
                     context: context,
                     initialDate: DateTime.now(),
-                    firstDate: DateTime(
-                        2000), //DateTime.now() - not to allow to choose before today.
+                    firstDate: DateTime(2000),
                     lastDate: DateTime(2101));
 
                 if (pickedDate != null) {
-                  print(
-                      pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                  String formattedDate = //pickedDate.toIso8601String();
+                  String formattedDate =
                       DateFormat('yyyy-MM-dd').format(pickedDate);
 
                   endDateController.text = formattedDate;
-
-                  print(
-                      formattedDate); //formatted date output using intl package =>  2021-03-16
-                  //you can implement different kind of Date Format here according to your requirement
-
-                } else {
-                  print("Date is not selected");
-                }
+                } else {}
               },
             ),
             TextFormField(
@@ -141,16 +128,16 @@ class AddTrip extends HookConsumerWidget {
               autocorrect: false,
               decoration: const InputDecoration(hintText: "Description"),
               textInputAction: TextInputAction.done,
-              validator: (name) {
-                if (name != null && name.isNotEmpty) {
+              validator: (value) {
+                if (value != null && value.isNotEmpty) {
                   return null;
                 } else {
-                  return 'Enter a valid expense name';
+                  return 'Enter a valid description';
                 }
               },
             ),
             const SizedBox(
-              height: 20.0,
+              height: 20,
             ),
             TextButton(
                 child: const Text('OK'),

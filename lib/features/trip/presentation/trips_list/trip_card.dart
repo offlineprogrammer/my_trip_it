@@ -46,7 +46,7 @@ class TripCard extends StatelessWidget {
                                     child: CircularProgressIndicator()),
                                 CachedNetworkImage(
                                   errorWidget: (context, url, error) =>
-                                      Icon(Icons.error_outline_outlined),
+                                      const Icon(Icons.error_outline_outlined),
                                   imageUrl: trip.tripImageUrl!,
                                   width: double.maxFinite,
                                   height: 500,
