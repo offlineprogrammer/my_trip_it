@@ -67,18 +67,20 @@ class _MyAppState extends State<MyApp> {
     final _router = GoRouter(
       routes: [
         GoRoute(
-          path: '/',
-          builder: (context, state) =>
-              _amplifyConfigured ? const TripsListPage() : _waitForAmplify(),
-        ),
-        GoRoute(
-          path: '/trip/:id',
-          name: AppRoute.trip.name,
-          builder: (context, state) {
-            final tripId = state.params['id']!;
-            return TripPage(tripId: tripId);
-          },
-        ),
+            path: '/',
+            name: AppRoute.home.name,
+            builder: (context, state) =>
+                _amplifyConfigured ? const TripsListPage() : _waitForAmplify(),
+            routes: [
+              GoRoute(
+                path: 'trip/:id',
+                name: AppRoute.trip.name,
+                builder: (context, state) {
+                  final tripId = state.params['id']!;
+                  return TripPage(tripId: tripId);
+                },
+              ),
+            ]),
       ],
     );
 

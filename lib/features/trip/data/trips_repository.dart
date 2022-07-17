@@ -18,6 +18,10 @@ class TripsRepository {
     }
   }
 
+  Future<void> add(Trip trip) async {
+    await tripsAPIService.addTrip(trip);
+  }
+
   Stream<Trip?> getTrip(String id) {
     return getTrips().map((trips) => _getTrip(trips, id));
   }

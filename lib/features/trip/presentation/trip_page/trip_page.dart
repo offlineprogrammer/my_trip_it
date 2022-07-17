@@ -25,7 +25,7 @@ class TripPage extends StatelessWidget {
           final tripValue = ref.watch(tripProvider(tripId));
           return tripValue.when(
             data: (trip) => trip == null
-                ? Center(
+                ? const Center(
                     child: Text('Trip Not Found'),
                   )
                 : Column(

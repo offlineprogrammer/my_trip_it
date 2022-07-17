@@ -7,9 +7,11 @@ import '/common/app_constants.dart' as constants;
 import '../../../../models/Trip.dart';
 
 class TripCard extends StatelessWidget {
-  const TripCard({Key? key, required this.trip}) : super(key: key);
+  const TripCard({Key? key, required this.trip, this.imageURL})
+      : super(key: key);
 
   final Trip trip;
+  final String? imageURL;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +45,8 @@ class TripCard extends StatelessWidget {
                                 const Center(
                                     child: CircularProgressIndicator()),
                                 CachedNetworkImage(
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error_outline_outlined),
                                   imageUrl: trip.tripImageUrl!,
                                   width: double.maxFinite,
                                   height: 500,

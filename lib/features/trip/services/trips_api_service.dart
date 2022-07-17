@@ -21,6 +21,22 @@ class TripsAPIService {
       return <Trip>[];
     }
   }
+
+  Future<void> addTrip(Trip expenseItem) async {
+    try {
+      final request = ModelMutations.create(expenseItem);
+      final response = await Amplify.API.mutate(request: request).response;
+
+      Trip? createdTrip = response.data;
+      if (createdTrip == null) {
+        debugPrint('errors: ' + response.errors.toString());
+        return;
+      }
+      debugPrint('Mutation result: ' + createdTrip.tripName);
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 }
 
 final tripsAPIServiceProvider =

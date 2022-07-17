@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../features/router/routes.dart';
 import '/common/app_constants.dart' as constants;
 
 class NavigationDrawer extends StatelessWidget {
@@ -26,7 +28,11 @@ class NavigationDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.home),
             title: const Text('Trips'),
-            onTap: () {},
+            onTap: () {
+              context.goNamed(
+                AppRoute.home.name,
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.category),
