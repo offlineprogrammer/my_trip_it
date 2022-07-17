@@ -37,6 +37,15 @@ class TripsAPIService {
       debugPrint(e.toString());
     }
   }
+
+  Future<void> updateTrip(Trip updatedTrip) async {
+    try {
+      final request = ModelMutations.update(updatedTrip);
+      await Amplify.API.mutate(request: request).response;
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 }
 
 final tripsAPIServiceProvider =

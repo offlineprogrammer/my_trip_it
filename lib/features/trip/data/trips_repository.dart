@@ -22,6 +22,18 @@ class TripsRepository {
     await tripsAPIService.addTrip(trip);
   }
 
+  Future<void> updateTripImage(
+      String id, String imageKey, String imageUrl) async {
+    final trips = await tripsAPIService.getTrips();
+
+    final trip = _getTrip(trips, id);
+    if (trip != null) {
+      final updatedTrip =
+          trip.copyWith(tripImageUrl: imageUrl, tripImageKey: imageKey);
+      await tripsAPIService.updateTrip(updatedTrip);
+    }
+  }
+
   Stream<Trip?> getTrip(String id) {
     return getTrips().map((trips) => _getTrip(trips, id));
   }

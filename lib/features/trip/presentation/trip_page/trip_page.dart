@@ -1,13 +1,31 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../../common/navigation_drawer.dart';
+import '../../controller/trip_controller.dart';
 import '../../data/trips_repository.dart';
 import '/common/app_constants.dart' as constants;
 
 class TripPage extends StatelessWidget {
   const TripPage({Key? key, required this.tripId}) : super(key: key);
   final String tripId;
+
+  Future<void> uploadImage(
+      BuildContext context, WidgetRef ref, String tripId) async {
+    final picker = ImagePicker();
+    final XFile? pickedFile =
+        await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile == null) {
+      return;
+    }
+
+    final file = File(pickedFile.path);
+    final imageUrl =
+        await ref.read(tripControllerProvider).uploadFile(file, tripId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +38,11 @@ class TripPage extends StatelessWidget {
         backgroundColor: const Color(constants.tripIt_colorPrimaryDarkValue),
       ),
       drawer: const NavigationDrawer(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: const Color(constants.tripIt_colorPrimaryDarkValue),
+        child: const Icon(Icons.add),
+      ),
       body: Consumer(
         builder: (context, ref, _) {
           final tripValue = ref.watch(tripProvider(tripId));
@@ -81,7 +104,9 @@ class TripPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    uploadImage(context, ref, tripId);
+                                  },
                                   icon: const Icon(Icons.camera_enhance_sharp),
                                 ),
                               ],
@@ -108,22 +133,6 @@ class TripPage extends StatelessWidget {
                       ),
                       const SizedBox(
                         height: 8,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Align(
-                          alignment: Alignment.bottomRight,
-
-                          // add your floating action button
-                          child: FloatingActionButton(
-                            onPressed: () {
-                              //_showAddTripDialog(context);
-                            },
-                            backgroundColor: const Color(
-                                constants.tripIt_colorPrimaryDarkValue),
-                            child: const Icon(Icons.add),
-                          ),
-                        ),
                       ),
                     ],
                   ),

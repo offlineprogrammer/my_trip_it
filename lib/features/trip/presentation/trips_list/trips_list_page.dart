@@ -62,7 +62,7 @@ class TripsListPage extends HookConsumerWidget {
                             if (tripData!.tripImageUrl != null) {
                               return Consumer(builder: (context, ref, _) {
                                 final imageURL = ref.watch(
-                                    imageUrlProvider(tripData!.tripImageUrl!));
+                                    imageUrlProvider(tripData.tripImageUrl!));
                                 return imageURL.when(
                                   data: (String Url) {
                                     return TripCard(

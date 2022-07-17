@@ -5,6 +5,7 @@ type Trip @model @auth(rules: [{ allow: owner }]) {
   startDate: AWSDateTime!
   endDate: AWSDateTime!
     tripImageUrl: String
+    tripImageKey: String
   Plans: [Plan] @hasMany(indexName: "byTrip", fields: ["id"])
 }
 
