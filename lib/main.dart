@@ -10,13 +10,13 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 
 import 'amplifyconfiguration.dart';
-import '/router/routes.dart';
+import '/common/navigation/router/routes.dart';
 import 'features/profile/presentation/profile_page/profile_page.dart';
 import 'features/trip/presentation/trip_page/trip_page.dart';
 import 'features/trip/presentation/trips_list/trips_list_page.dart';
 import 'models/ModelProvider.dart';
 
-import 'common/app_constants.dart' as constants;
+import 'common/utils/app_constants.dart' as constants;
 
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 

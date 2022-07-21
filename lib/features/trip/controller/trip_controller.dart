@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_trip_it/common/storage_service.dart';
+import 'package:my_trip_it/common/service/storage_service.dart';
 
 import '../../../models/Trip.dart';
 import '../data/trips_repository.dart';

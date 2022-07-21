@@ -4,11 +4,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../../common/navigation_drawer.dart';
+import '../../../../common/navigation/navigation_drawer.dart';
 import '../../../../models/Trip.dart';
 import '../../controller/trip_controller.dart';
 import '../../data/trips_repository.dart';
-import '/common/app_constants.dart' as constants;
+import '../../../../common/utils/app_constants.dart' as constants;
 
 class TripPage extends StatelessWidget {
   const TripPage({Key? key, required this.tripId}) : super(key: key);

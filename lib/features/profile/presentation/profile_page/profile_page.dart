@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/navigation_drawer.dart';
-import '/common/app_constants.dart' as constants;
+import '../../../../common/navigation/navigation_drawer.dart';
+import '../../../../common/utils/app_constants.dart' as constants;
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -17,8 +17,8 @@ class ProfilePage extends StatelessWidget {
           backgroundColor: const Color(constants.tripIt_colorPrimaryDarkValue),
         ),
         drawer: const NavigationDrawer(),
-        body: Center(
-          child: const Text('Profile Page'),
+        body: const Center(
+          child: Text('Profile Page'),
         ));
   }
 }

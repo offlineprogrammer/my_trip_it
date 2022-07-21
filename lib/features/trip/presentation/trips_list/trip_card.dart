@@ -2,8 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import '/router/routes.dart';
-import '/common/app_constants.dart' as constants;
+
+import '/common/navigation/router/routes.dart';
+import '../../../../common/utils/app_constants.dart' as constants;
 import '../../../../models/Trip.dart';
 
 class TripCard extends StatelessWidget {
