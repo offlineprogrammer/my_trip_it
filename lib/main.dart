@@ -77,22 +77,26 @@ class _MyAppState extends State<MyApp> {
             name: AppRoute.home.name,
             builder: (context, state) =>
                 _amplifyConfigured ? const TripsListPage() : _waitForAmplify(),
-            routes: [
-              GoRoute(
-                path: 'trip/:id',
-                name: AppRoute.trip.name,
-                builder: (context, state) {
-                  final tripId = state.params['id']!;
-                  return TripPage(tripId: tripId);
-                },
-              ),
-            ]),
+            routes: []),
+        GoRoute(
+          path: '/trip/:id',
+          name: AppRoute.trip.name,
+          builder: (context, state) {
+            final tripId = state.params['id']!;
+            return TripPage(tripId: tripId);
+          },
+        ),
         GoRoute(
           path: '/profile',
           name: AppRoute.profile.name,
           builder: (context, state) => const ProfilePage(),
         ),
       ],
+      errorBuilder: (context, state) => Scaffold(
+        body: Center(
+          child: Text(state.error.toString()),
+        ),
+      ),
     );
 
     return Authenticator(

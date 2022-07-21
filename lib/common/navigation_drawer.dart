@@ -42,7 +42,11 @@ class NavigationDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
-            onTap: () {},
+            onTap: () {
+              context.goNamed(
+                AppRoute.profile.name,
+              );
+            },
           ),
           const ListTile(
             leading: Icon(Icons.exit_to_app),

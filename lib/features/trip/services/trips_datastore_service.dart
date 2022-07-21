@@ -11,7 +11,11 @@ class TripsDataStoreService {
       _stream = Amplify.DataStore.observeQuery(
         Trip.classType,
         sortBy: [Trip.STARTDATE.ascending()],
-      ).map((event) => event.items.toList());
+      ).map((event) => event.items.toList()).handleError(
+        (dynamic error) {
+          debugPrint('Error in subscription stream: $error');
+        },
+      );
     } on Exception catch (e) {
       debugPrint(e.toString());
     }
