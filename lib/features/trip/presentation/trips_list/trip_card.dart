@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import '../../../router/routes.dart';
+import '/router/routes.dart';
 import '/common/app_constants.dart' as constants;
 import '../../../../models/Trip.dart';
 
@@ -45,7 +45,7 @@ class TripCard extends StatelessWidget {
                                 const Center(
                                     child: CircularProgressIndicator()),
                                 CachedNetworkImage(
-                                  errorWidget: (context, url, error) =>
+                                  errorWidget: (context, url, dynamic error) =>
                                       const Icon(Icons.error_outline_outlined),
                                   imageUrl: trip.tripImageUrl!,
                                   width: double.maxFinite,

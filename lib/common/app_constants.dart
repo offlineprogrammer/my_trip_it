@@ -19,3 +19,6 @@ const MaterialColor tripIt_colorPrimary =
     MaterialColor(0xFFFFCF44, tripIt_colorPrimarySwatch);
 
 const int tripIt_colorPrimaryDarkValue = 0xFFFD9725;
+
+
+//color.dart util

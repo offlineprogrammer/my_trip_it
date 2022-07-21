@@ -1,3 +1,4 @@
+import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -9,7 +10,8 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 
 import 'amplifyconfiguration.dart';
-import 'features/router/routes.dart';
+import '/router/routes.dart';
+import 'features/profile/presentation/profile_page/profile_page.dart';
 import 'features/trip/presentation/trip_page/trip_page.dart';
 import 'features/trip/presentation/trips_list/trips_list_page.dart';
 import 'models/ModelProvider.dart';
@@ -38,9 +40,13 @@ class _MyAppState extends State<MyApp> {
 
   void _configureAmplify() async {
     try {
-      await Amplify.addPlugins([
+      AmplifyDataStore datastorePlugin =
+          AmplifyDataStore(modelProvider: ModelProvider.instance);
+
+      Amplify.addPlugins([
         AmplifyAuthCognito(),
-        AmplifyAPI(modelProvider: ModelProvider.instance),
+        datastorePlugin,
+        AmplifyAPI(),
         AmplifyStorageS3()
       ]);
       await Amplify.configure(amplifyconfig);
@@ -64,7 +70,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    final _router = GoRouter(
+    final router = GoRouter(
       routes: [
         GoRoute(
             path: '/',
@@ -81,14 +87,19 @@ class _MyAppState extends State<MyApp> {
                 },
               ),
             ]),
+        GoRoute(
+          path: '/profile',
+          name: AppRoute.profile.name,
+          builder: (context, state) => const ProfilePage(),
+        ),
       ],
     );
 
     return Authenticator(
       child: MaterialApp.router(
-        routeInformationParser: _router.routeInformationParser,
-        routeInformationProvider: _router.routeInformationProvider,
-        routerDelegate: _router.routerDelegate,
+        routeInformationParser: router.routeInformationParser,
+        routeInformationProvider: router.routeInformationProvider,
+        routerDelegate: router.routerDelegate,
         builder: Authenticator.builder(),
         theme: ThemeData(
           primarySwatch: constants.tripIt_colorPrimary,

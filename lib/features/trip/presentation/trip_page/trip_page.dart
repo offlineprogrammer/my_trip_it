@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../common/navigation_drawer.dart';
+import '../../../../models/Trip.dart';
 import '../../controller/trip_controller.dart';
 import '../../data/trips_repository.dart';
 import '/common/app_constants.dart' as constants;
@@ -14,7 +15,7 @@ class TripPage extends StatelessWidget {
   final String tripId;
 
   Future<void> uploadImage(
-      BuildContext context, WidgetRef ref, String tripId) async {
+      BuildContext context, WidgetRef ref, String tripId, Trip trip) async {
     final picker = ImagePicker();
     final XFile? pickedFile =
         await picker.pickImage(source: ImageSource.gallery);
@@ -23,8 +24,7 @@ class TripPage extends StatelessWidget {
     }
 
     final file = File(pickedFile.path);
-
-    await ref.read(tripControllerProvider).uploadFile(file, tripId);
+    await ref.read(tripControllerProvider).uploadFile(file, trip);
   }
 
   @override
@@ -105,7 +105,7 @@ class TripPage extends StatelessWidget {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    uploadImage(context, ref, tripId);
+                                    uploadImage(context, ref, tripId, trip);
                                   },
                                   icon: const Icon(Icons.camera_enhance_sharp),
                                 ),

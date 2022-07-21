@@ -12,7 +12,7 @@ class TripsListPage extends HookConsumerWidget {
   const TripsListPage({Key? key}) : super(key: key);
 
   void showAddTripDialog(BuildContext context) async {
-    await showModalBottomSheet(
+    await showModalBottomSheet<void>(
       isScrollControlled: true,
       elevation: 5,
       context: context,
@@ -64,9 +64,9 @@ class TripsListPage extends HookConsumerWidget {
                                 final imageURL = ref.watch(
                                     imageUrlProvider(tripData.tripImageUrl!));
                                 return imageURL.when(
-                                  data: (String Url) {
+                                  data: (String url) {
                                     return TripCard(
-                                        trip: tripData, imageURL: Url);
+                                        trip: tripData, imageURL: url);
                                   },
                                   error: (e, st) => const Center(
                                     child: Text('Error'),

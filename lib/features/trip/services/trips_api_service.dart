@@ -2,15 +2,16 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
+import 'package:collection/collection.dart';
 import '../../../models/Trip.dart';
 
 class TripsAPIService {
-  Future<List<Trip?>> getTrips() async {
+  // use subscribtion and change to stream
+  Future<List<Trip>> getTrips() async {
     try {
       final request = ModelQueries.list(Trip.classType);
       final response = await Amplify.API.query(request: request).response;
-      final trips = response.data?.items;
+      final trips = response.data?.items.whereNotNull().toList(growable: false);
       if (trips == null) {
         debugPrint('errors: ${response.errors}');
         return <Trip>[];
@@ -20,6 +21,21 @@ class TripsAPIService {
       debugPrint(e.toString());
       return <Trip>[];
     }
+  }
+
+  Stream<GraphQLResponse<Trip>> subscribe() {
+    final subscriptionRequest = ModelSubscriptions.onCreate(Trip.classType);
+    final Stream<GraphQLResponse<Trip>> operation = Amplify.API
+        .subscribe(
+      subscriptionRequest,
+      onEstablished: () => print('Subscription established'),
+    )
+        .handleError(
+      (dynamic error) {
+        print('Error in subscription stream: $error');
+      },
+    );
+    return operation;
   }
 
   Future<void> addTrip(Trip expenseItem) async {

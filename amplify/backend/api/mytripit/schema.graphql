@@ -1,29 +1,26 @@
-type Trip @model @auth(rules: [{ allow: owner }]) {
+type Trip @model @auth(rules: [{allow: owner}]) {
   id: ID!
   tripName: String!
   destination: String!
   startDate: AWSDateTime!
   endDate: AWSDateTime!
-    tripImageUrl: String
-    tripImageKey: String
+  tripImageUrl: String
+  tripImageKey: String
   Plans: [Plan] @hasMany(indexName: "byTrip", fields: ["id"])
 }
 
-type Plan @model @auth(rules: [{ allow: owner }]) {
+type Plan @model @auth(rules: [{allow: owner}]) {
   id: ID!
   planName: String!
-  
-   tripID: ID! @index(name: "byTrip", sortKeyFields: ["planName"])
+  tripID: ID! @index(name: "byTrip", sortKeyFields: ["planName"])
   trip: Trip! @belongsTo(fields: ["tripID"])
   createdAt: AWSDateTime!
 }
 
-
-type Profile @model @auth(rules: [{ allow: owner }]) {
+type Profile @model @auth(rules: [{allow: owner}]) {
   id: ID!
   userId: String!
   firstName: String!
   lastName: String!
   homeCity: String!
-  
-}
+} 

@@ -48,7 +48,11 @@
               "userPoolId": "authmytripitb9904f2a"
             }
           },
-          "additionalAuthenticationProviders": []
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ]
         }
       }
     }

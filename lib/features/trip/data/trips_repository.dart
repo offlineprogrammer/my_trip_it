@@ -1,41 +1,43 @@
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../models/Trip.dart';
 import '../services/trips_api_service.dart';
+import '../services/trips_datastore_service.dart';
 
 class TripsRepository {
-  TripsRepository(this.tripsAPIService);
+  TripsRepository(this.tripsDataStoreService);
 
-  final TripsAPIService tripsAPIService;
+  final TripsDataStoreService tripsDataStoreService;
 
-  Stream<List<Trip?>> getTrips() async* {
-    try {
-      final trips = await tripsAPIService.getTrips();
-      yield trips;
-    } on Exception catch (e) {
-      debugPrint(e.toString());
-    }
+  Stream<List<Trip>> getTrips() {
+    print('stream');
+    return tripsDataStoreService.stream();
   }
 
   Future<void> add(Trip trip) async {
-    await tripsAPIService.addTrip(trip);
+    await tripsDataStoreService.addTrip(trip);
   }
 
-  Future<void> updateTripImage(
-      String id, String imageKey, String imageUrl) async {
-    final trips = await tripsAPIService.getTrips();
+  // Future<void> updateTripImage(
+  //     String id, String imageKey, String imageUrl) async {
+  //   final trips = await tripsDataStoreService.getTrips();
 
-    final trip = _getTrip(trips, id);
-    if (trip != null) {
-      final updatedTrip =
-          trip.copyWith(tripImageUrl: imageUrl, tripImageKey: imageKey);
-      await tripsAPIService.updateTrip(updatedTrip);
-    }
+  //   final trip = _getTrip(trips, id);
+  //   if (trip != null) {
+  //     final updatedTrip =
+  //         trip.copyWith(tripImageUrl: imageUrl, tripImageKey: imageKey);
+  //     await tripsDataStoreService.updateTrip(updatedTrip);
+  //   }
+  // }
+
+  Future<void> updateTrip(Trip updatedTrip) async {
+    await tripsDataStoreService.updateTrip(updatedTrip);
   }
 
-  Stream<Trip?> getTrip(String id) {
-    return getTrips().map((trips) => _getTrip(trips, id));
+  Stream<Trip> getTrip(String id) {
+    return tripsDataStoreService.getTripStream(id);
   }
 
   static Trip? _getTrip(List<Trip?> trips, String id) {
@@ -48,8 +50,9 @@ class TripsRepository {
 }
 
 final tripsRepositoryProvider = Provider<TripsRepository>((ref) {
-  TripsAPIService tripsAPIService = ref.read(tripsAPIServiceProvider);
-  return TripsRepository(tripsAPIService);
+  TripsDataStoreService tripsDataStoreService =
+      ref.read(tripsDataStoreServiceProvider);
+  return TripsRepository(tripsDataStoreService);
 });
 
 final tripsListStreamProvider = StreamProvider.autoDispose<List<Trip?>>((ref) {
