@@ -2,13 +2,16 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../common/navigation/navigation_drawer.dart';
+import '../../../../common/navigation/router/routes.dart';
 import '../../../../models/Trip.dart';
 import '../../controller/trip_controller.dart';
 import '../../data/trips_repository.dart';
 import '../../../../common/utils/app_constants.dart' as constants;
+import 'delete_trip.dart';
 
 class TripPage extends StatelessWidget {
   const TripPage({Key? key, required this.tripId}) : super(key: key);
@@ -25,6 +28,20 @@ class TripPage extends StatelessWidget {
 
     final file = File(pickedFile.path);
     await ref.read(tripControllerProvider).uploadFile(file, trip);
+  }
+
+  Future<void> deleteTrip(
+      BuildContext context, WidgetRef ref, Trip trip) async {
+    var value = await showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return const DeleteTrip();
+        });
+    value ??= false;
+
+    if (value) {
+      await ref.read(tripControllerProvider).delete(trip);
+    }
   }
 
   @override
@@ -101,13 +118,22 @@ class TripPage extends StatelessWidget {
                                     ),
                             ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 IconButton(
                                   onPressed: () {
                                     uploadImage(context, ref, tripId, trip);
                                   },
                                   icon: const Icon(Icons.camera_enhance_sharp),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    deleteTrip(context, ref, trip);
+                                    context.goNamed(
+                                      AppRoute.home.name,
+                                    );
+                                  },
+                                  icon: const Icon(Icons.delete),
                                 ),
                               ],
                             )

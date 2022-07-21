@@ -31,6 +31,14 @@ class TripsDataStoreService {
     }
   }
 
+  Future<void> deleteTrip(Trip trip) async {
+    try {
+      await Amplify.DataStore.delete(trip);
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   Future<void> updateTrip(Trip updatedTrip) async {
     try {
       final tripsWithId = await Amplify.DataStore.query(

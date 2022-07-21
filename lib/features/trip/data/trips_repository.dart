@@ -16,11 +16,15 @@ class TripsRepository {
     await tripsDataStoreService.addTrip(trip);
   }
 
-  Future<void> updateTrip(Trip updatedTrip) async {
+  Future<void> update(Trip updatedTrip) async {
     await tripsDataStoreService.updateTrip(updatedTrip);
   }
 
-  Stream<Trip> getTrip(String id) {
+  Future<void> delete(Trip deletedTrip) async {
+    await tripsDataStoreService.deleteTrip(deletedTrip);
+  }
+
+  Stream<Trip> get(String id) {
     return tripsDataStoreService.getTripStream(id);
   }
 }
@@ -39,5 +43,5 @@ final tripsListStreamProvider = StreamProvider.autoDispose<List<Trip?>>((ref) {
 final tripProvider =
     StreamProvider.autoDispose.family<Trip?, String>((ref, id) {
   final tripsRepository = ref.watch(tripsRepositoryProvider);
-  return tripsRepository.getTrip(id);
+  return tripsRepository.get(id);
 });

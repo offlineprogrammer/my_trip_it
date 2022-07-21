@@ -17,13 +17,18 @@ class TripController {
           await ref.read(storageServiceProvider).getImageUrl(fileKey);
       final updatedTrip =
           trip.copyWith(tripImageKey: fileKey, tripImageUrl: imageUrl);
-      await ref.read(tripsRepositoryProvider).updateTrip(updatedTrip);
+      await ref.read(tripsRepositoryProvider).update(updatedTrip);
     }
   }
 
   Future<void> edit(Trip updatedTrip) async {
     final tripsRepository = ref.read(tripsRepositoryProvider);
-    await tripsRepository.updateTrip(updatedTrip);
+    await tripsRepository.update(updatedTrip);
+  }
+
+  Future<void> delete(Trip deletedTrip) async {
+    final tripsRepository = ref.read(tripsRepositoryProvider);
+    await tripsRepository.delete(deletedTrip);
   }
 }
 
