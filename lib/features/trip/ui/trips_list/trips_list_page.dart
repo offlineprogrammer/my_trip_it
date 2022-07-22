@@ -4,8 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_trip_it/common/navigation/navigation_drawer.dart';
 import 'package:my_trip_it/common/service/storage_service.dart';
 import 'package:my_trip_it/features/trip/data/trips_repository.dart';
-import 'package:my_trip_it/features/trip/presentation/trips_list/add_trip.dart';
-import 'package:my_trip_it/features/trip/presentation/trips_list/trip_card.dart';
+import 'package:my_trip_it/features/trip/ui/trips_list/add_trip.dart';
+import 'package:my_trip_it/features/trip/ui/trips_list/trip_card.dart';
 import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
 
 class TripsListPage extends HookConsumerWidget {
