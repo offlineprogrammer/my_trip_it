@@ -1,48 +1,13 @@
-import 'dart:io';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../../../common/navigation/navigation_drawer.dart';
-import '../../../../common/navigation/router/routes.dart';
-import '../../../../models/Trip.dart';
-import '../../controller/trip_controller.dart';
 import '../../data/trips_repository.dart';
 import '../../../../common/utils/app_constants.dart' as constants;
-import 'delete_trip.dart';
+import 'selected_trip_card.dart';
 
 class TripPage extends StatelessWidget {
   const TripPage({Key? key, required this.tripId}) : super(key: key);
   final String tripId;
-
-  Future<void> uploadImage(
-      BuildContext context, WidgetRef ref, String tripId, Trip trip) async {
-    final picker = ImagePicker();
-    final XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile == null) {
-      return;
-    }
-
-    final file = File(pickedFile.path);
-    await ref.read(tripControllerProvider).uploadFile(file, trip);
-  }
-
-  Future<void> deleteTrip(
-      BuildContext context, WidgetRef ref, Trip trip) async {
-    var value = await showDialog<bool>(
-        context: context,
-        builder: (BuildContext context) {
-          return const DeleteTrip();
-        });
-    value ??= false;
-
-    if (value) {
-      await ref.read(tripControllerProvider).delete(trip);
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,72 +39,7 @@ class TripPage extends StatelessWidget {
                       const SizedBox(
                         height: 8,
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Card(
-                        clipBehavior: Clip.antiAlias,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        elevation: 5,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              trip.tripName,
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.center,
-                              color: const Color(constants
-                                  .tripIt_colorPrimaryDarkValue), //Color(0xffE1E5E4),
-                              height: 150,
-
-                              child: trip.tripImageUrl != null
-                                  ? Stack(children: [
-                                      const Center(
-                                          child: CircularProgressIndicator()),
-                                      CachedNetworkImage(
-                                        imageUrl: trip.tripImageUrl!,
-                                        width: double.maxFinite,
-                                        height: 500,
-                                        alignment: Alignment.topCenter,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ])
-                                  : Image.asset(
-                                      'images/amplify.png',
-                                      fit: BoxFit.contain,
-                                    ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    uploadImage(context, ref, tripId, trip);
-                                  },
-                                  icon: const Icon(Icons.camera_enhance_sharp),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    deleteTrip(context, ref, trip);
-                                    context.goNamed(
-                                      AppRoute.home.name,
-                                    );
-                                  },
-                                  icon: const Icon(Icons.delete),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
+                      SelectedTripCard(trip: trip),
                       const SizedBox(
                         height: 20,
                       ),
