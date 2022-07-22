@@ -56,7 +56,7 @@ class TripsDataStoreService {
           endDate: updatedTrip.endDate,
           tripImageKey: updatedTrip.tripImageKey,
           tripImageUrl: updatedTrip.tripImageUrl,
-          Plans: updatedTrip.Plans);
+          Activities: updatedTrip.Activities);
 
       await Amplify.DataStore.save(newTrip);
     } on Exception catch (e) {

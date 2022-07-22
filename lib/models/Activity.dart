@@ -24,13 +24,14 @@ import 'package:amplify_core/amplify_core.dart';
 import 'package:flutter/foundation.dart';
 
 
-/** This is an auto generated class representing the Plan type in your schema. */
+/** This is an auto generated class representing the Activity type in your schema. */
 @immutable
-class Plan extends Model {
-  static const classType = const _PlanModelType();
+class Activity extends Model {
+  static const classType = const _ActivityModelType();
   final String id;
-  final String? _planName;
+  final String? _activityName;
   final Trip? _trip;
+  final TemporalDateTime? _activityDate;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
 
@@ -42,9 +43,9 @@ class Plan extends Model {
     return id;
   }
   
-  String get planName {
+  String get activityName {
     try {
-      return _planName!;
+      return _activityName!;
     } catch(e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -68,9 +69,9 @@ class Plan extends Model {
     }
   }
   
-  TemporalDateTime get createdAt {
+  TemporalDateTime get activityDate {
     try {
-      return _createdAt!;
+      return _activityDate!;
     } catch(e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -81,18 +82,22 @@ class Plan extends Model {
     }
   }
   
+  TemporalDateTime? get createdAt {
+    return _createdAt;
+  }
+  
   TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
   
-  const Plan._internal({required this.id, required planName, required trip, required createdAt, updatedAt}): _planName = planName, _trip = trip, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Activity._internal({required this.id, required activityName, required trip, required activityDate, createdAt, updatedAt}): _activityName = activityName, _trip = trip, _activityDate = activityDate, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Plan({String? id, required String planName, required Trip trip, required TemporalDateTime createdAt}) {
-    return Plan._internal(
+  factory Activity({String? id, required String activityName, required Trip trip, required TemporalDateTime activityDate}) {
+    return Activity._internal(
       id: id == null ? UUID.getUUID() : id,
-      planName: planName,
+      activityName: activityName,
       trip: trip,
-      createdAt: createdAt);
+      activityDate: activityDate);
   }
   
   bool equals(Object other) {
@@ -102,11 +107,11 @@ class Plan extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Plan &&
+    return other is Activity &&
       id == other.id &&
-      _planName == other._planName &&
+      _activityName == other._activityName &&
       _trip == other._trip &&
-      _createdAt == other._createdAt;
+      _activityDate == other._activityDate;
   }
   
   @override
@@ -116,10 +121,11 @@ class Plan extends Model {
   String toString() {
     var buffer = new StringBuffer();
     
-    buffer.write("Plan {");
+    buffer.write("Activity {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("planName=" + "$_planName" + ", ");
+    buffer.write("activityName=" + "$_activityName" + ", ");
     buffer.write("trip=" + (_trip != null ? _trip!.toString() : "null") + ", ");
+    buffer.write("activityDate=" + (_activityDate != null ? _activityDate!.format() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -127,36 +133,37 @@ class Plan extends Model {
     return buffer.toString();
   }
   
-  Plan copyWith({String? id, String? planName, Trip? trip, TemporalDateTime? createdAt}) {
-    return Plan._internal(
+  Activity copyWith({String? id, String? activityName, Trip? trip, TemporalDateTime? activityDate}) {
+    return Activity._internal(
       id: id ?? this.id,
-      planName: planName ?? this.planName,
+      activityName: activityName ?? this.activityName,
       trip: trip ?? this.trip,
-      createdAt: createdAt ?? this.createdAt);
+      activityDate: activityDate ?? this.activityDate);
   }
   
-  Plan.fromJson(Map<String, dynamic> json)  
+  Activity.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _planName = json['planName'],
+      _activityName = json['activityName'],
       _trip = json['trip']?['serializedData'] != null
         ? Trip.fromJson(new Map<String, dynamic>.from(json['trip']['serializedData']))
         : null,
+      _activityDate = json['activityDate'] != null ? TemporalDateTime.fromString(json['activityDate']) : null,
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'planName': _planName, 'trip': _trip?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'activityName': _activityName, 'trip': _trip?.toJson(), 'activityDate': _activityDate?.format(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
-  static final QueryField ID = QueryField(fieldName: "plan.id");
-  static final QueryField PLANNAME = QueryField(fieldName: "planName");
+  static final QueryField ID = QueryField(fieldName: "activity.id");
+  static final QueryField ACTIVITYNAME = QueryField(fieldName: "activityName");
   static final QueryField TRIP = QueryField(
     fieldName: "trip",
     fieldType: ModelFieldType(ModelFieldTypeEnum.model, ofModelName: (Trip).toString()));
-  static final QueryField CREATEDAT = QueryField(fieldName: "createdAt");
+  static final QueryField ACTIVITYDATE = QueryField(fieldName: "activityDate");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Plan";
-    modelSchemaDefinition.pluralName = "Plans";
+    modelSchemaDefinition.name = "Activity";
+    modelSchemaDefinition.pluralName = "Activities";
     
     modelSchemaDefinition.authRules = [
       AuthRule(
@@ -175,21 +182,28 @@ class Plan extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Plan.PLANNAME,
+      key: Activity.ACTIVITYNAME,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.belongsTo(
-      key: Plan.TRIP,
+      key: Activity.TRIP,
       isRequired: true,
       targetName: "tripID",
       ofModelName: (Trip).toString()
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Plan.CREATEDAT,
+      key: Activity.ACTIVITYDATE,
       isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.nonQueryField(
+      fieldName: 'createdAt',
+      isRequired: false,
+      isReadOnly: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
     ));
     
@@ -202,11 +216,11 @@ class Plan extends Model {
   });
 }
 
-class _PlanModelType extends ModelType<Plan> {
-  const _PlanModelType();
+class _ActivityModelType extends ModelType<Activity> {
+  const _ActivityModelType();
   
   @override
-  Plan fromJson(Map<String, dynamic> jsonData) {
-    return Plan.fromJson(jsonData);
+  Activity fromJson(Map<String, dynamic> jsonData) {
+    return Activity.fromJson(jsonData);
   }
 }

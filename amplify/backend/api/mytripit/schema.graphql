@@ -6,15 +6,15 @@ type Trip @model @auth(rules: [{allow: owner}]) {
   endDate: AWSDateTime!
   tripImageUrl: String
   tripImageKey: String
-  Plans: [Plan] @hasMany(indexName: "byTrip", fields: ["id"])
+  Activities: [Activity] @hasMany(indexName: "byTrip", fields: ["id"])
 }
 
-type Plan @model @auth(rules: [{allow: owner}]) {
+type Activity @model @auth(rules: [{allow: owner}]) {
   id: ID!
-  planName: String!
-  tripID: ID! @index(name: "byTrip", sortKeyFields: ["planName"])
+  activityName: String!
+  tripID: ID! @index(name: "byTrip", sortKeyFields: ["activityName"])
   trip: Trip! @belongsTo(fields: ["tripID"])
-  createdAt: AWSDateTime!
+  activityDate: AWSDateTime!
 }
 
 type Profile @model @auth(rules: [{allow: owner}]) {
