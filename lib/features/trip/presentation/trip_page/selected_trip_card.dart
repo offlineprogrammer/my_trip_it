@@ -95,6 +95,10 @@ class SelectedTripCard extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.edit),
+              ),
+              IconButton(
                 onPressed: () {
                   uploadImage(context, ref, trip);
                 },

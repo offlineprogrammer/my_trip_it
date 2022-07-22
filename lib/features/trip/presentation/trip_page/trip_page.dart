@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../common/navigation/navigation_drawer.dart';
+import '../../../../common/navigation/router/routes.dart';
 import '../../data/trips_repository.dart';
 import '../../../../common/utils/app_constants.dart' as constants;
 import 'selected_trip_card.dart';
@@ -17,6 +19,16 @@ class TripPage extends StatelessWidget {
         title: const Text(
           'Amplify TripIT',
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.goNamed(
+                AppRoute.home.name,
+              );
+            },
+            icon: const Icon(Icons.home),
+          ),
+        ],
         backgroundColor: const Color(constants.tripIt_colorPrimaryDarkValue),
       ),
       drawer: const NavigationDrawer(),
