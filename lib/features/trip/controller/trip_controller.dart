@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_trip_it/common/service/storage_service.dart';
 
-import '../../../models/Trip.dart';
-import '../data/trips_repository.dart';
+import 'package:my_trip_it/models/Trip.dart';
+import 'package:my_trip_it/features/trip/data/trips_repository.dart';
 
 class TripController {
   TripController(this.ref);

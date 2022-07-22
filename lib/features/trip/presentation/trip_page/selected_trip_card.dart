@@ -6,23 +6,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../controller/trip_controller.dart';
-import '/common/navigation/router/routes.dart';
-import '../../../../common/utils/app_constants.dart' as constants;
-import '../../../../models/Trip.dart';
-import 'delete_trip.dart';
-import 'upload_progress_dialog.dart';
+import 'package:my_trip_it/features/trip/controller/trip_controller.dart';
+import 'package:my_trip_it/common/navigation/router/routes.dart';
+import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
+import 'package:my_trip_it/models/Trip.dart';
+import 'package:my_trip_it/features/trip/presentation/trip_page/delete_trip.dart';
+import 'package:my_trip_it/features/trip/presentation/trip_page/upload_progress_dialog.dart';
 
 class SelectedTripCard extends ConsumerWidget {
   const SelectedTripCard({Key? key, required this.trip}) : super(key: key);
 
   final Trip trip;
 
-  Future<void> uploadImage(
-      BuildContext context, WidgetRef ref, Trip trip) async {
+  Future<void> uploadImage({
+    required BuildContext context,
+    required WidgetRef ref,
+    required Trip trip,
+  }) async {
     final picker = ImagePicker();
-    final XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.gallery);
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile == null) {
       return;
     }
@@ -108,7 +110,11 @@ class SelectedTripCard extends ConsumerWidget {
               ),
               IconButton(
                 onPressed: () {
-                  uploadImage(context, ref, trip);
+                  uploadImage(
+                    context: context,
+                    trip: trip,
+                    ref: ref,
+                  );
                 },
                 icon: const Icon(Icons.camera_enhance_sharp),
               ),

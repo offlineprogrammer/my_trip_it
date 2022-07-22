@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../common/navigation/navigation_drawer.dart';
-import '../../../../common/service/storage_service.dart';
-import '../../data/trips_repository.dart';
-import 'add_trip.dart';
-import 'trip_card.dart';
-import '../../../../common/utils/app_constants.dart' as constants;
+import 'package:my_trip_it/common/navigation/navigation_drawer.dart';
+import 'package:my_trip_it/common/service/storage_service.dart';
+import 'package:my_trip_it/features/trip/data/trips_repository.dart';
+import 'package:my_trip_it/features/trip/presentation/trips_list/add_trip.dart';
+import 'package:my_trip_it/features/trip/presentation/trips_list/trip_card.dart';
+import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
 
 class TripsListPage extends HookConsumerWidget {
   const TripsListPage({Key? key}) : super(key: key);

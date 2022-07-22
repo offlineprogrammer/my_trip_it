@@ -1,8 +1,8 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../models/ModelProvider.dart';
-import '../data/trips_repository.dart';
+import 'package:my_trip_it/models/ModelProvider.dart';
+import 'package:my_trip_it/features/trip/data/trips_repository.dart';
 
 class TripsListController {
   TripsListController(this.ref);

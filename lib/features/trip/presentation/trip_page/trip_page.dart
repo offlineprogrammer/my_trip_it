@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../../../common/navigation/navigation_drawer.dart';
-import '../../../../common/navigation/router/routes.dart';
-import '../../data/trips_repository.dart';
-import '../../../../common/utils/app_constants.dart' as constants;
-import 'selected_trip_card.dart';
+import 'package:my_trip_it/common/navigation/navigation_drawer.dart';
+import 'package:my_trip_it/common/navigation/router/routes.dart';
+import 'package:my_trip_it/features/trip/data/trips_repository.dart';
+import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
+import 'package:my_trip_it/features/trip/presentation/trip_page/selected_trip_card.dart';
 
 class TripPage extends StatelessWidget {
   const TripPage({Key? key, required this.tripId}) : super(key: key);

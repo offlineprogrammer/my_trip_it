@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../models/Trip.dart';
-import '../services/trips_datastore_service.dart';
+import 'package:my_trip_it/models/Trip.dart';
+import 'package:my_trip_it/features/trip/services/trips_datastore_service.dart';
 
 class TripsRepository {
   TripsRepository(this.tripsDataStoreService);

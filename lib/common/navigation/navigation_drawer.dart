@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import './router/routes.dart';
-import '../utils/app_constants.dart' as constants;
+import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../controller/trip_controller.dart';
+import 'package:my_trip_it/features/trip/controller/trip_controller.dart';
 
 class UploadProgressDialog extends ConsumerWidget {
   const UploadProgressDialog({Key? key}) : super(key: key);

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
-import '/common/navigation/router/routes.dart';
-import '../../../../common/utils/app_constants.dart' as constants;
-import '../../../../models/Trip.dart';
+import 'package:my_trip_it/common/navigation/router/routes.dart';
+import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
+import 'package:my_trip_it/models/Trip.dart';
 
 class TripCard extends StatelessWidget {
   const TripCard({Key? key, required this.trip, this.imageURL})

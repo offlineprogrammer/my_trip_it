@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import '../../controller/trips_list_controller.dart';
+import 'package:my_trip_it/features/trip/controller/trips_list_controller.dart';
 
 class AddTrip extends HookConsumerWidget {
   AddTrip({Key? key}) : super(key: key);
