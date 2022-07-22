@@ -37,7 +37,6 @@ class SelectedTripCard extends ConsumerWidget {
           return const UploadProgressDialog();
         });
     await ref.read(tripControllerProvider).uploadFile(file, trip);
-    Navigator.of(context, rootNavigator: true).pop();
   }
 
   Future<void> deleteTrip(
@@ -51,9 +50,6 @@ class SelectedTripCard extends ConsumerWidget {
 
     if (value) {
       await ref.read(tripControllerProvider).delete(trip);
-      context.goNamed(
-        AppRoute.home.name,
-      );
     }
   }
 
@@ -114,13 +110,17 @@ class SelectedTripCard extends ConsumerWidget {
                     context: context,
                     trip: trip,
                     ref: ref,
-                  );
+                  ).then((value) =>
+                      Navigator.of(context, rootNavigator: true).pop());
                 },
                 icon: const Icon(Icons.camera_enhance_sharp),
               ),
               IconButton(
                 onPressed: () {
-                  deleteTrip(context, ref, trip);
+                  deleteTrip(context, ref, trip)
+                      .then((value) => context.goNamed(
+                            AppRoute.home.name,
+                          ));
                 },
                 icon: const Icon(Icons.delete),
               ),
