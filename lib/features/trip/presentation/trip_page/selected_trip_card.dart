@@ -11,6 +11,7 @@ import '/common/navigation/router/routes.dart';
 import '../../../../common/utils/app_constants.dart' as constants;
 import '../../../../models/Trip.dart';
 import 'delete_trip.dart';
+import 'upload_progress_dialog.dart';
 
 class SelectedTripCard extends ConsumerWidget {
   const SelectedTripCard({Key? key, required this.trip}) : super(key: key);
@@ -27,7 +28,14 @@ class SelectedTripCard extends ConsumerWidget {
     }
 
     final file = File(pickedFile.path);
+    showDialog<String>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return const UploadProgressDialog();
+        });
     await ref.read(tripControllerProvider).uploadFile(file, trip);
+    Navigator.of(context, rootNavigator: true).pop();
   }
 
   Future<void> deleteTrip(

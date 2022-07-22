@@ -14,6 +14,10 @@ class StorageService {
     return result.url;
   }
 
+  ValueNotifier<double> getUploadProgress() {
+    return uploadProgress;
+  }
+
   Future<String?> uploadFile(File file) async {
     try {
       final key = DateTime.now().toString();
@@ -29,6 +33,10 @@ class StorageService {
       debugPrint(e.toString());
       return null;
     }
+  }
+
+  void resetUploadProgress() {
+    uploadProgress.value = 0;
   }
 }
 

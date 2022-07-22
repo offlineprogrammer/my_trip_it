@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_trip_it/common/service/storage_service.dart';
 
@@ -18,7 +19,12 @@ class TripController {
       final updatedTrip =
           trip.copyWith(tripImageKey: fileKey, tripImageUrl: imageUrl);
       await ref.read(tripsRepositoryProvider).update(updatedTrip);
+      ref.read(storageServiceProvider).resetUploadProgress();
     }
+  }
+
+  ValueNotifier<double> uploadProgress() {
+    return ref.read(storageServiceProvider).getUploadProgress();
   }
 
   Future<void> edit(Trip updatedTrip) async {
