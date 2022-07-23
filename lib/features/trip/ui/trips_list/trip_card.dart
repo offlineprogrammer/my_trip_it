@@ -106,7 +106,7 @@ class TripCard extends StatelessWidget {
                       ),
                       Text(
                           DateFormat('MMMM dd, yyyy')
-                              .format(trip.startDate.getDateTimeInUtc()),
+                              .format(trip.endDate.getDateTimeInUtc()),
                           style: const TextStyle(fontSize: 12)),
                     ],
                   ),

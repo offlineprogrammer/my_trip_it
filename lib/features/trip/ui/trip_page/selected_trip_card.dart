@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:my_trip_it/features/trip/controller/trip_controller.dart';
 import 'package:my_trip_it/common/navigation/router/routes.dart';
 import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
+import 'package:my_trip_it/features/trip/ui/trip_page/edit_trip.dart';
 import 'package:my_trip_it/models/Trip.dart';
 import 'package:my_trip_it/features/trip/ui/trip_page/delete_trip.dart';
 import 'package:my_trip_it/common/ui/upload_progress_dialog.dart';
@@ -51,6 +52,19 @@ class SelectedTripCard extends ConsumerWidget {
     if (value) {
       await ref.read(tripControllerProvider).delete(trip);
     }
+  }
+
+  void showEditTripDialog(BuildContext context, Trip trip) async {
+    await showModalBottomSheet<void>(
+      isScrollControlled: true,
+      elevation: 5,
+      context: context,
+      builder: (BuildContext context) {
+        return EditTrip(
+          trip: trip,
+        );
+      },
+    );
   }
 
   @override
@@ -101,7 +115,9 @@ class SelectedTripCard extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  showEditTripDialog(context, trip);
+                },
                 icon: const Icon(Icons.edit),
               ),
               IconButton(

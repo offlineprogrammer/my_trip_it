@@ -5,7 +5,9 @@ import 'package:my_trip_it/common/navigation/navigation_drawer.dart';
 import 'package:my_trip_it/common/navigation/router/routes.dart';
 import 'package:my_trip_it/features/trip/data/trips_repository.dart';
 import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
+import 'package:my_trip_it/features/trip/ui/trip_page/edit_trip.dart';
 import 'package:my_trip_it/features/trip/ui/trip_page/selected_trip_card.dart';
+import 'package:my_trip_it/models/Trip.dart';
 
 class TripPage extends StatelessWidget {
   const TripPage({Key? key, required this.tripId}) : super(key: key);
