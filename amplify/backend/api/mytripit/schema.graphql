@@ -17,6 +17,7 @@ type Activity @model @auth(rules: [{allow: owner}]) {
     activityImageUrl: String
   activityImageKey: String
   activityDate: AWSDateTime!
+    category: ActivityCategory!
 }
 
 type Profile @model @auth(rules: [{allow: owner}]) {
@@ -26,3 +27,5 @@ type Profile @model @auth(rules: [{allow: owner}]) {
   lastName: String!
   homeCity: String!
 } 
+
+enum ActivityCategory { Flight, Lodging, Meeting, Restaurant }

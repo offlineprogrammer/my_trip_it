@@ -15,6 +15,7 @@ class AddActivity extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final activityNameController = TextEditingController();
     final activityDateController = TextEditingController();
+    var activityCategory = ActivityCategory.Flight;
 
     return Form(
       key: formGlobalKey,
@@ -44,6 +45,29 @@ class AddActivity extends ConsumerWidget {
               autocorrect: false,
               decoration: const InputDecoration(hintText: "Activity Name"),
               textInputAction: TextInputAction.next,
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            DropdownButtonFormField<ActivityCategory>(
+              onChanged: (value) {
+                activityCategory = value!;
+              },
+
+              value: activityCategory,
+
+              // autovalidateMode: AutovalidateMode.onUserInteraction,
+              // validator: createGenericValidator<Category>('Category'),
+              decoration: const InputDecoration(
+                labelText: 'Category',
+              ),
+              items: [
+                for (var category in ActivityCategory.values)
+                  DropdownMenuItem(
+                    value: category,
+                    child: Text(category.name),
+                  ),
+              ],
             ),
             const SizedBox(
               height: 20.0,
@@ -90,6 +114,7 @@ class AddActivity extends ConsumerWidget {
                     ref.read(activitiesListController(trip)).add(
                         activityNameController.text,
                         activityDateController.text,
+                        activityCategory,
                         trip);
                     Navigator.of(context).pop();
                   }

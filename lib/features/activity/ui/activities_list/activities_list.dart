@@ -4,6 +4,7 @@ import 'package:my_trip_it/common/service/storage_service.dart';
 import 'package:my_trip_it/features/activity/data/activities_repository.dart';
 import 'package:my_trip_it/features/activity/ui/activities_list/activity_card.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
+import 'package:timelines/timelines.dart';
 
 class ActivitiesList extends ConsumerWidget {
   const ActivitiesList({Key? key, required this.trip}) : super(key: key);
@@ -22,36 +23,25 @@ class ActivitiesList extends ConsumerWidget {
             : Column(
                 children: [
                   Flexible(
-                    child: GridView.count(
-                      crossAxisCount:
-                          (orientation == Orientation.portrait) ? 2 : 3,
-                      mainAxisSpacing: 4,
-                      crossAxisSpacing: 4,
-                      padding: const EdgeInsets.all(4),
-                      childAspectRatio:
-                          (orientation == Orientation.portrait) ? 0.9 : 1.4,
-                      children: activities.map((activityData) {
-                        if (activityData!.trip.tripImageUrl != null) {
-                          return Consumer(builder: (context, ref, _) {
-                            final imageURL = ref.watch(imageUrlProvider(
-                                activityData.trip.tripImageUrl!));
-                            return imageURL.when(
-                              data: (String url) {
-                                return ActivityCard(
-                                    activity: activityData, imageURL: url);
-                              },
-                              error: (e, st) => const Center(
-                                child: Text('Error'),
-                              ),
-                              loading: () => const Center(
-                                child: CircularProgressIndicator(),
-                              ),
-                            );
-                          });
-                        } else {
-                          return ActivityCard(activity: activityData);
-                        }
-                      }).toList(),
+                    child: Timeline.tileBuilder(
+                      builder: TimelineTileBuilder.fromStyle(
+                        oppositeContentsBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 15.0),
+                            child: Image.asset(
+                              'images/amplify.png',
+                              fit: BoxFit.contain,
+                              width: 50.0,
+                            ),
+                          );
+                        },
+                        contentsAlign: ContentsAlign.alternating,
+                        contentsBuilder: (context, index) => Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Text(activities[index]!.activityName),
+                        ),
+                        itemCount: activities.length,
+                      ),
                     ),
                   ),
                 ],
