@@ -12,12 +12,12 @@ class ActivitiesList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Orientation orientation = MediaQuery.of(context).orientation;
-    final activitiesListValue = ref.watch(activitiesListStreamProvider);
+    final activitiesListValue = ref.watch(activitiesListStreamProvider(trip));
 
     return activitiesListValue.when(
         data: (activities) => activities.isEmpty
             ? const Center(
-                child: Text('No Trips'),
+                child: Text('No Activities'),
               )
             : Column(
                 children: [

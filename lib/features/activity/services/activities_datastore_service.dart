@@ -5,10 +5,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../models/ModelProvider.dart';
 
 class ActivitiesDataStoreService {
+  ActivitiesDataStoreService(this.trip);
+
+  final Trip trip;
+
   Stream<List<Activity>> stream() {
     //more desprictive e.g. listentotrips
     return Amplify.DataStore.observeQuery(
       Activity.classType,
+      where: Activity.TRIP.eq(trip.id),
       sortBy: [Activity.ACTIVITYDATE.ascending()],
     ).map((event) => event.items.toList()).handleError(
       (dynamic error) {
@@ -53,7 +58,7 @@ class ActivitiesDataStoreService {
 }
 
 final activitiesDataStoreServiceProvider =
-    Provider<ActivitiesDataStoreService>((ref) {
-  final service = ActivitiesDataStoreService();
+    Provider.family<ActivitiesDataStoreService, Trip>((ref, trip) {
+  final service = ActivitiesDataStoreService(trip);
   return service;
 });

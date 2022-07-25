@@ -4,8 +4,9 @@ import 'package:my_trip_it/features/activity/data/activities_repository.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
 
 class ActivitiesListController {
-  ActivitiesListController(this.ref);
+  ActivitiesListController(this.ref, this.trip);
   final Ref ref;
+  final Trip trip;
 
   Future<void> add(String name, String activityDate, Trip trip) async {
     Activity activity = Activity(
@@ -14,12 +15,13 @@ class ActivitiesListController {
       trip: trip,
     );
 
-    final activitesRepository = ref.read(activitiesRepositoryProvider);
+    final activitesRepository = ref.read(activitiesRepositoryProvider(trip));
 
     await activitesRepository.add(activity);
   }
 }
 
-final activitiesListController = Provider<ActivitiesListController>((ref) {
-  return ActivitiesListController(ref);
+final activitiesListController =
+    Provider.family<ActivitiesListController, Trip>((ref, trip) {
+  return ActivitiesListController(ref, trip);
 });

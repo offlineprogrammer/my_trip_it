@@ -87,7 +87,7 @@ class AddActivity extends ConsumerWidget {
                     return;
                   }
                   if (currentState.validate()) {
-                    ref.read(activitiesListController).add(
+                    ref.read(activitiesListController(trip)).add(
                         activityNameController.text,
                         activityDateController.text,
                         trip);

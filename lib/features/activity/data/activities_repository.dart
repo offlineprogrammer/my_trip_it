@@ -1,9 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_trip_it/features/activity/services/activities_datastore_service.dart';
 import 'package:my_trip_it/models/Activity.dart';
+import 'package:my_trip_it/models/ModelProvider.dart';
 
 class ActivitiesRepository {
-  ActivitiesRepository(this.activitiesDataStoreService);
+  ActivitiesRepository(this.activitiesDataStoreService, this.trip);
+
+  final Trip trip;
 
   final ActivitiesDataStoreService activitiesDataStoreService;
 
@@ -24,14 +27,15 @@ class ActivitiesRepository {
   }
 }
 
-final activitiesRepositoryProvider = Provider<ActivitiesRepository>((ref) {
+final activitiesRepositoryProvider =
+    Provider.family<ActivitiesRepository, Trip>((ref, trip) {
   ActivitiesDataStoreService activitiesDataStoreService =
-      ref.read(activitiesDataStoreServiceProvider);
-  return ActivitiesRepository(activitiesDataStoreService);
+      ref.read(activitiesDataStoreServiceProvider(trip));
+  return ActivitiesRepository(activitiesDataStoreService, trip);
 });
 
 final activitiesListStreamProvider =
-    StreamProvider.autoDispose<List<Activity?>>((ref) {
-  final activitiesRepository = ref.watch(activitiesRepositoryProvider);
+    StreamProvider.autoDispose.family<List<Activity?>, Trip>((ref, trip) {
+  final activitiesRepository = ref.watch(activitiesRepositoryProvider(trip));
   return activitiesRepository.getActivities();
 });
