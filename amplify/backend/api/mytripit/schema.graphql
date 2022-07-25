@@ -14,6 +14,8 @@ type Activity @model @auth(rules: [{allow: owner}]) {
   activityName: String!
   tripID: ID! @index(name: "byTrip", sortKeyFields: ["activityName"])
   trip: Trip! @belongsTo(fields: ["tripID"])
+    activityImageUrl: String
+  activityImageKey: String
   activityDate: AWSDateTime!
 }
 

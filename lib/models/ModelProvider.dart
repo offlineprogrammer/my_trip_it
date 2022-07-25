@@ -30,7 +30,7 @@ export 'Trip.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "ab7727e58404f665f80960821c69bc80";
+  String version = "e1f04f7d7da350396487f0c1c118fd72";
   @override
   List<ModelSchema> modelSchemas = [Activity.schema, Profile.schema, Trip.schema];
   static final ModelProvider _instance = ModelProvider();
