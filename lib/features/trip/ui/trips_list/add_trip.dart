@@ -122,20 +122,6 @@ class AddTrip extends HookConsumerWidget {
                 } else {}
               },
             ),
-            TextFormField(
-              controller: descriptionController,
-              autofocus: true,
-              autocorrect: false,
-              decoration: const InputDecoration(hintText: "Description"),
-              textInputAction: TextInputAction.done,
-              validator: (value) {
-                if (value != null && value.isNotEmpty) {
-                  return null;
-                } else {
-                  return 'Enter a valid description';
-                }
-              },
-            ),
             const SizedBox(
               height: 20,
             ),
