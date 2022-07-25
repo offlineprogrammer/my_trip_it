@@ -16,7 +16,6 @@ class AddTrip extends HookConsumerWidget {
     final destinationController = useTextEditingController();
     final startDateController = useTextEditingController();
     final endDateController = useTextEditingController();
-    final descriptionController = useTextEditingController();
 
     return Form(
       key: formGlobalKey,
