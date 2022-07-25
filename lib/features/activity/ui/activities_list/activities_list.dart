@@ -10,6 +10,35 @@ class ActivitiesList extends ConsumerWidget {
   const ActivitiesList({Key? key, required this.trip}) : super(key: key);
   final Trip trip;
 
+  Widget getActivityCategoryImage(ActivityCategory activityCategory) {
+    switch (activityCategory) {
+      case ActivityCategory.Flight:
+        return const Icon(
+          Icons.flight,
+          size: 50,
+        );
+
+      case ActivityCategory.Lodging:
+        return const Icon(
+          Icons.hotel,
+          size: 50,
+        );
+      case ActivityCategory.Meeting:
+        return const Icon(
+          Icons.computer,
+          size: 50,
+        );
+      case ActivityCategory.Restaurant:
+        return const Icon(
+          Icons.restaurant,
+          size: 50,
+        );
+      default:
+        ActivityCategory.Flight;
+    }
+    return const Icon(Icons.flight);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Orientation orientation = MediaQuery.of(context).orientation;
@@ -28,11 +57,8 @@ class ActivitiesList extends ConsumerWidget {
                         oppositeContentsBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 15.0),
-                            child: Image.asset(
-                              'images/amplify.png',
-                              fit: BoxFit.contain,
-                              width: 50.0,
-                            ),
+                            child: getActivityCategoryImage(
+                                activities[index]!.category),
                           );
                         },
                         contentsAlign: ContentsAlign.alternating,
