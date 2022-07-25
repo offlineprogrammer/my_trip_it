@@ -9,13 +9,15 @@ class ActivitiesDataStoreService {
 
   final Trip trip;
 
-  Stream<List<Activity>> stream() {
-    //more desprictive e.g. listentotrips
+  Stream<List<Activity>> listenToActivites() {
     return Amplify.DataStore.observeQuery(
       Activity.classType,
-      where: Activity.TRIP.eq(trip.id),
+      //where: Activity.TRIP.eq(trip.id), // DataStore bug??
       sortBy: [Activity.ACTIVITYDATE.ascending()],
-    ).map((event) => event.items.toList()).handleError(
+    )
+        .map((event) =>
+            event.items.where((element) => element.trip.id == trip.id).toList())
+        .handleError(
       (dynamic error) {
         debugPrint('Error in subscription stream: $error');
       },

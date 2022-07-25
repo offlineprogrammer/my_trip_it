@@ -4,8 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_trip_it/models/Trip.dart';
 
 class TripsDataStoreService {
-  Stream<List<Trip>> stream() {
-    //more desprictive e.g. listentotrips
+  Stream<List<Trip>> listenToTrips() {
     return Amplify.DataStore.observeQuery(
       Trip.classType,
       sortBy: [Trip.STARTDATE.ascending()],

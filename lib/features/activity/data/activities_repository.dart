@@ -11,7 +11,7 @@ class ActivitiesRepository {
   final ActivitiesDataStoreService activitiesDataStoreService;
 
   Stream<List<Activity>> getActivities() {
-    return activitiesDataStoreService.stream();
+    return activitiesDataStoreService.listenToActivites();
   }
 
   Future<void> add(Activity activity) async {

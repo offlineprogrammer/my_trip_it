@@ -9,7 +9,7 @@ class TripsRepository {
   final TripsDataStoreService tripsDataStoreService;
 
   Stream<List<Trip>> getTrips() {
-    return tripsDataStoreService.stream();
+    return tripsDataStoreService.listenToTrips();
   }
 
   Future<void> add(Trip trip) async {
