@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_trip_it/features/activity/services/activities_datastore_service.dart';
-import 'package:my_trip_it/models/Activity.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
 
 class ActivitiesRepository {

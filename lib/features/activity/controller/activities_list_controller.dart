@@ -1,5 +1,4 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_trip_it/features/activity/data/activities_repository.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
