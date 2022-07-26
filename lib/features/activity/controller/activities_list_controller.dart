@@ -4,7 +4,10 @@ import 'package:my_trip_it/features/activity/data/activities_repository.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
 
 class ActivitiesListController {
-  ActivitiesListController(this.ref, this.trip);
+  ActivitiesListController(
+    this.ref,
+    this.trip,
+  );
   final Ref ref;
   final Trip trip;
 

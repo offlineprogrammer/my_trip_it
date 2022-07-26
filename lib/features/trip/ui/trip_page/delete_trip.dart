@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class DeleteTrip extends StatelessWidget {
-  const DeleteTrip({Key? key}) : super(key: key);
+  const DeleteTrip({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

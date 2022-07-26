@@ -6,7 +6,10 @@ import 'package:my_trip_it/models/ModelProvider.dart';
 import 'package:timelines/timelines.dart';
 
 class ActivitiesList extends ConsumerWidget {
-  const ActivitiesList({Key? key, required this.trip}) : super(key: key);
+  const ActivitiesList({
+    required this.trip,
+    super.key,
+  });
   final Trip trip;
 
   @override

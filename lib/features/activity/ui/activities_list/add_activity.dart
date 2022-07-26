@@ -5,7 +5,10 @@ import 'package:my_trip_it/features/activity/controller/activities_list_controll
 import 'package:my_trip_it/models/ModelProvider.dart';
 
 class AddActivity extends ConsumerWidget {
-  AddActivity(this.trip, {Key? key}) : super(key: key);
+  AddActivity({
+    required this.trip,
+    super.key,
+  });
 
   final Trip trip;
 

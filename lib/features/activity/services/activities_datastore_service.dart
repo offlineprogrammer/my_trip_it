@@ -2,7 +2,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../models/ModelProvider.dart';
+import 'package:my_trip_it/models/ModelProvider.dart';
 
 class ActivitiesDataStoreService {
   ActivitiesDataStoreService(this.trip);

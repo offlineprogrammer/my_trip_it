@@ -15,7 +15,10 @@ import 'package:my_trip_it/features/trip/ui/trip_page/delete_trip.dart';
 import 'package:my_trip_it/common/ui/upload_progress_dialog.dart';
 
 class SelectedTripCard extends ConsumerWidget {
-  const SelectedTripCard({Key? key, required this.trip}) : super(key: key);
+  const SelectedTripCard({
+    required this.trip,
+    super.key,
+  });
 
   final Trip trip;
 

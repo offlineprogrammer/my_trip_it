@@ -6,7 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:my_trip_it/features/trip/controller/trips_list_controller.dart';
 
 class AddTrip extends HookConsumerWidget {
-  AddTrip({Key? key}) : super(key: key);
+  AddTrip({
+    super.key,
+  });
 
   final formGlobalKey = GlobalKey<FormState>();
 

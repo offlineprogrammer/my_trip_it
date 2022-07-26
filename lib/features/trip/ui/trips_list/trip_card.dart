@@ -8,8 +8,11 @@ import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
 import 'package:my_trip_it/models/Trip.dart';
 
 class TripCard extends StatelessWidget {
-  const TripCard({Key? key, required this.trip, this.imageURL})
-      : super(key: key);
+  const TripCard({
+    required this.trip,
+    this.imageURL,
+    super.key,
+  });
 
   final Trip trip;
   final String? imageURL;

@@ -9,7 +9,9 @@ import 'package:my_trip_it/features/trip/ui/trips_list/trip_card.dart';
 import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
 
 class TripsListPage extends HookConsumerWidget {
-  const TripsListPage({Key? key}) : super(key: key);
+  const TripsListPage({
+    super.key,
+  });
 
   void showAddTripDialog(BuildContext context) async {
     await showModalBottomSheet<void>(

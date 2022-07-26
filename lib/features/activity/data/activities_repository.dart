@@ -3,7 +3,10 @@ import 'package:my_trip_it/features/activity/services/activities_datastore_servi
 import 'package:my_trip_it/models/ModelProvider.dart';
 
 class ActivitiesRepository {
-  ActivitiesRepository(this.activitiesDataStoreService, this.trip);
+  ActivitiesRepository(
+    this.activitiesDataStoreService,
+    this.trip,
+  );
 
   final Trip trip;
 

@@ -11,7 +11,10 @@ import 'package:my_trip_it/features/trip/ui/trip_page/selected_trip_card.dart';
 import 'package:my_trip_it/models/Trip.dart';
 
 class TripPage extends ConsumerWidget {
-  const TripPage({Key? key, required this.tripId}) : super(key: key);
+  const TripPage({
+    required this.tripId,
+    super.key,
+  });
   final String tripId;
 
   void showAddActivityDialog(BuildContext context, Trip trip) async {
@@ -20,7 +23,7 @@ class TripPage extends ConsumerWidget {
       elevation: 5,
       context: context,
       builder: (BuildContext context) {
-        return AddActivity(trip);
+        return AddActivity(trip: trip);
       },
     );
   }

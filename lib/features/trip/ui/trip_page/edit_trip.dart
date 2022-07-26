@@ -9,7 +9,10 @@ import 'package:my_trip_it/features/trip/controller/trip_controller.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
 
 class EditTrip extends HookConsumerWidget {
-  EditTrip({Key? key, required this.trip}) : super(key: key);
+  EditTrip({
+    required this.trip,
+    super.key,
+  });
   final Trip trip;
 
   final formGlobalKey = GlobalKey<FormState>();

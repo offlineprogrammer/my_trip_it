@@ -3,8 +3,10 @@ import 'package:my_trip_it/models/ModelProvider.dart';
 import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
 
 class ActivityCategoryIcon extends StatelessWidget {
-  const ActivityCategoryIcon({Key? key, required this.activityCategory})
-      : super(key: key);
+  const ActivityCategoryIcon({
+    required this.activityCategory,
+    super.key,
+  });
   final ActivityCategory activityCategory;
 
   @override
