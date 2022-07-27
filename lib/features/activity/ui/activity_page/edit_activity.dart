@@ -1,24 +1,28 @@
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:my_trip_it/features/activity/controller/activities_list_controller.dart';
+import 'package:my_trip_it/features/activity/controller/activity_controller.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
 
-class AddActivity extends ConsumerWidget {
-  AddActivity({
-    required this.trip,
+class EditActivity extends ConsumerWidget {
+  EditActivity({
+    required this.activity,
     super.key,
   });
 
-  final Trip trip;
+  final Activity activity;
 
   final formGlobalKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final activityNameController = TextEditingController();
-    final activityDateController = TextEditingController();
-    var activityCategory = ActivityCategory.Flight;
+    final activityNameController =
+        TextEditingController(text: activity.activityName);
+    final activityDateController = TextEditingController(
+        text: DateFormat('MMMM dd, yyyy')
+            .format(activity.activityDate.getDateTimeInUtc()));
+    var activityCategory = activity.category;
 
     return Form(
       key: formGlobalKey,
@@ -110,11 +114,14 @@ class AddActivity extends ConsumerWidget {
                     return;
                   }
                   if (currentState.validate()) {
-                    ref.read(activitiesListController(trip)).add(
-                        activityNameController.text,
-                        activityDateController.text,
-                        activityCategory,
-                        trip);
+                    final updatedActivity = activity.copyWith(
+                      activityName: activityNameController.text,
+                      activityDate: TemporalDateTime(
+                          DateTime.parse(activityDateController.text)),
+                    );
+
+                    ref.read(activityControllerProvider).edit(updatedActivity);
+
                     Navigator.of(context).pop();
                   }
                 } //,

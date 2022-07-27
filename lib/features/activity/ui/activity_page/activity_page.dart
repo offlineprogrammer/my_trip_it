@@ -7,6 +7,7 @@ import 'package:my_trip_it/features/activity/controller/activity_controller.dart
 import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
 import 'package:my_trip_it/features/activity/ui/activity_category_icon.dart';
 import 'package:my_trip_it/features/activity/ui/activity_page/delete_activity.dart';
+import 'package:my_trip_it/features/activity/ui/activity_page/edit_activity.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
 
 class ActivityPage extends ConsumerWidget {
@@ -29,6 +30,19 @@ class ActivityPage extends ConsumerWidget {
     if (value) {
       await ref.read(activityControllerProvider).delete(activity);
     }
+  }
+
+  void editActivity(BuildContext context, Activity activity) async {
+    await showModalBottomSheet<void>(
+      isScrollControlled: true,
+      elevation: 5,
+      context: context,
+      builder: (BuildContext context) {
+        return EditActivity(
+          activity: activity,
+        );
+      },
+    );
   }
 
   @override
@@ -127,7 +141,9 @@ class ActivityPage extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        editActivity(context, activity);
+                      },
                       icon: const Icon(Icons.edit),
                     ),
                     IconButton(

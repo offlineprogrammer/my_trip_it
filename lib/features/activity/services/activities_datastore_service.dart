@@ -70,8 +70,11 @@ class ActivitiesDataStoreService {
 
       final oldActivity = activitiesWithId.first;
       final newActivity = oldActivity.copyWith(
-        id: oldActivity.id,
-      );
+          id: oldActivity.id,
+          activityName: updatedActivity.activityName,
+          activityDate: updatedActivity.activityDate,
+          activityImageKey: updatedActivity.activityImageKey,
+          activityImageUrl: updatedActivity.activityImageUrl);
 
       await Amplify.DataStore.save(newActivity);
     } on Exception catch (e) {
