@@ -6,6 +6,8 @@ import 'package:my_trip_it/common/navigation/router/routes.dart';
 import 'package:my_trip_it/features/activity/controller/activity_controller.dart';
 import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
 import 'package:my_trip_it/features/activity/ui/activity_category_icon.dart';
+import 'package:my_trip_it/features/activity/ui/activity_page/delete_activity.dart';
+import 'package:my_trip_it/models/ModelProvider.dart';
 
 class ActivityPage extends ConsumerWidget {
   const ActivityPage({
@@ -14,6 +16,20 @@ class ActivityPage extends ConsumerWidget {
   });
 
   final String activityId;
+
+  Future<void> deleteActivity(
+      BuildContext context, WidgetRef ref, Activity activity) async {
+    var value = await showDialog<bool>(
+        context: context,
+        builder: (BuildContext context) {
+          return const DeleteActivity();
+        });
+    value ??= false;
+
+    if (value) {
+      await ref.read(activityControllerProvider).delete(activity);
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -115,11 +131,14 @@ class ActivityPage extends ConsumerWidget {
                       icon: const Icon(Icons.edit),
                     ),
                     IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.camera_enhance_sharp),
-                    ),
-                    IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        deleteActivity(context, ref, activity).then(
+                          (value) => context.goNamed(
+                            AppRoute.trip.name,
+                            params: {'id': activity.trip.id},
+                          ),
+                        );
+                      },
                       icon: const Icon(Icons.delete),
                     ),
                   ],
