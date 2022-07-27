@@ -8,6 +8,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
+import 'package:my_trip_it/features/activity/ui/activity_page/activity_page.dart';
 
 import 'amplifyconfiguration.dart';
 import '/common/navigation/router/routes.dart';
@@ -79,11 +80,19 @@ class _MyAppState extends State<MyApp> {
                 _amplifyConfigured ? const TripsListPage() : _waitForAmplify(),
             routes: []),
         GoRoute(
-          path: '/trip/:id',
-          name: AppRoute.trip.name,
+            path: '/trip/:id',
+            name: AppRoute.trip.name,
+            builder: (context, state) {
+              final tripId = state.params['id']!;
+              return TripPage(tripId: tripId);
+            },
+            routes: []),
+        GoRoute(
+          path: '/activity/:id',
+          name: AppRoute.activity.name,
           builder: (context, state) {
-            final tripId = state.params['id']!;
-            return TripPage(tripId: tripId);
+            final activityId = state.params['id']!;
+            return ActivityPage(activityId: activityId);
           },
         ),
         GoRoute(

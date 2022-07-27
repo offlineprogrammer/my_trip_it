@@ -20,7 +20,7 @@ class ActivitiesListController {
       category: category,
     );
 
-    final activitesRepository = ref.read(activitiesRepositoryProvider(trip));
+    final activitesRepository = ref.read(activitiesRepositoryProvider);
 
     await activitesRepository.add(activity);
   }

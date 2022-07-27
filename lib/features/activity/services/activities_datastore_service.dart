@@ -5,23 +5,44 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
 
 class ActivitiesDataStoreService {
-  ActivitiesDataStoreService(this.trip);
+  ActivitiesDataStoreService();
 
-  final Trip trip;
-
-  Stream<List<Activity>> listenToActivites() {
+  Stream<List<Activity>> listenToActivites(String tripId) {
     return Amplify.DataStore.observeQuery(
       Activity.classType,
       //where: Activity.TRIP.eq(trip.id), // DataStore bug??
       sortBy: [Activity.ACTIVITYDATE.ascending()],
     )
         .map((event) =>
-            event.items.where((element) => element.trip.id == trip.id).toList())
+            event.items.where((element) => element.trip.id == tripId).toList())
         .handleError(
       (dynamic error) {
         debugPrint('Error in subscription stream: $error');
       },
     );
+  }
+
+  Stream<Activity> listenToActivity(String id) {
+    return Amplify.DataStore.observeQuery(
+      Activity.classType,
+      //where: Activity.TRIP.eq(trip.id), // DataStore bug??
+      sortBy: [Activity.ACTIVITYDATE.ascending()],
+    )
+        .map((event) => event.items.where((element) => element.id == id).first)
+        .handleError(
+      (dynamic error) {
+        debugPrint('Error in subscription stream: $error');
+      },
+    );
+  }
+
+  Future<Activity> getActivity(String id) async {
+    final activitiesWithId = await Amplify.DataStore.query(
+      Activity.classType,
+      where: Activity.ID.eq(id),
+    );
+
+    return activitiesWithId.first;
   }
 
   Future<void> addActivity(Activity activity) async {
@@ -60,7 +81,7 @@ class ActivitiesDataStoreService {
 }
 
 final activitiesDataStoreServiceProvider =
-    Provider.family<ActivitiesDataStoreService, Trip>((ref, trip) {
-  final service = ActivitiesDataStoreService(trip);
+    Provider<ActivitiesDataStoreService>((ref) {
+  final service = ActivitiesDataStoreService();
   return service;
 });
