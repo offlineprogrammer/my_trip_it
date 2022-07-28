@@ -22,6 +22,12 @@ class ActivityController {
     }
   }
 
+  Future<String> getFileUrl(Activity activity) async {
+    final fileKey = activity.activityImageKey;
+
+    return await ref.read(storageServiceProvider).getImageUrl(fileKey!);
+  }
+
   Future<Activity> getActivity(String id) {
     return ref.read(activitiesRepositoryProvider).getActivity(id);
   }

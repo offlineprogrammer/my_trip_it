@@ -4,6 +4,9 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'dart:io';
 
+import 'package:uuid/uuid.dart';
+import 'package:path/path.dart' as p;
+
 class StorageService {
   ValueNotifier<double> uploadProgress = ValueNotifier<double>(0);
   Future<String> getImageUrl(String key) async {
@@ -20,7 +23,8 @@ class StorageService {
 
   Future<String?> uploadFile(File file) async {
     try {
-      final key = DateTime.now().toString();
+      final extension = p.extension(file.path);
+      final key = const Uuid().v1() + extension;
       await Amplify.Storage.uploadFile(
           local: file,
           key: key,

@@ -51,5 +51,15 @@
 	<string>Some Description</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Some Description</string>
+	<key>UIBackgroundModes</key>
+	<array>
+   		<string>fetch</string>
+   		<string>remote-notification</string>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+  		<string>sms</string>
+  		<string>tel</string>
+	</array>
 </dict>
 </plist>

@@ -1,14 +1,19 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:my_trip_it/common/navigation/router/routes.dart';
+import 'package:my_trip_it/common/ui/upload_progress_dialog.dart';
 import 'package:my_trip_it/features/activity/controller/activity_controller.dart';
 import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
 import 'package:my_trip_it/features/activity/ui/activity_category_icon.dart';
 import 'package:my_trip_it/features/activity/ui/activity_page/delete_activity.dart';
 import 'package:my_trip_it/features/activity/ui/activity_page/edit_activity.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ActivityPage extends ConsumerWidget {
   const ActivityPage({
@@ -30,6 +35,44 @@ class ActivityPage extends ConsumerWidget {
     if (value) {
       await ref.read(activityControllerProvider).delete(activity);
     }
+  }
+
+  Future<void> openFile({
+    required BuildContext context,
+    required WidgetRef ref,
+    required Activity activity,
+  }) async {
+    final fileUrl =
+        await ref.read(activityControllerProvider).getFileUrl(activity);
+
+    final Uri url = Uri.parse(fileUrl);
+    await launchUrl(url);
+  }
+
+  Future<void> uploadFile({
+    required BuildContext context,
+    required WidgetRef ref,
+    required Activity activity,
+  }) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'pdf', 'doc'],
+    );
+
+    if (result == null) {
+      return;
+    }
+
+    PlatformFile platformFile = result.files.first;
+
+    final file = File(platformFile.path!);
+    showDialog<String>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return const UploadProgressDialog();
+        });
+    await ref.read(activityControllerProvider).uploadFile(file, activity);
   }
 
   void editActivity(BuildContext context, Activity activity) async {
@@ -121,15 +164,47 @@ class ActivityPage extends ConsumerWidget {
                 tileColor: Colors.grey,
               ),
               Card(
-                child: ListTile(
-                  leading: const Icon(Icons.add,
-                      size: 50,
-                      color: Color(constants.tripIt_colorPrimaryDarkValue)),
-                  title: Text(
-                    'Attach a PDF or photo',
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ),
+                child: activity.activityImageUrl != null
+                    ? ListTile(
+                        leading: IconButton(
+                          onPressed: () {
+                            openFile(
+                              context: context,
+                              ref: ref,
+                              activity: activity,
+                            );
+                          },
+                          icon: const Icon(Icons.file_open,
+                              size: 50,
+                              color: Color(
+                                  constants.tripIt_colorPrimaryDarkValue)),
+                        ),
+                        title: Text(
+                          'Open Documents',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      )
+                    : ListTile(
+                        leading: IconButton(
+                          onPressed: () {
+                            uploadFile(
+                              context: context,
+                              activity: activity,
+                              ref: ref,
+                            ).then((value) =>
+                                Navigator.of(context, rootNavigator: true)
+                                    .pop());
+                          },
+                          icon: const Icon(Icons.add,
+                              size: 50,
+                              color: Color(
+                                  constants.tripIt_colorPrimaryDarkValue)),
+                        ),
+                        title: Text(
+                          'Attach a PDF or photo',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ),
               ),
               const ListTile(
                 dense: true,
