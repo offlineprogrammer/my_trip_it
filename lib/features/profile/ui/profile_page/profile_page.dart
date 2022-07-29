@@ -14,7 +14,7 @@ class ProfilePage extends StatelessWidget {
           title: const Text(
             'Amplify TripIT',
           ),
-          backgroundColor: const Color(constants.tripIt_colorPrimaryDarkValue),
+          backgroundColor: const Color(constants.tripItcolorPrimaryDarkValue),
         ),
         drawer: const NavigationDrawer(),
         body: const Center(

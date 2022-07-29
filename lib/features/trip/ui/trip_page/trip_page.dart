@@ -47,7 +47,7 @@ class TripPage extends ConsumerWidget {
               icon: const Icon(Icons.home),
             ),
           ],
-          backgroundColor: const Color(constants.tripIt_colorPrimaryDarkValue),
+          backgroundColor: const Color(constants.tripItcolorPrimaryDarkValue),
         ),
         drawer: const NavigationDrawer(),
         floatingActionButton: Consumer(
@@ -59,7 +59,7 @@ class TripPage extends ConsumerWidget {
                   showAddActivityDialog(context, trip!);
                 },
                 backgroundColor:
-                    const Color(constants.tripIt_colorPrimaryDarkValue),
+                    const Color(constants.tripItcolorPrimaryDarkValue),
                 child: const Icon(Icons.add),
               ),
               error: (e, st) => const Placeholder(),

@@ -40,7 +40,7 @@ class TripCard extends StatelessWidget {
                 child: Container(
                   height: 500,
                   alignment: Alignment.center,
-                  color: const Color(constants.tripIt_colorPrimaryDarkValue),
+                  color: const Color(constants.tripItcolorPrimaryDarkValue),
                   child: Stack(
                     children: [
                       Positioned.fill(

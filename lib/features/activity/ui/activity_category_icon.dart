@@ -16,26 +16,26 @@ class ActivityCategoryIcon extends StatelessWidget {
         return const Icon(
           Icons.flight,
           size: 50,
-          color: Color(constants.tripIt_colorPrimaryDarkValue),
+          color: Color(constants.tripItcolorPrimaryDarkValue),
         );
 
       case ActivityCategory.Lodging:
         return const Icon(
           Icons.hotel,
           size: 50,
-          color: Color(constants.tripIt_colorPrimaryDarkValue),
+          color: Color(constants.tripItcolorPrimaryDarkValue),
         );
       case ActivityCategory.Meeting:
         return const Icon(
           Icons.computer,
           size: 50,
-          color: Color(constants.tripIt_colorPrimaryDarkValue),
+          color: Color(constants.tripItcolorPrimaryDarkValue),
         );
       case ActivityCategory.Restaurant:
         return const Icon(
           Icons.restaurant,
           size: 50,
-          color: Color(constants.tripIt_colorPrimaryDarkValue),
+          color: Color(constants.tripItcolorPrimaryDarkValue),
         );
       default:
         ActivityCategory.Flight;
@@ -43,7 +43,7 @@ class ActivityCategoryIcon extends StatelessWidget {
     return const Icon(
       Icons.flight,
       size: 50,
-      color: Color(constants.tripIt_colorPrimaryDarkValue),
+      color: Color(constants.tripItcolorPrimaryDarkValue),
     );
   }
 }

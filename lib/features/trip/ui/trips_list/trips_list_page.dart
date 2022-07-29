@@ -34,14 +34,14 @@ class TripsListPage extends HookConsumerWidget {
           title: const Text(
             'Amplify TripIT',
           ),
-          backgroundColor: const Color(constants.tripIt_colorPrimaryDarkValue),
+          backgroundColor: const Color(constants.tripItcolorPrimaryDarkValue),
         ),
         drawer: const NavigationDrawer(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             showAddTripDialog(context);
           },
-          backgroundColor: const Color(constants.tripIt_colorPrimaryDarkValue),
+          backgroundColor: const Color(constants.tripItcolorPrimaryDarkValue),
           child: const Icon(Icons.add),
         ),
         body: tripsListValue.when(

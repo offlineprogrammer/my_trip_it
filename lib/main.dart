@@ -115,7 +115,7 @@ class _MyAppState extends State<MyApp> {
         routerDelegate: router.routerDelegate,
         builder: Authenticator.builder(),
         theme: ThemeData(
-          primarySwatch: constants.tripIt_colorPrimary,
+          primarySwatch: constants.tripItcolorPrimary,
           backgroundColor: const Color(0xff82CFEA),
         ),
         scaffoldMessengerKey: scaffoldMessengerKey,

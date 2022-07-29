@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-const int tripIt_colorPrimaryValue = 0xFFFFCF44;
+const int tripItcolorPrimaryValue = 0xFFFFCF44;
 
-const Map<int, Color> tripIt_colorPrimarySwatch = {
+const Map<int, Color> tripItcolorPrimarySwatch = {
   50: Color.fromRGBO(255, 207, 68, .1),
   100: Color.fromRGBO(255, 207, 68, .2),
   200: Color.fromRGBO(255, 207, 68, .3),
@@ -15,10 +15,10 @@ const Map<int, Color> tripIt_colorPrimarySwatch = {
   900: Color.fromRGBO(255, 207, 68, 1),
 };
 
-const MaterialColor tripIt_colorPrimary =
-    MaterialColor(0xFFFFCF44, tripIt_colorPrimarySwatch);
+const MaterialColor tripItcolorPrimary =
+    MaterialColor(0xFFFFCF44, tripItcolorPrimarySwatch);
 
-const int tripIt_colorPrimaryDarkValue = 0xFFFD9725;
+const int tripItcolorPrimaryDarkValue = 0xFFFD9725;
 
 
 //color.dart util

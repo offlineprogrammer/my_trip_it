@@ -116,7 +116,7 @@ class ActivityPage extends ConsumerWidget {
               );
             },
           ),
-          backgroundColor: const Color(constants.tripIt_colorPrimaryDarkValue),
+          backgroundColor: const Color(constants.tripItcolorPrimaryDarkValue),
         ),
         body: activityValue.when(
           data: (activity) => ListView(

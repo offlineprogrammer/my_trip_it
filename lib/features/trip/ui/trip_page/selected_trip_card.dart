@@ -95,7 +95,7 @@ class SelectedTripCard extends ConsumerWidget {
           Container(
             alignment: Alignment.center,
             color: const Color(
-                constants.tripIt_colorPrimaryDarkValue), //Color(0xffE1E5E4),
+                constants.tripItcolorPrimaryDarkValue), //Color(0xffE1E5E4),
             height: 150,
 
             child: trip.tripImageUrl != null
