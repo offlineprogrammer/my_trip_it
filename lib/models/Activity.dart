@@ -33,7 +33,8 @@ class Activity extends Model {
   final Trip? _trip;
   final String? _activityImageUrl;
   final String? _activityImageKey;
-  final TemporalDateTime? _activityDate;
+  final TemporalDate? _activityDate;
+  final TemporalTime? _activityTime;
   final ActivityCategory? _category;
   final TemporalDateTime? _createdAt;
   final TemporalDateTime? _updatedAt;
@@ -80,7 +81,7 @@ class Activity extends Model {
     return _activityImageKey;
   }
   
-  TemporalDateTime get activityDate {
+  TemporalDate get activityDate {
     try {
       return _activityDate!;
     } catch(e) {
@@ -91,6 +92,10 @@ class Activity extends Model {
           underlyingException: e.toString()
           );
     }
+  }
+  
+  TemporalTime? get activityTime {
+    return _activityTime;
   }
   
   ActivityCategory get category {
@@ -114,9 +119,9 @@ class Activity extends Model {
     return _updatedAt;
   }
   
-  const Activity._internal({required this.id, required activityName, required trip, activityImageUrl, activityImageKey, required activityDate, required category, createdAt, updatedAt}): _activityName = activityName, _trip = trip, _activityImageUrl = activityImageUrl, _activityImageKey = activityImageKey, _activityDate = activityDate, _category = category, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Activity._internal({required this.id, required activityName, required trip, activityImageUrl, activityImageKey, required activityDate, activityTime, required category, createdAt, updatedAt}): _activityName = activityName, _trip = trip, _activityImageUrl = activityImageUrl, _activityImageKey = activityImageKey, _activityDate = activityDate, _activityTime = activityTime, _category = category, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Activity({String? id, required String activityName, required Trip trip, String? activityImageUrl, String? activityImageKey, required TemporalDateTime activityDate, required ActivityCategory category}) {
+  factory Activity({String? id, required String activityName, required Trip trip, String? activityImageUrl, String? activityImageKey, required TemporalDate activityDate, TemporalTime? activityTime, required ActivityCategory category}) {
     return Activity._internal(
       id: id == null ? UUID.getUUID() : id,
       activityName: activityName,
@@ -124,6 +129,7 @@ class Activity extends Model {
       activityImageUrl: activityImageUrl,
       activityImageKey: activityImageKey,
       activityDate: activityDate,
+      activityTime: activityTime,
       category: category);
   }
   
@@ -141,6 +147,7 @@ class Activity extends Model {
       _activityImageUrl == other._activityImageUrl &&
       _activityImageKey == other._activityImageKey &&
       _activityDate == other._activityDate &&
+      _activityTime == other._activityTime &&
       _category == other._category;
   }
   
@@ -158,6 +165,7 @@ class Activity extends Model {
     buffer.write("activityImageUrl=" + "$_activityImageUrl" + ", ");
     buffer.write("activityImageKey=" + "$_activityImageKey" + ", ");
     buffer.write("activityDate=" + (_activityDate != null ? _activityDate!.format() : "null") + ", ");
+    buffer.write("activityTime=" + (_activityTime != null ? _activityTime!.format() : "null") + ", ");
     buffer.write("category=" + (_category != null ? enumToString(_category)! : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
@@ -166,7 +174,7 @@ class Activity extends Model {
     return buffer.toString();
   }
   
-  Activity copyWith({String? id, String? activityName, Trip? trip, String? activityImageUrl, String? activityImageKey, TemporalDateTime? activityDate, ActivityCategory? category}) {
+  Activity copyWith({String? id, String? activityName, Trip? trip, String? activityImageUrl, String? activityImageKey, TemporalDate? activityDate, TemporalTime? activityTime, ActivityCategory? category}) {
     return Activity._internal(
       id: id ?? this.id,
       activityName: activityName ?? this.activityName,
@@ -174,6 +182,7 @@ class Activity extends Model {
       activityImageUrl: activityImageUrl ?? this.activityImageUrl,
       activityImageKey: activityImageKey ?? this.activityImageKey,
       activityDate: activityDate ?? this.activityDate,
+      activityTime: activityTime ?? this.activityTime,
       category: category ?? this.category);
   }
   
@@ -185,13 +194,14 @@ class Activity extends Model {
         : null,
       _activityImageUrl = json['activityImageUrl'],
       _activityImageKey = json['activityImageKey'],
-      _activityDate = json['activityDate'] != null ? TemporalDateTime.fromString(json['activityDate']) : null,
+      _activityDate = json['activityDate'] != null ? TemporalDate.fromString(json['activityDate']) : null,
+      _activityTime = json['activityTime'] != null ? TemporalTime.fromString(json['activityTime']) : null,
       _category = enumFromString<ActivityCategory>(json['category'], ActivityCategory.values),
       _createdAt = json['createdAt'] != null ? TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'activityName': _activityName, 'trip': _trip?.toJson(), 'activityImageUrl': _activityImageUrl, 'activityImageKey': _activityImageKey, 'activityDate': _activityDate?.format(), 'category': enumToString(_category), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'activityName': _activityName, 'trip': _trip?.toJson(), 'activityImageUrl': _activityImageUrl, 'activityImageKey': _activityImageKey, 'activityDate': _activityDate?.format(), 'activityTime': _activityTime?.format(), 'category': enumToString(_category), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
   static final QueryField ID = QueryField(fieldName: "activity.id");
@@ -202,6 +212,7 @@ class Activity extends Model {
   static final QueryField ACTIVITYIMAGEURL = QueryField(fieldName: "activityImageUrl");
   static final QueryField ACTIVITYIMAGEKEY = QueryField(fieldName: "activityImageKey");
   static final QueryField ACTIVITYDATE = QueryField(fieldName: "activityDate");
+  static final QueryField ACTIVITYTIME = QueryField(fieldName: "activityTime");
   static final QueryField CATEGORY = QueryField(fieldName: "category");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Activity";
@@ -251,7 +262,13 @@ class Activity extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: Activity.ACTIVITYDATE,
       isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+      ofType: ModelFieldType(ModelFieldTypeEnum.date)
+    ));
+    
+    modelSchemaDefinition.addField(ModelFieldDefinition.field(
+      key: Activity.ACTIVITYTIME,
+      isRequired: false,
+      ofType: ModelFieldType(ModelFieldTypeEnum.time)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(

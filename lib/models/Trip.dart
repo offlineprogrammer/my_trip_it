@@ -32,8 +32,8 @@ class Trip extends Model {
   final String id;
   final String? _tripName;
   final String? _destination;
-  final TemporalDateTime? _startDate;
-  final TemporalDateTime? _endDate;
+  final TemporalDate? _startDate;
+  final TemporalDate? _endDate;
   final String? _tripImageUrl;
   final String? _tripImageKey;
   final List<Activity>? _Activities;
@@ -74,7 +74,7 @@ class Trip extends Model {
     }
   }
   
-  TemporalDateTime get startDate {
+  TemporalDate get startDate {
     try {
       return _startDate!;
     } catch(e) {
@@ -87,7 +87,7 @@ class Trip extends Model {
     }
   }
   
-  TemporalDateTime get endDate {
+  TemporalDate get endDate {
     try {
       return _endDate!;
     } catch(e) {
@@ -122,7 +122,7 @@ class Trip extends Model {
   
   const Trip._internal({required this.id, required tripName, required destination, required startDate, required endDate, tripImageUrl, tripImageKey, Activities, createdAt, updatedAt}): _tripName = tripName, _destination = destination, _startDate = startDate, _endDate = endDate, _tripImageUrl = tripImageUrl, _tripImageKey = tripImageKey, _Activities = Activities, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Trip({String? id, required String tripName, required String destination, required TemporalDateTime startDate, required TemporalDateTime endDate, String? tripImageUrl, String? tripImageKey, List<Activity>? Activities}) {
+  factory Trip({String? id, required String tripName, required String destination, required TemporalDate startDate, required TemporalDate endDate, String? tripImageUrl, String? tripImageKey, List<Activity>? Activities}) {
     return Trip._internal(
       id: id == null ? UUID.getUUID() : id,
       tripName: tripName,
@@ -174,7 +174,7 @@ class Trip extends Model {
     return buffer.toString();
   }
   
-  Trip copyWith({String? id, String? tripName, String? destination, TemporalDateTime? startDate, TemporalDateTime? endDate, String? tripImageUrl, String? tripImageKey, List<Activity>? Activities}) {
+  Trip copyWith({String? id, String? tripName, String? destination, TemporalDate? startDate, TemporalDate? endDate, String? tripImageUrl, String? tripImageKey, List<Activity>? Activities}) {
     return Trip._internal(
       id: id ?? this.id,
       tripName: tripName ?? this.tripName,
@@ -190,8 +190,8 @@ class Trip extends Model {
     : id = json['id'],
       _tripName = json['tripName'],
       _destination = json['destination'],
-      _startDate = json['startDate'] != null ? TemporalDateTime.fromString(json['startDate']) : null,
-      _endDate = json['endDate'] != null ? TemporalDateTime.fromString(json['endDate']) : null,
+      _startDate = json['startDate'] != null ? TemporalDate.fromString(json['startDate']) : null,
+      _endDate = json['endDate'] != null ? TemporalDate.fromString(json['endDate']) : null,
       _tripImageUrl = json['tripImageUrl'],
       _tripImageKey = json['tripImageKey'],
       _Activities = json['Activities'] is List
@@ -252,13 +252,13 @@ class Trip extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: Trip.STARTDATE,
       isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+      ofType: ModelFieldType(ModelFieldTypeEnum.date)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: Trip.ENDDATE,
       isRequired: true,
-      ofType: ModelFieldType(ModelFieldTypeEnum.dateTime)
+      ofType: ModelFieldType(ModelFieldTypeEnum.date)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(

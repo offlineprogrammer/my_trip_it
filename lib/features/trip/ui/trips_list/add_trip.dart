@@ -109,18 +109,20 @@ class AddTrip extends HookConsumerWidget {
                 }
               },
               onTap: () async {
-                DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2101));
+                if (startDateController.text.isNotEmpty) {
+                  DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.parse(startDateController.text),
+                      firstDate: DateTime.parse(startDateController.text),
+                      lastDate: DateTime(2101));
 
-                if (pickedDate != null) {
-                  String formattedDate =
-                      DateFormat('yyyy-MM-dd').format(pickedDate);
+                  if (pickedDate != null) {
+                    String formattedDate =
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
 
-                  endDateController.text = formattedDate;
-                } else {}
+                    endDateController.text = formattedDate;
+                  }
+                }
               },
             ),
             const SizedBox(

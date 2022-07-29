@@ -147,7 +147,7 @@ class ActivityPage extends ConsumerWidget {
                 child: ListTile(
                   title: Text(
                     DateFormat('EE MMMM dd')
-                        .format(activity.activityDate.getDateTimeInUtc()),
+                        .format(activity.activityDate.getDateTime()),
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ),

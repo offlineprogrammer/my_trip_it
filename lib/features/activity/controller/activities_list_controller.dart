@@ -15,7 +15,7 @@ class ActivitiesListController {
       Trip trip) async {
     Activity activity = Activity(
       activityName: name,
-      activityDate: TemporalDateTime(DateTime.parse(activityDate)),
+      activityDate: TemporalDate(DateTime.parse(activityDate)),
       trip: trip,
       category: category,
     );

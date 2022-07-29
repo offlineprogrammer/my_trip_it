@@ -21,7 +21,7 @@ class EditActivity extends ConsumerWidget {
         TextEditingController(text: activity.activityName);
     final activityDateController = TextEditingController(
         text: DateFormat('MMMM dd, yyyy')
-            .format(activity.activityDate.getDateTimeInUtc()));
+            .format(activity.activityDate.getDateTime()));
     var activityCategory = activity.category;
 
     return Form(
@@ -116,8 +116,9 @@ class EditActivity extends ConsumerWidget {
                   if (currentState.validate()) {
                     final updatedActivity = activity.copyWith(
                       activityName: activityNameController.text,
-                      activityDate: TemporalDateTime(
+                      activityDate: TemporalDate(
                           DateTime.parse(activityDateController.text)),
+                      //activityTime: TemporalTime(DateTime)
                     );
 
                     ref.read(activityControllerProvider).edit(updatedActivity);

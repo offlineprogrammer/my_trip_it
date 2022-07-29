@@ -13,8 +13,8 @@ class TripsListController {
     Trip trip = Trip(
       tripName: name,
       destination: destination,
-      startDate: TemporalDateTime(DateTime.parse(startDate)),
-      endDate: TemporalDateTime(DateTime.parse(startDate)),
+      startDate: TemporalDate(DateTime.parse(startDate)),
+      endDate: TemporalDate(DateTime.parse(endDate)),
     );
 
     final tripsRepository = ref.read(tripsRepositoryProvider);

@@ -23,11 +23,9 @@ class EditTrip extends HookConsumerWidget {
     final destinationController =
         useTextEditingController(text: trip.destination);
     final startDateController = useTextEditingController(
-        text: DateFormat('MMMM dd, yyyy')
-            .format(trip.startDate.getDateTimeInUtc()));
+        text: DateFormat('yyyy-MM-dd').format(trip.startDate.getDateTime()));
     final endDateController = useTextEditingController(
-        text: DateFormat('MMMM dd, yyyy')
-            .format(trip.endDate.getDateTimeInUtc()));
+        text: DateFormat('yyyy-MM-dd').format(trip.endDate.getDateTime()));
 
     return Form(
       key: formGlobalKey,
@@ -123,18 +121,20 @@ class EditTrip extends HookConsumerWidget {
                 }
               },
               onTap: () async {
-                DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2101));
+                if (startDateController.text.isNotEmpty) {
+                  DateTime? pickedDate = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.parse(startDateController.text),
+                      firstDate: DateTime.parse(startDateController.text),
+                      lastDate: DateTime(2101));
 
-                if (pickedDate != null) {
-                  String formattedDate =
-                      DateFormat('yyyy-MM-dd').format(pickedDate);
+                  if (pickedDate != null) {
+                    String formattedDate =
+                        DateFormat('yyyy-MM-dd').format(pickedDate);
 
-                  endDateController.text = formattedDate;
-                } else {}
+                    endDateController.text = formattedDate;
+                  }
+                }
               },
             ),
             const SizedBox(
@@ -151,10 +151,10 @@ class EditTrip extends HookConsumerWidget {
                     final updatedTrip = trip.copyWith(
                       tripName: tripNameController.text,
                       destination: destinationController.text,
-                      startDate: TemporalDateTime(
+                      startDate: TemporalDate(
                           DateTime.parse(startDateController.text)),
-                      endDate: TemporalDateTime(
-                          DateTime.parse(endDateController.text)),
+                      endDate:
+                          TemporalDate(DateTime.parse(endDateController.text)),
                     );
                     ref.read(tripControllerProvider).edit(updatedTrip);
                     Navigator.of(context).pop();

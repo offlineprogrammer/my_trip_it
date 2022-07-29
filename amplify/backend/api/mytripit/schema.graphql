@@ -2,8 +2,8 @@ type Trip @model @auth(rules: [{allow: owner}]) {
   id: ID!
   tripName: String!
   destination: String!
-  startDate: AWSDateTime!
-  endDate: AWSDateTime!
+  startDate: AWSDate!
+  endDate: AWSDate!
   tripImageUrl: String
   tripImageKey: String
   Activities: [Activity] @hasMany(indexName: "byTrip", fields: ["id"])
@@ -16,7 +16,8 @@ type Activity @model @auth(rules: [{allow: owner}]) {
   trip: Trip! @belongsTo(fields: ["tripID"])
     activityImageUrl: String
   activityImageKey: String
-  activityDate: AWSDateTime!
+  activityDate: AWSDate!
+  activityTime: AWSTime
     category: ActivityCategory!
 }
 

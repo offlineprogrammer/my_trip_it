@@ -18,6 +18,7 @@ class ActivitiesDataStoreService {
         .handleError(
       (dynamic error) {
         debugPrint('Error in subscription stream: $error');
+        return error;
       },
     );
   }
