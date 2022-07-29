@@ -56,7 +56,7 @@ class ActivityPage extends ConsumerWidget {
   }) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'pdf', 'doc'],
+      allowedExtensions: ['jpg', 'pdf', 'png'],
     );
 
     if (result == null) {
@@ -165,27 +165,44 @@ class ActivityPage extends ConsumerWidget {
               ),
               Card(
                 child: activity.activityImageUrl != null
-                    ? ListTile(
-                        leading: IconButton(
-                          onPressed: () {
-                            openFile(
-                              context: context,
-                              ref: ref,
-                              activity: activity,
-                            );
-                          },
-                          icon: const Icon(Icons.file_open,
-                              size: 50,
-                              color: Color(
-                                  constants.tripIt_colorPrimaryDarkValue)),
-                        ),
-                        title: Text(
-                          'Open Documents',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              textStyle: const TextStyle(fontSize: 20),
+                            ),
+                            onPressed: () {
+                              openFile(
+                                context: context,
+                                ref: ref,
+                                activity: activity,
+                              );
+                            },
+                            child: const Text('Open'),
+                          ),
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              textStyle: const TextStyle(fontSize: 20),
+                            ),
+                            onPressed: () {
+                              uploadFile(
+                                context: context,
+                                activity: activity,
+                                ref: ref,
+                              ).then((value) =>
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop());
+                            },
+                            child: const Text('Replace'),
+                          ),
+                        ],
                       )
                     : ListTile(
-                        leading: IconButton(
+                        title: TextButton(
+                          style: TextButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 20),
+                          ),
                           onPressed: () {
                             uploadFile(
                               context: context,
@@ -195,14 +212,7 @@ class ActivityPage extends ConsumerWidget {
                                 Navigator.of(context, rootNavigator: true)
                                     .pop());
                           },
-                          icon: const Icon(Icons.add,
-                              size: 50,
-                              color: Color(
-                                  constants.tripIt_colorPrimaryDarkValue)),
-                        ),
-                        title: Text(
-                          'Attach a PDF or photo',
-                          style: Theme.of(context).textTheme.titleMedium,
+                          child: const Text('Attach a PDF or photo'),
                         ),
                       ),
               ),
@@ -215,13 +225,19 @@ class ActivityPage extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    IconButton(
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: const TextStyle(fontSize: 20),
+                      ),
                       onPressed: () {
                         editActivity(context, activity);
                       },
-                      icon: const Icon(Icons.edit),
+                      child: const Text('Edit'),
                     ),
-                    IconButton(
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        textStyle: const TextStyle(fontSize: 20),
+                      ),
                       onPressed: () {
                         deleteActivity(context, ref, activity).then(
                           (value) => context.goNamed(
@@ -230,7 +246,7 @@ class ActivityPage extends ConsumerWidget {
                           ),
                         );
                       },
-                      icon: const Icon(Icons.delete),
+                      child: const Text('Delete'),
                     ),
                   ],
                 ),
