@@ -61,10 +61,10 @@ class TripsListPage extends HookConsumerWidget {
                           childAspectRatio:
                               (orientation == Orientation.portrait) ? 0.9 : 1.4,
                           children: trips.map((tripData) {
-                            if (tripData!.tripImageUrl != null) {
+                            if (tripData!.tripImageKey != null) {
                               return Consumer(builder: (context, ref, _) {
                                 final imageURL = ref.watch(
-                                    imageUrlProvider(tripData.tripImageUrl!));
+                                    imageUrlProvider(tripData.tripImageKey!));
                                 return imageURL.when(
                                   data: (String url) {
                                     return TripCard(
