@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:my_trip_it/common/navigation/router/routes.dart';
 import 'package:my_trip_it/common/ui/upload_progress_dialog.dart';
 import 'package:my_trip_it/features/activity/controller/activity_controller.dart';
-import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
+import 'package:my_trip_it/common/utils/colors.dart' as constants;
 import 'package:my_trip_it/features/activity/ui/activity_category_icon.dart';
 import 'package:my_trip_it/features/activity/ui/activity_page/delete_activity.dart';
 import 'package:my_trip_it/features/activity/ui/activity_page/edit_activity.dart';
@@ -116,7 +116,7 @@ class ActivityPage extends ConsumerWidget {
               );
             },
           ),
-          backgroundColor: const Color(constants.tripItcolorPrimaryDarkValue),
+          backgroundColor: const Color(constants.primaryColorDark),
         ),
         body: activityValue.when(
           data: (activity) => ListView(

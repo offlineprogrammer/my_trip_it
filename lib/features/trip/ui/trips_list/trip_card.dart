@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import 'package:my_trip_it/common/navigation/router/routes.dart';
-import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
+import 'package:my_trip_it/common/utils/colors.dart' as constants;
 import 'package:my_trip_it/models/Trip.dart';
 
 class TripCard extends StatelessWidget {
@@ -40,7 +40,7 @@ class TripCard extends StatelessWidget {
                 child: Container(
                   height: 500,
                   alignment: Alignment.center,
-                  color: const Color(constants.tripItcolorPrimaryDarkValue),
+                  color: const Color(constants.primaryColorDark),
                   child: Stack(
                     children: [
                       Positioned.fill(

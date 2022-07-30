@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import './router/routes.dart';
-import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
+import '../router/routes.dart';
+import 'package:my_trip_it/common/utils/colors.dart' as constants;
 
 class NavigationDrawer extends StatelessWidget {
   const NavigationDrawer({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class NavigationDrawer extends StatelessWidget {
         children: [
           DrawerHeader(
             decoration: const BoxDecoration(
-              color: Color(constants.tripItcolorPrimaryDarkValue),
+              color: Color(constants.primaryColorDark),
             ),
             padding: const EdgeInsets.all(16.0),
             child: Column(

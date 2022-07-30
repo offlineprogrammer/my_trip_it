@@ -9,7 +9,7 @@ class TripsDataStoreService {
       Trip.classType,
       sortBy: [Trip.STARTDATE.ascending()],
     ).map((event) => event.items.toList()).handleError(
-      (dynamic error) {
+      (error) {
         debugPrint('Error in subscription stream: $error');
       },
     );

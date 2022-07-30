@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:my_trip_it/common/navigation/navigation_drawer.dart';
+import 'package:my_trip_it/common/navigation/ui/navigation_drawer.dart';
 import 'package:my_trip_it/common/service/storage_service.dart';
 import 'package:my_trip_it/features/trip/data/trips_repository.dart';
 import 'package:my_trip_it/features/trip/ui/trips_list/add_trip.dart';
 import 'package:my_trip_it/features/trip/ui/trips_list/trip_card.dart';
-import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
+import 'package:my_trip_it/common/utils/colors.dart' as constants;
 
 class TripsListPage extends HookConsumerWidget {
   const TripsListPage({
@@ -34,14 +34,14 @@ class TripsListPage extends HookConsumerWidget {
           title: const Text(
             'Amplify TripIT',
           ),
-          backgroundColor: const Color(constants.tripItcolorPrimaryDarkValue),
+          backgroundColor: const Color(constants.primaryColorDark),
         ),
         drawer: const NavigationDrawer(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             showAddTripDialog(context);
           },
-          backgroundColor: const Color(constants.tripItcolorPrimaryDarkValue),
+          backgroundColor: const Color(constants.primaryColorDark),
           child: const Icon(Icons.add),
         ),
         body: tripsListValue.when(

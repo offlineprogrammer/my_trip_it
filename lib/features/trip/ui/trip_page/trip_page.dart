@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_trip_it/common/navigation/navigation_drawer.dart';
+import 'package:my_trip_it/common/navigation/ui/navigation_drawer.dart';
 import 'package:my_trip_it/common/navigation/router/routes.dart';
 import 'package:my_trip_it/features/activity/ui/activities_list/activities_list.dart';
 import 'package:my_trip_it/features/activity/ui/activities_list/add_activity.dart';
 import 'package:my_trip_it/features/trip/data/trips_repository.dart';
-import 'package:my_trip_it/common/utils/app_constants.dart' as constants;
+import 'package:my_trip_it/common/utils/colors.dart' as constants;
 import 'package:my_trip_it/features/trip/ui/trip_page/selected_trip_card.dart';
 import 'package:my_trip_it/models/Trip.dart';
 
@@ -47,7 +47,7 @@ class TripPage extends ConsumerWidget {
               icon: const Icon(Icons.home),
             ),
           ],
-          backgroundColor: const Color(constants.tripItcolorPrimaryDarkValue),
+          backgroundColor: const Color(constants.primaryColorDark),
         ),
         drawer: const NavigationDrawer(),
         floatingActionButton: Consumer(
@@ -58,8 +58,7 @@ class TripPage extends ConsumerWidget {
                 onPressed: () {
                   showAddActivityDialog(context, trip!);
                 },
-                backgroundColor:
-                    const Color(constants.tripItcolorPrimaryDarkValue),
+                backgroundColor: const Color(constants.primaryColorDark),
                 child: const Icon(Icons.add),
               ),
               error: (e, st) => const Placeholder(),

@@ -18,7 +18,9 @@ class AddActivity extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final activityNameController = TextEditingController();
     final activityDateController = TextEditingController();
+    final activityTimeController = TextEditingController();
     var activityCategory = ActivityCategory.Flight;
+    var activityTime = TimeOfDay.now();
 
     return Form(
       key: formGlobalKey,
@@ -50,7 +52,7 @@ class AddActivity extends ConsumerWidget {
               textInputAction: TextInputAction.next,
             ),
             const SizedBox(
-              height: 20.0,
+              height: 20,
             ),
             DropdownButtonFormField<ActivityCategory>(
               onChanged: (value) {
@@ -69,7 +71,7 @@ class AddActivity extends ConsumerWidget {
               ],
             ),
             const SizedBox(
-              height: 20.0,
+              height: 20,
             ),
             TextFormField(
               keyboardType: TextInputType.datetime,
@@ -87,16 +89,48 @@ class AddActivity extends ConsumerWidget {
               },
               onTap: () async {
                 DateTime? pickedDate = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime(2101));
+                  context: context,
+                  initialDate: DateTime.parse(trip.startDate.toString()),
+                  firstDate: DateTime.parse(trip.startDate.toString()),
+                  lastDate: DateTime.parse(trip.endDate.toString()),
+                );
 
                 if (pickedDate != null) {
                   String formattedDate =
                       DateFormat('yyyy-MM-dd').format(pickedDate);
                   activityDateController.text = formattedDate;
                 } else {}
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            TextFormField(
+              controller: activityTimeController,
+              decoration: const InputDecoration(hintText: "Activity Time"),
+              validator: (value) {
+                if (value != null && value.isNotEmpty) {
+                  return null;
+                } else {
+                  return 'Enter a valid date';
+                }
+              },
+              onTap: () async {
+                final TimeOfDay? timeOfDay = await showTimePicker(
+                  context: context,
+                  initialTime: TimeOfDay.now(),
+                  initialEntryMode: TimePickerEntryMode.dial,
+                );
+
+                if (timeOfDay != null) {
+                  final localizations = MaterialLocalizations.of(context);
+                  final formattedTimeOfDay =
+                      localizations.formatTimeOfDay(timeOfDay);
+
+                  activityTimeController.text = formattedTimeOfDay; //
+                  '${timeOfDay.hour}:${timeOfDay.minute}';
+                  activityTime = timeOfDay;
+                }
               },
             ),
             const SizedBox(
@@ -113,6 +147,7 @@ class AddActivity extends ConsumerWidget {
                     ref.read(activitiesListController(trip)).add(
                         activityNameController.text,
                         activityDateController.text,
+                        activityTime,
                         activityCategory,
                         trip);
                     Navigator.of(context).pop();

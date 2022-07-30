@@ -17,7 +17,7 @@ import 'features/trip/ui/trip_page/trip_page.dart';
 import 'features/trip/ui/trips_list/trips_list_page.dart';
 import 'models/ModelProvider.dart';
 
-import 'common/utils/app_constants.dart' as constants;
+import 'common/utils/colors.dart' as constants;
 
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
@@ -115,7 +115,7 @@ class _MyAppState extends State<MyApp> {
         routerDelegate: router.routerDelegate,
         builder: Authenticator.builder(),
         theme: ThemeData(
-          primarySwatch: constants.tripItcolorPrimary,
+          primarySwatch: constants.primaryColor,
           backgroundColor: const Color(0xff82CFEA),
         ),
         scaffoldMessengerKey: scaffoldMessengerKey,
