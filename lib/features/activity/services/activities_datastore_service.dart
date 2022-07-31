@@ -4,6 +4,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:my_trip_it/models/ModelProvider.dart';
 
+final activitiesDataStoreServiceProvider =
+    Provider<ActivitiesDataStoreService>((ref) {
+  final service = ActivitiesDataStoreService();
+  return service;
+});
+
 class ActivitiesDataStoreService {
   ActivitiesDataStoreService();
 
@@ -88,9 +94,3 @@ class ActivitiesDataStoreService {
     }
   }
 }
-
-final activitiesDataStoreServiceProvider =
-    Provider<ActivitiesDataStoreService>((ref) {
-  final service = ActivitiesDataStoreService();
-  return service;
-});

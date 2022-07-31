@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../common/navigation/ui/navigation_drawer.dart';
+import '../../../../common/ui/navigation_drawer.dart';
 import '../../../../common/utils/colors.dart' as constants;
 
 class ProfilePage extends StatelessWidget {

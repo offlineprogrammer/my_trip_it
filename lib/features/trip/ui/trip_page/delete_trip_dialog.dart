@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DeleteTrip extends StatelessWidget {
-  const DeleteTrip({
+class DeleteTripDialog extends StatelessWidget {
+  const DeleteTripDialog({
     super.key,
   });
 

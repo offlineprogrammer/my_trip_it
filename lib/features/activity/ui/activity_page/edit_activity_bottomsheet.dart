@@ -1,26 +1,33 @@
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:my_trip_it/features/activity/controller/activities_list_controller.dart';
+import 'package:my_trip_it/features/activity/controller/activity_controller.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
 
-class AddActivity extends ConsumerWidget {
-  AddActivity({
-    required this.trip,
+class EditActivityBottomSheet extends ConsumerWidget {
+  EditActivityBottomSheet({
+    required this.activity,
     super.key,
   });
 
-  final Trip trip;
+  final Activity activity;
 
   final formGlobalKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final activityNameController = TextEditingController();
-    final activityDateController = TextEditingController();
-    final activityTimeController = TextEditingController();
-    var activityCategory = ActivityCategory.Flight;
-    var activityTime = TimeOfDay.now();
+    final activityNameController =
+        TextEditingController(text: activity.activityName);
+    final activityDateController = TextEditingController(
+        text: DateFormat('yyyy-MM-dd')
+            .format(activity.activityDate.getDateTime()));
+    var activityCategory = activity.category;
+    var activityTime =
+        TimeOfDay.fromDateTime(activity.activityTime!.getDateTime());
+    final activityTimeController = TextEditingController(
+        text:
+            DateFormat('hh:mm a').format(activity.activityTime!.getDateTime()));
 
     return Form(
       key: formGlobalKey,
@@ -89,11 +96,10 @@ class AddActivity extends ConsumerWidget {
               },
               onTap: () async {
                 DateTime? pickedDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.parse(trip.startDate.toString()),
-                  firstDate: DateTime.parse(trip.startDate.toString()),
-                  lastDate: DateTime.parse(trip.endDate.toString()),
-                );
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(2000),
+                    lastDate: DateTime(2101));
 
                 if (pickedDate != null) {
                   String formattedDate =
@@ -118,7 +124,7 @@ class AddActivity extends ConsumerWidget {
               onTap: () async {
                 final TimeOfDay? timeOfDay = await showTimePicker(
                   context: context,
-                  initialTime: TimeOfDay.now(),
+                  initialTime: activityTime,
                   initialEntryMode: TimePickerEntryMode.dial,
                 );
 
@@ -127,8 +133,8 @@ class AddActivity extends ConsumerWidget {
                   final formattedTimeOfDay =
                       localizations.formatTimeOfDay(timeOfDay);
 
-                  activityTimeController.text = formattedTimeOfDay; //
-                  '${timeOfDay.hour}:${timeOfDay.minute}';
+                  activityTimeController.text =
+                      formattedTimeOfDay; //                  '${timeOfDay.hour}:${timeOfDay.minute}';
                   activityTime = timeOfDay;
                 }
               },
@@ -144,12 +150,21 @@ class AddActivity extends ConsumerWidget {
                     return;
                   }
                   if (currentState.validate()) {
-                    ref.read(activitiesListController(trip)).add(
-                        activityNameController.text,
-                        activityDateController.text,
-                        activityTime,
-                        activityCategory,
-                        trip);
+                    final now = DateTime.now();
+                    final time = DateTime(now.year, now.month, now.day,
+                        activityTime.hour, activityTime.minute);
+                    final format = DateFormat("HH:mm:ss.sss");
+
+                    final updatedActivity = activity.copyWith(
+                        category: activityCategory,
+                        activityName: activityNameController.text,
+                        activityDate: TemporalDate(
+                            DateTime.parse(activityDateController.text)),
+                        activityTime:
+                            TemporalTime.fromString(format.format(time)));
+
+                    ref.read(activityControllerProvider).edit(updatedActivity);
+
                     Navigator.of(context).pop();
                   }
                 } //,

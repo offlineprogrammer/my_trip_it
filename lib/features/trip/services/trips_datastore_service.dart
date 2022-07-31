@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_trip_it/models/Trip.dart';
 
+final tripsDataStoreServiceProvider = Provider<TripsDataStoreService>((ref) {
+  final service = TripsDataStoreService();
+  return service;
+});
+
 class TripsDataStoreService {
   Stream<List<Trip>> listenToTrips() {
     return Amplify.DataStore.observeQuery(
@@ -63,8 +68,3 @@ class TripsDataStoreService {
     }
   }
 }
-
-final tripsDataStoreServiceProvider = Provider<TripsDataStoreService>((ref) {
-  final service = TripsDataStoreService();
-  return service;
-});

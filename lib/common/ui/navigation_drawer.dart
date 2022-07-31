@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../router/routes.dart';
+import '../navigation/router/routes.dart';
 import 'package:my_trip_it/common/utils/colors.dart' as constants;
 
 class NavigationDrawer extends StatelessWidget {

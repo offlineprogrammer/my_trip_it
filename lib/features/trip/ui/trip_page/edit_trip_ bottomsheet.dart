@@ -1,23 +1,31 @@
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:intl/intl.dart';
+import 'package:my_trip_it/features/trip/controller/trip_controller.dart';
 
-import 'package:my_trip_it/features/trip/controller/trips_list_controller.dart';
+import 'package:my_trip_it/models/ModelProvider.dart';
 
-class AddTrip extends HookConsumerWidget {
-  AddTrip({
+class EditTripBottomSheet extends HookConsumerWidget {
+  EditTripBottomSheet({
+    required this.trip,
     super.key,
   });
+  final Trip trip;
 
   final formGlobalKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tripNameController = useTextEditingController();
-    final destinationController = useTextEditingController();
-    final startDateController = useTextEditingController();
-    final endDateController = useTextEditingController();
+    final tripNameController = useTextEditingController(text: trip.tripName);
+    final destinationController =
+        useTextEditingController(text: trip.destination);
+    final startDateController = useTextEditingController(
+        text: DateFormat('yyyy-MM-dd').format(trip.startDate.getDateTime()));
+    final endDateController = useTextEditingController(
+        text: DateFormat('yyyy-MM-dd').format(trip.endDate.getDateTime()));
 
     return Form(
       key: formGlobalKey,
@@ -33,6 +41,7 @@ class AddTrip extends HookConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
+              //initialValue: trip.tripName,
               controller: tripNameController,
               keyboardType: TextInputType.name,
               validator: (value) {
@@ -52,6 +61,7 @@ class AddTrip extends HookConsumerWidget {
               height: 20,
             ),
             TextFormField(
+              //initialValue: trip.destination,
               keyboardType: TextInputType.name,
               controller: destinationController,
               autofocus: true,
@@ -67,6 +77,7 @@ class AddTrip extends HookConsumerWidget {
               },
             ),
             TextFormField(
+              // initialValue: trip.startDate.toString(),
               keyboardType: TextInputType.datetime,
               controller: startDateController,
               autofocus: true,
@@ -95,6 +106,7 @@ class AddTrip extends HookConsumerWidget {
               },
             ),
             TextFormField(
+              //  initialValue: trip.endDate.toString(),
               keyboardType: TextInputType.datetime,
               controller: endDateController,
               autofocus: true,
@@ -136,11 +148,15 @@ class AddTrip extends HookConsumerWidget {
                     return;
                   }
                   if (currentState.validate()) {
-                    ref.read(tripsListControllerProvider).add(
-                        tripNameController.text,
-                        destinationController.text,
-                        startDateController.text,
-                        endDateController.text);
+                    final updatedTrip = trip.copyWith(
+                      tripName: tripNameController.text,
+                      destination: destinationController.text,
+                      startDate: TemporalDate(
+                          DateTime.parse(startDateController.text)),
+                      endDate:
+                          TemporalDate(DateTime.parse(endDateController.text)),
+                    );
+                    ref.read(tripControllerProvider).edit(updatedTrip);
                     Navigator.of(context).pop();
                   }
                 } //,

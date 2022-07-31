@@ -4,12 +4,20 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
 import 'package:my_trip_it/features/trip/data/trips_repository.dart';
 
+final tripsListControllerProvider = Provider<TripsListController>((ref) {
+  return TripsListController(ref);
+});
+
 class TripsListController {
   TripsListController(this.ref);
   final Ref ref;
 
-  Future<void> add(
-      String name, String destination, String startDate, String endDate) async {
+  Future<void> add({
+    required String name,
+    required String destination,
+    required String startDate,
+    required String endDate,
+  }) async {
     Trip trip = Trip(
       tripName: name,
       destination: destination,
@@ -22,7 +30,3 @@ class TripsListController {
     await tripsRepository.add(trip);
   }
 }
-
-final tripsListControllerProvider = Provider<TripsListController>((ref) {
-  return TripsListController(ref);
-});

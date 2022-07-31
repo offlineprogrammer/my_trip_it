@@ -7,6 +7,10 @@ import 'package:my_trip_it/common/service/storage_service.dart';
 import 'package:my_trip_it/models/Trip.dart';
 import 'package:my_trip_it/features/trip/data/trips_repository.dart';
 
+final tripControllerProvider = Provider<TripController>((ref) {
+  return TripController(ref);
+});
+
 class TripController {
   TripController(this.ref);
   final Ref ref;
@@ -37,7 +41,3 @@ class TripController {
     await tripsRepository.delete(deletedTrip);
   }
 }
-
-final tripControllerProvider = Provider<TripController>((ref) {
-  return TripController(ref);
-});

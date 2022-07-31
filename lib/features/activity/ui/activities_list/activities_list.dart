@@ -58,6 +58,7 @@ class ActivitiesList extends ConsumerWidget {
                                   activities[index]!.activityName,
                                   style:
                                       Theme.of(context).textTheme.titleMedium,
+                                  textAlign: TextAlign.center,
                                 ),
                                 const SizedBox(
                                   height: 5,

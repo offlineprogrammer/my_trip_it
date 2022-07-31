@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:my_trip_it/common/navigation/ui/navigation_drawer.dart';
+import 'package:my_trip_it/common/ui/navigation_drawer.dart';
 import 'package:my_trip_it/common/service/storage_service.dart';
 import 'package:my_trip_it/features/trip/data/trips_repository.dart';
-import 'package:my_trip_it/features/trip/ui/trips_list/add_trip.dart';
+import 'package:my_trip_it/features/trip/ui/trips_list/add_trip_bottomsheet.dart';
 import 'package:my_trip_it/features/trip/ui/trips_list/trip_card.dart';
 import 'package:my_trip_it/common/utils/colors.dart' as constants;
 
@@ -19,7 +19,7 @@ class TripsListPage extends HookConsumerWidget {
       elevation: 5,
       context: context,
       builder: (BuildContext context) {
-        return AddTrip();
+        return AddTripBottomSheet();
       },
     );
   }

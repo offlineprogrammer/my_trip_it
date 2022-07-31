@@ -6,6 +6,16 @@ import 'package:my_trip_it/common/service/storage_service.dart';
 import 'package:my_trip_it/features/activity/data/activities_repository.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
 
+final activityControllerProvider = Provider<ActivityController>((ref) {
+  return ActivityController(ref);
+});
+
+final activityProvider =
+    StreamProvider.autoDispose.family<Activity, String>((ref, activityId) {
+  final activityProvider = ref.watch(activityControllerProvider);
+  return activityProvider.listenToActivity(activityId);
+});
+
 class ActivityController {
   ActivityController(this.ref);
   final Ref ref;
@@ -48,13 +58,3 @@ class ActivityController {
     await ref.read(activitiesRepositoryProvider).delete(deletedActivity);
   }
 }
-
-final activityControllerProvider = Provider<ActivityController>((ref) {
-  return ActivityController(ref);
-});
-
-final activityProvider =
-    StreamProvider.autoDispose.family<Activity, String>((ref, activityId) {
-  final activityProvider = ref.watch(activityControllerProvider);
-  return activityProvider.listenToActivity(activityId);
-});

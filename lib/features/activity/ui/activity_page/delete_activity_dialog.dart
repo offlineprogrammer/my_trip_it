@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DeleteActivity extends StatelessWidget {
-  const DeleteActivity({
+class DeleteActivityDialog extends StatelessWidget {
+  const DeleteActivityDialog({
     super.key,
   });
 

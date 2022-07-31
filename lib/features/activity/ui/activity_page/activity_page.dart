@@ -10,8 +10,8 @@ import 'package:my_trip_it/common/ui/upload_progress_dialog.dart';
 import 'package:my_trip_it/features/activity/controller/activity_controller.dart';
 import 'package:my_trip_it/common/utils/colors.dart' as constants;
 import 'package:my_trip_it/features/activity/ui/activity_category_icon.dart';
-import 'package:my_trip_it/features/activity/ui/activity_page/delete_activity.dart';
-import 'package:my_trip_it/features/activity/ui/activity_page/edit_activity.dart';
+import 'package:my_trip_it/features/activity/ui/activity_page/delete_activity_dialog.dart';
+import 'package:my_trip_it/features/activity/ui/activity_page/edit_activity_bottomsheet.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,7 +28,7 @@ class ActivityPage extends ConsumerWidget {
     var value = await showDialog<bool>(
         context: context,
         builder: (BuildContext context) {
-          return const DeleteActivity();
+          return const DeleteActivityDialog();
         });
     value ??= false;
 
@@ -81,7 +81,7 @@ class ActivityPage extends ConsumerWidget {
       elevation: 5,
       context: context,
       builder: (BuildContext context) {
-        return EditActivity(
+        return EditActivityBottomSheet(
           activity: activity,
         );
       },

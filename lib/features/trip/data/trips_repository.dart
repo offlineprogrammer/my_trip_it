@@ -3,6 +3,23 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_trip_it/models/Trip.dart';
 import 'package:my_trip_it/features/trip/services/trips_datastore_service.dart';
 
+final tripsRepositoryProvider = Provider<TripsRepository>((ref) {
+  TripsDataStoreService tripsDataStoreService =
+      ref.read(tripsDataStoreServiceProvider);
+  return TripsRepository(tripsDataStoreService);
+});
+
+final tripsListStreamProvider = StreamProvider.autoDispose<List<Trip?>>((ref) {
+  final tripsRepository = ref.watch(tripsRepositoryProvider);
+  return tripsRepository.getTrips();
+});
+
+final tripProvider =
+    StreamProvider.autoDispose.family<Trip?, String>((ref, id) {
+  final tripsRepository = ref.watch(tripsRepositoryProvider);
+  return tripsRepository.get(id);
+});
+
 class TripsRepository {
   TripsRepository(this.tripsDataStoreService);
 
@@ -28,20 +45,3 @@ class TripsRepository {
     return tripsDataStoreService.getTripStream(id);
   }
 }
-
-final tripsRepositoryProvider = Provider<TripsRepository>((ref) {
-  TripsDataStoreService tripsDataStoreService =
-      ref.read(tripsDataStoreServiceProvider);
-  return TripsRepository(tripsDataStoreService);
-});
-
-final tripsListStreamProvider = StreamProvider.autoDispose<List<Trip?>>((ref) {
-  final tripsRepository = ref.watch(tripsRepositoryProvider);
-  return tripsRepository.getTrips();
-});
-
-final tripProvider =
-    StreamProvider.autoDispose.family<Trip?, String>((ref, id) {
-  final tripsRepository = ref.watch(tripsRepositoryProvider);
-  return tripsRepository.get(id);
-});
