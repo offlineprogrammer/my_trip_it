@@ -23,7 +23,7 @@ class PastTripCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         onTap: () {
           context.goNamed(
-            AppRoute.trip.name,
+            AppRoute.pasttrip.name,
             params: {'id': trip.id},
           );
         },

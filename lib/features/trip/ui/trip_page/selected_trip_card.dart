@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:my_trip_it/features/trip/controller/trip_controller.dart';
 import 'package:my_trip_it/common/navigation/router/routes.dart';
 import 'package:my_trip_it/common/utils/colors.dart' as constants;
-import 'package:my_trip_it/features/trip/ui/trip_page/edit_trip_%20bottomsheet.dart';
+import 'package:my_trip_it/features/trip/ui/trip_page/edit_trip_bottomsheet.dart';
 import 'package:my_trip_it/models/Trip.dart';
 import 'package:my_trip_it/features/trip/ui/trip_page/delete_trip_dialog.dart';
 import 'package:my_trip_it/common/ui/upload_progress_dialog.dart';
