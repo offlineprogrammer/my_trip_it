@@ -20,9 +20,14 @@ class EditActivity extends ConsumerWidget {
     final activityNameController =
         TextEditingController(text: activity.activityName);
     final activityDateController = TextEditingController(
-        text: DateFormat('MMMM dd, yyyy')
+        text: DateFormat('yyyy-MM-dd')
             .format(activity.activityDate.getDateTime()));
     var activityCategory = activity.category;
+    var activityTime =
+        TimeOfDay.fromDateTime(activity.activityTime!.getDateTime());
+    final activityTimeController = TextEditingController(
+        text:
+            DateFormat('hh:mm a').format(activity.activityTime!.getDateTime()));
 
     return Form(
       key: formGlobalKey,
@@ -106,6 +111,37 @@ class EditActivity extends ConsumerWidget {
             const SizedBox(
               height: 20,
             ),
+            TextFormField(
+              controller: activityTimeController,
+              decoration: const InputDecoration(hintText: "Activity Time"),
+              validator: (value) {
+                if (value != null && value.isNotEmpty) {
+                  return null;
+                } else {
+                  return 'Enter a valid date';
+                }
+              },
+              onTap: () async {
+                final TimeOfDay? timeOfDay = await showTimePicker(
+                  context: context,
+                  initialTime: activityTime,
+                  initialEntryMode: TimePickerEntryMode.dial,
+                );
+
+                if (timeOfDay != null) {
+                  final localizations = MaterialLocalizations.of(context);
+                  final formattedTimeOfDay =
+                      localizations.formatTimeOfDay(timeOfDay);
+
+                  activityTimeController.text =
+                      formattedTimeOfDay; //                  '${timeOfDay.hour}:${timeOfDay.minute}';
+                  activityTime = timeOfDay;
+                }
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             TextButton(
                 child: const Text('OK'),
                 onPressed: () async {
@@ -114,12 +150,18 @@ class EditActivity extends ConsumerWidget {
                     return;
                   }
                   if (currentState.validate()) {
+                    final now = DateTime.now();
+                    final time = DateTime(now.year, now.month, now.day,
+                        activityTime.hour, activityTime.minute);
+                    final format = DateFormat("HH:mm:ss.sss");
+
                     final updatedActivity = activity.copyWith(
-                      activityName: activityNameController.text,
-                      activityDate: TemporalDate(
-                          DateTime.parse(activityDateController.text)),
-                      //activityTime: TemporalTime(DateTime)
-                    );
+                        category: activityCategory,
+                        activityName: activityNameController.text,
+                        activityDate: TemporalDate(
+                            DateTime.parse(activityDateController.text)),
+                        activityTime:
+                            TemporalTime.fromString(format.format(time)));
 
                     ref.read(activityControllerProvider).edit(updatedActivity);
 

@@ -11,7 +11,10 @@ class ActivitiesDataStoreService {
     return Amplify.DataStore.observeQuery(
       Activity.classType,
       //where: Activity.TRIP.eq(trip.id), // DataStore bug??
-      sortBy: [Activity.ACTIVITYDATE.ascending()],
+      sortBy: [
+        Activity.ACTIVITYDATE.ascending(),
+        Activity.ACTIVITYTIME.ascending()
+      ],
     )
         .map((event) =>
             event.items.where((element) => element.trip.id == tripId).toList())
@@ -74,6 +77,8 @@ class ActivitiesDataStoreService {
           id: oldActivity.id,
           activityName: updatedActivity.activityName,
           activityDate: updatedActivity.activityDate,
+          category: updatedActivity.category,
+          activityTime: updatedActivity.activityTime,
           activityImageKey: updatedActivity.activityImageKey,
           activityImageUrl: updatedActivity.activityImageUrl);
 
