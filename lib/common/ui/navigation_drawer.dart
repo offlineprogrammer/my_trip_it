@@ -37,7 +37,11 @@ class NavigationDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.category),
             title: const Text('Past Trips'),
-            onTap: () {},
+            onTap: () {
+              context.goNamed(
+                AppRoute.pasttrips.name,
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.settings),

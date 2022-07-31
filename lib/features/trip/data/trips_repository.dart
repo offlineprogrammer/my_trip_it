@@ -14,6 +14,12 @@ final tripsListStreamProvider = StreamProvider.autoDispose<List<Trip?>>((ref) {
   return tripsRepository.getTrips();
 });
 
+final pastTripsListStreamProvider =
+    StreamProvider.autoDispose<List<Trip?>>((ref) {
+  final tripsRepository = ref.watch(tripsRepositoryProvider);
+  return tripsRepository.getPastTrips();
+});
+
 final tripProvider =
     StreamProvider.autoDispose.family<Trip?, String>((ref, id) {
   final tripsRepository = ref.watch(tripsRepositoryProvider);
@@ -27,6 +33,10 @@ class TripsRepository {
 
   Stream<List<Trip>> getTrips() {
     return tripsDataStoreService.listenToTrips();
+  }
+
+  Stream<List<Trip>> getPastTrips() {
+    return tripsDataStoreService.listenToPastTrips();
   }
 
   Future<void> add(Trip trip) async {

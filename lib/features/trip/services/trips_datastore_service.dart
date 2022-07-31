@@ -13,7 +13,28 @@ class TripsDataStoreService {
     return Amplify.DataStore.observeQuery(
       Trip.classType,
       sortBy: [Trip.STARTDATE.ascending()],
-    ).map((event) => event.items.toList()).handleError(
+    )
+        .map((event) => event.items
+            .where((element) =>
+                element.endDate.getDateTime().isAfter(DateTime.now()))
+            .toList())
+        .handleError(
+      (error) {
+        debugPrint('Error in subscription stream: $error');
+      },
+    );
+  }
+
+  Stream<List<Trip>> listenToPastTrips() {
+    return Amplify.DataStore.observeQuery(
+      Trip.classType,
+      sortBy: [Trip.STARTDATE.ascending()],
+    )
+        .map((event) => event.items
+            .where((element) =>
+                element.endDate.getDateTime().isBefore(DateTime.now()))
+            .toList())
+        .handleError(
       (error) {
         debugPrint('Error in subscription stream: $error');
       },

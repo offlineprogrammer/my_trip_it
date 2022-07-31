@@ -9,6 +9,7 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:my_trip_it/features/activity/ui/activity_page/activity_page.dart';
+import 'package:my_trip_it/features/trip/ui/past_trips/past_trips_list.dart';
 
 import 'amplifyconfiguration.dart';
 import '/common/navigation/router/routes.dart';
@@ -94,6 +95,11 @@ class _MyAppState extends State<MyApp> {
             final activityId = state.params['id']!;
             return ActivityPage(activityId: activityId);
           },
+        ),
+        GoRoute(
+          path: '/pasttrips',
+          name: AppRoute.pasttrips.name,
+          builder: (context, state) => const PastTripsList(),
         ),
         GoRoute(
           path: '/profile',
