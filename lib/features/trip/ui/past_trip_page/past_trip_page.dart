@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_trip_it/common/navigation/router/routes.dart';
 import 'package:my_trip_it/common/ui/navigation_drawer.dart';
 import 'package:my_trip_it/common/utils/colors.dart' as constants;
+import 'package:my_trip_it/features/activity/ui/activities_list/activities_list.dart';
 import 'package:my_trip_it/features/trip/data/trips_repository.dart';
 import 'package:my_trip_it/features/trip/ui/past_trip_page/selected_past_trip_card.dart';
 
@@ -91,11 +92,11 @@ class PastTripPage extends ConsumerWidget {
                       const SizedBox(
                         height: 8,
                       ),
-                      // Expanded(
-                      //   child: ActivitiesList(
-                      //     trip: trip,
-                      //   ),
-                      // )
+                      Expanded(
+                        child: ActivitiesList(
+                          trip: trip,
+                        ),
+                      )
                     ],
                   ),
             error: (e, st) => const Center(
