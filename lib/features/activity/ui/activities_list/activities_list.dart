@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:my_trip_it/common/navigation/router/routes.dart';
 import 'package:my_trip_it/features/activity/data/activities_repository.dart';
 import 'package:my_trip_it/features/activity/ui/activity_category_icon.dart';
@@ -50,10 +51,32 @@ class ActivitiesList extends ConsumerWidget {
                             params: {'id': activities[index]!.id},
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(24.0),
-                            child: Text(
-                              activities[index]!.activityName,
-                              style: Theme.of(context).textTheme.titleMedium,
+                            padding: const EdgeInsets.all(24),
+                            child: Column(
+                              children: [
+                                Text(
+                                  activities[index]!.activityName,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  DateFormat('yyyy-MM-dd').format(
+                                      activities[index]!
+                                          .activityDate
+                                          .getDateTime()),
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                                Text(
+                                  DateFormat('hh:mm a').format(
+                                      activities[index]!
+                                          .activityTime!
+                                          .getDateTime()),
+                                  style: Theme.of(context).textTheme.bodySmall,
+                                ),
+                              ],
                             ),
                           ),
                         ),

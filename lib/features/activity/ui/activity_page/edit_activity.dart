@@ -59,7 +59,7 @@ class EditActivity extends ConsumerWidget {
               textInputAction: TextInputAction.next,
             ),
             const SizedBox(
-              height: 20.0,
+              height: 20,
             ),
             DropdownButtonFormField<ActivityCategory>(
               onChanged: (value) {
@@ -78,7 +78,7 @@ class EditActivity extends ConsumerWidget {
               ],
             ),
             const SizedBox(
-              height: 20.0,
+              height: 20,
             ),
             TextFormField(
               keyboardType: TextInputType.datetime,

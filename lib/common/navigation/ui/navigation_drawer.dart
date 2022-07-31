@@ -16,7 +16,7 @@ class NavigationDrawer extends StatelessWidget {
             decoration: const BoxDecoration(
               color: Color(constants.primaryColorDark),
             ),
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16),
             child: Column(
               children: const [
                 SizedBox(height: 10),

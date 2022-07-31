@@ -58,7 +58,7 @@ class EditTrip extends HookConsumerWidget {
               textInputAction: TextInputAction.next,
             ),
             const SizedBox(
-              height: 20.0,
+              height: 20,
             ),
             TextFormField(
               //initialValue: trip.destination,

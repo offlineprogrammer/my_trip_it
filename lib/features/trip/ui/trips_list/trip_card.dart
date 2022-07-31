@@ -31,7 +31,7 @@ class TripCard extends StatelessWidget {
         child: Card(
           clipBehavior: Clip.antiAlias,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
+            borderRadius: BorderRadius.circular(15),
           ),
           elevation: 5.0,
           child: Column(

@@ -150,6 +150,8 @@ class ActivityPage extends ConsumerWidget {
                         .format(activity.activityDate.getDateTime()),
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
+                  subtitle: Text(DateFormat('hh:mm a')
+                      .format(activity.activityTime!.getDateTime())),
                 ),
               ),
               ListTile(

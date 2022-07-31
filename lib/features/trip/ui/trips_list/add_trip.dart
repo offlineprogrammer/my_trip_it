@@ -49,7 +49,7 @@ class AddTrip extends HookConsumerWidget {
               textInputAction: TextInputAction.next,
             ),
             const SizedBox(
-              height: 20.0,
+              height: 20,
             ),
             TextFormField(
               keyboardType: TextInputType.name,
