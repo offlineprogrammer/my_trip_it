@@ -1,0 +1,17 @@
+{
+  "trigger": true,
+  "modules": [
+    "custom"
+  ],
+  "parentResource": "mytripitb9904f2a",
+  "functionName": "mytripitb9904f2aPostConfirmation",
+  "resourceName": "mytripitb9904f2aPostConfirmation",
+  "parentStack": "auth",
+  "triggerEnvs": [],
+  "triggerDir": "/snapshot/repo/build/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/PostConfirmation",
+  "triggerTemplate": "PostConfirmation.json.ejs",
+  "triggerEventPath": "PostConfirmation.event.json",
+  "roleName": "mytripitb9904f2aPostConfirmation",
+  "skipEdit": true,
+  "enableCors": false
+}

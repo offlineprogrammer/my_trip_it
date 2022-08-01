@@ -9,12 +9,19 @@
       "UnauthRoleName": "amplify-mytripit-staging-165744-unauthRole",
       "StackName": "amplify-mytripit-staging-165744",
       "StackId": "arn:aws:cloudformation:us-east-1:279012124572:stack/amplify-mytripit-staging-165744/7a8965e0-d14b-11ec-9d7c-0a95cf010f27",
-      "AmplifyAppId": "d2511skaxerxwo"
+      "AmplifyAppId": "d2511skaxerxwo",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-mytripit-staging-165744-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
         "mytripitb9904f2a": {},
         "true": {}
+      },
+      "function": {
+        "mytripitb9904f2aPostConfirmation": {
+          "deploymentBucketName": "amplify-mytripit-staging-165744-deployment",
+          "s3Key": "amplify-builds/mytripitb9904f2aPostConfirmation-76565574504f622f6e31-build.zip"
+        }
       }
     }
   }

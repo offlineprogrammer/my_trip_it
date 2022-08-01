@@ -23,10 +23,10 @@ type Activity @model @auth(rules: [{allow: owner}]) {
 
 type Profile @model @auth(rules: [{allow: owner}]) {
   id: ID!
-  userId: String!
-  firstName: String!
-  lastName: String!
-  homeCity: String!
+  email: String!
+  firstName: String
+  lastName: String
+  homeCity: String
 } 
 
 enum ActivityCategory { Flight, Lodging, Meeting, Restaurant }

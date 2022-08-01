@@ -28,7 +28,7 @@ import 'package:flutter/foundation.dart';
 class Profile extends Model {
   static const classType = const _ProfileModelType();
   final String id;
-  final String? _userId;
+  final String? _email;
   final String? _firstName;
   final String? _lastName;
   final String? _homeCity;
@@ -43,9 +43,9 @@ class Profile extends Model {
     return id;
   }
   
-  String get userId {
+  String get email {
     try {
-      return _userId!;
+      return _email!;
     } catch(e) {
       throw new AmplifyCodeGenModelException(
           AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
@@ -56,43 +56,16 @@ class Profile extends Model {
     }
   }
   
-  String get firstName {
-    try {
-      return _firstName!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
+  String? get firstName {
+    return _firstName;
   }
   
-  String get lastName {
-    try {
-      return _lastName!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
+  String? get lastName {
+    return _lastName;
   }
   
-  String get homeCity {
-    try {
-      return _homeCity!;
-    } catch(e) {
-      throw new AmplifyCodeGenModelException(
-          AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
+  String? get homeCity {
+    return _homeCity;
   }
   
   TemporalDateTime? get createdAt {
@@ -103,12 +76,12 @@ class Profile extends Model {
     return _updatedAt;
   }
   
-  const Profile._internal({required this.id, required userId, required firstName, required lastName, required homeCity, createdAt, updatedAt}): _userId = userId, _firstName = firstName, _lastName = lastName, _homeCity = homeCity, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Profile._internal({required this.id, required email, firstName, lastName, homeCity, createdAt, updatedAt}): _email = email, _firstName = firstName, _lastName = lastName, _homeCity = homeCity, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Profile({String? id, required String userId, required String firstName, required String lastName, required String homeCity}) {
+  factory Profile({String? id, required String email, String? firstName, String? lastName, String? homeCity}) {
     return Profile._internal(
       id: id == null ? UUID.getUUID() : id,
-      userId: userId,
+      email: email,
       firstName: firstName,
       lastName: lastName,
       homeCity: homeCity);
@@ -123,7 +96,7 @@ class Profile extends Model {
     if (identical(other, this)) return true;
     return other is Profile &&
       id == other.id &&
-      _userId == other._userId &&
+      _email == other._email &&
       _firstName == other._firstName &&
       _lastName == other._lastName &&
       _homeCity == other._homeCity;
@@ -138,7 +111,7 @@ class Profile extends Model {
     
     buffer.write("Profile {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("userId=" + "$_userId" + ", ");
+    buffer.write("email=" + "$_email" + ", ");
     buffer.write("firstName=" + "$_firstName" + ", ");
     buffer.write("lastName=" + "$_lastName" + ", ");
     buffer.write("homeCity=" + "$_homeCity" + ", ");
@@ -149,10 +122,10 @@ class Profile extends Model {
     return buffer.toString();
   }
   
-  Profile copyWith({String? id, String? userId, String? firstName, String? lastName, String? homeCity}) {
+  Profile copyWith({String? id, String? email, String? firstName, String? lastName, String? homeCity}) {
     return Profile._internal(
       id: id ?? this.id,
-      userId: userId ?? this.userId,
+      email: email ?? this.email,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       homeCity: homeCity ?? this.homeCity);
@@ -160,7 +133,7 @@ class Profile extends Model {
   
   Profile.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _userId = json['userId'],
+      _email = json['email'],
       _firstName = json['firstName'],
       _lastName = json['lastName'],
       _homeCity = json['homeCity'],
@@ -168,11 +141,11 @@ class Profile extends Model {
       _updatedAt = json['updatedAt'] != null ? TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'userId': _userId, 'firstName': _firstName, 'lastName': _lastName, 'homeCity': _homeCity, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'email': _email, 'firstName': _firstName, 'lastName': _lastName, 'homeCity': _homeCity, 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
 
   static final QueryField ID = QueryField(fieldName: "profile.id");
-  static final QueryField USERID = QueryField(fieldName: "userId");
+  static final QueryField EMAIL = QueryField(fieldName: "email");
   static final QueryField FIRSTNAME = QueryField(fieldName: "firstName");
   static final QueryField LASTNAME = QueryField(fieldName: "lastName");
   static final QueryField HOMECITY = QueryField(fieldName: "homeCity");
@@ -197,26 +170,26 @@ class Profile extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Profile.USERID,
+      key: Profile.EMAIL,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: Profile.FIRSTNAME,
-      isRequired: true,
+      isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: Profile.LASTNAME,
-      isRequired: true,
+      isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
       key: Profile.HOMECITY,
-      isRequired: true,
+      isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
