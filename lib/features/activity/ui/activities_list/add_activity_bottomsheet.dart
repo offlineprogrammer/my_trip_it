@@ -127,8 +127,7 @@ class AddActivityBottomSheet extends ConsumerWidget {
                   final formattedTimeOfDay =
                       localizations.formatTimeOfDay(timeOfDay);
 
-                  activityTimeController.text = formattedTimeOfDay; //
-                  '${timeOfDay.hour}:${timeOfDay.minute}';
+                  activityTimeController.text = formattedTimeOfDay;
                   activityTime = timeOfDay;
                 }
               },
