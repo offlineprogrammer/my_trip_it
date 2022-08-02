@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_trip_it/common/ui/navigation_drawer.dart';
 import 'package:my_trip_it/common/navigation/router/routes.dart';
 import 'package:my_trip_it/features/activity/ui/activities_list/activities_list.dart';
-import 'package:my_trip_it/features/activity/ui/activities_list/add_activity_bottomsheet.dart';
 import 'package:my_trip_it/features/trip/data/trips_repository.dart';
 import 'package:my_trip_it/common/utils/colors.dart' as constants;
 import 'package:my_trip_it/features/trip/ui/trip_page/selected_trip_card.dart';
@@ -16,17 +15,6 @@ class TripPage extends ConsumerWidget {
     super.key,
   });
   final String tripId;
-
-  void showAddActivityDialog(BuildContext context, Trip trip) async {
-    await showModalBottomSheet<void>(
-      isScrollControlled: true,
-      elevation: 5,
-      context: context,
-      builder: (BuildContext context) {
-        return AddActivityBottomSheet(trip: trip);
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -56,7 +44,10 @@ class TripPage extends ConsumerWidget {
             return tripValue.when(
               data: (trip) => FloatingActionButton(
                 onPressed: () {
-                  showAddActivityDialog(context, trip!);
+                  context.goNamed(
+                    AppRoute.addactivity.name,
+                    params: {'id': tripId},
+                  );
                 },
                 backgroundColor: const Color(constants.primaryColorDark),
                 child: const Icon(Icons.add),

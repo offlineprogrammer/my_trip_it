@@ -9,6 +9,7 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:my_trip_it/features/activity/ui/activity_page/activity_page.dart';
+import 'package:my_trip_it/features/activity/ui/add_activity/add_activity_page.dart';
 import 'package:my_trip_it/features/trip/ui/past_trip_page/past_trip_page.dart';
 import 'package:my_trip_it/features/trip/ui/past_trips/past_trips_list.dart';
 
@@ -108,6 +109,14 @@ class _MyAppState extends State<MyApp> {
           builder: (context, state) {
             final tripId = state.params['id']!;
             return PastTripPage(tripId: tripId);
+          },
+        ),
+        GoRoute(
+          path: '/addActivity/:id',
+          name: AppRoute.addactivity.name,
+          builder: (context, state) {
+            final tripId = state.params['id']!;
+            return AddActivityPage(tripId: tripId);
           },
         ),
         GoRoute(
