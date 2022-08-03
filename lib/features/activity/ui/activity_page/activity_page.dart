@@ -232,7 +232,10 @@ class ActivityPage extends ConsumerWidget {
                         textStyle: const TextStyle(fontSize: 20),
                       ),
                       onPressed: () {
-                        editActivity(context, activity);
+                        context.goNamed(
+                          AppRoute.editactivity.name,
+                          params: {'id': activity.id},
+                        );
                       },
                       child: const Text('Edit'),
                     ),

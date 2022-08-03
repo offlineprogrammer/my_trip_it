@@ -16,6 +16,12 @@ final activityProvider =
   return activityProvider.listenToActivity(activityId);
 });
 
+final activityFutureProvider =
+    FutureProvider.autoDispose.family<Activity, String>((ref, activityId) {
+  final activityProvider = ref.watch(activityControllerProvider);
+  return activityProvider.getActivity(activityId);
+});
+
 class ActivityController {
   ActivityController(this.ref);
   final Ref ref;
