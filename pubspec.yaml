@@ -11,11 +11,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  amplify_flutter: ^0.6.0
-  amplify_api: ^0.6.0
-  amplify_auth_cognito: ^0.6.0
-  amplify_storage_s3: ^0.6.0
-  amplify_datastore: ^0.6.0
+  amplify_flutter: ^0.6.5
+  amplify_api: ^0.6.5
+  amplify_auth_cognito: ^0.6.5
+  amplify_storage_s3: ^0.6.5
+  amplify_datastore: ^0.6.5
   amplify_authenticator: ^0.2.0
   flutter_hooks: ^0.18.5+1
   image_picker: ^0.8.5+3

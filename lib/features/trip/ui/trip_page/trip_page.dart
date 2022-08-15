@@ -17,8 +17,6 @@ class TripPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('ok');
-    //final tripValue = ref.watch(tripProvider(tripId));
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

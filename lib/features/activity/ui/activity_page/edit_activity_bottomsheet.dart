@@ -1,11 +1,13 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:my_trip_it/features/activity/controller/activity_controller.dart';
+import 'package:my_trip_it/features/activity/ui/activity_categories_dialog.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
 
-class EditActivityBottomSheet extends ConsumerWidget {
+class EditActivityBottomSheet extends HookConsumerWidget {
   EditActivityBottomSheet({
     required this.activity,
     super.key,
@@ -15,17 +17,31 @@ class EditActivityBottomSheet extends ConsumerWidget {
 
   final formGlobalKey = GlobalKey<FormState>();
 
+  Future<ActivityCategory> selectCategory(
+      BuildContext context, WidgetRef ref, Activity activity) async {
+    var value = await showDialog<ActivityCategory>(
+        context: context,
+        builder: (BuildContext context) {
+          return const ActivityCategoriesDialog();
+        });
+
+    return value!;
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activityNameController =
-        TextEditingController(text: activity.activityName);
-    final activityDateController = TextEditingController(
+        useTextEditingController(text: activity.activityName);
+    final activityDateController = useTextEditingController(
         text: DateFormat('yyyy-MM-dd')
             .format(activity.activityDate.getDateTime()));
-    var activityCategory = activity.category;
+
     var activityTime =
         TimeOfDay.fromDateTime(activity.activityTime!.getDateTime());
-    final activityTimeController = TextEditingController(
+    final activityTimeController =
+        useTextEditingController(text: activity.category.name);
+
+    final activityCategoryController = useTextEditingController(
         text:
             DateFormat('hh:mm a').format(activity.activityTime!.getDateTime()));
 
@@ -61,21 +77,34 @@ class EditActivityBottomSheet extends ConsumerWidget {
             const SizedBox(
               height: 20,
             ),
-            DropdownButtonFormField<ActivityCategory>(
-              onChanged: (value) {
-                activityCategory = value!;
+            TextFormField(
+              keyboardType: TextInputType.name,
+              controller: activityCategoryController,
+              autofocus: true,
+              autocorrect: false,
+              decoration: const InputDecoration(hintText: "Activity Category"),
+              textInputAction: TextInputAction.next,
+              validator: (value) {
+                if (value != null && value.isNotEmpty) {
+                  return null;
+                } else {
+                  return 'Enter a valid category';
+                }
               },
-              value: activityCategory,
-              decoration: const InputDecoration(
-                labelText: 'Category',
+              onTap: () async {
+                selectCategory(context, ref, activity).then(
+                  (value) {
+                    activityCategoryController.text = value.name;
+                  },
+                );
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: const TextStyle(fontSize: 20),
               ),
-              items: [
-                for (var category in ActivityCategory.values)
-                  DropdownMenuItem(
-                    value: category,
-                    child: Text(category.name),
-                  ),
-              ],
+              onPressed: () {},
+              child: const Text('Select'),
             ),
             const SizedBox(
               height: 20,
@@ -155,7 +184,8 @@ class EditActivityBottomSheet extends ConsumerWidget {
                     final format = DateFormat("HH:mm:ss.sss");
 
                     final updatedActivity = activity.copyWith(
-                        category: activityCategory,
+                        category: ActivityCategory.values
+                            .byName(activityCategoryController.text),
                         activityName: activityNameController.text,
                         activityDate: TemporalDate(
                             DateTime.parse(activityDateController.text)),

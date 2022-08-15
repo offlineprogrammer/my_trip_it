@@ -1,7 +1,8 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:my_trip_it/common/navigation/router/routes.dart';
 import 'package:my_trip_it/features/activity/controller/activity_controller.dart';
@@ -9,7 +10,7 @@ import 'package:my_trip_it/models/ActivityCategory.dart';
 import 'package:my_trip_it/common/utils/colors.dart' as constants;
 import 'package:my_trip_it/models/ModelProvider.dart';
 
-class EditActivityPage extends StatelessWidget {
+class EditActivityPage extends HookConsumerWidget {
   EditActivityPage({
     required this.activityId,
     super.key,
@@ -20,10 +21,10 @@ class EditActivityPage extends StatelessWidget {
   final formGlobalKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context) {
-    final activityNameController = TextEditingController();
-    final activityDateController = TextEditingController();
-    final activityTimeController = TextEditingController();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final activityNameController = useTextEditingController();
+    final activityDateController = useTextEditingController();
+    final activityTimeController = useTextEditingController();
     var activityCategory = ActivityCategory.Flight;
     var activityTime = TimeOfDay.now();
     return Scaffold(
@@ -45,14 +46,10 @@ class EditActivityPage extends StatelessWidget {
       ),
       body: Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
-          //final activityValue = ref.read(activityProvider(activityId));
-
-          final activityValue = ref.watch(
-              activityFutureProvider(activityId).select((value) => value));
+          final activityValue = ref.watch(activityFutureProvider(activityId));
 
           return activityValue.when(
             data: (activity) {
-              print('editing');
               activityNameController.text = activity.activityName;
               activityDateController.text = DateFormat('yyyy-MM-dd')
                   .format(activity.activityDate.getDateTime());
@@ -205,7 +202,10 @@ class EditActivityPage extends StatelessWidget {
                                   .read(activityControllerProvider)
                                   .edit(updatedActivity);
 
-                              //Navigator.of(context).pop();
+                              context.goNamed(
+                                AppRoute.activity.name,
+                                params: {'id': activityId},
+                              );
                             }
                           } //,
                           ),
