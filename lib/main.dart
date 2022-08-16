@@ -11,6 +11,7 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:my_trip_it/features/activity/ui/activity_page/activity_page.dart';
 import 'package:my_trip_it/features/activity/ui/add_activity/add_activity_page.dart';
 import 'package:my_trip_it/features/activity/ui/edit_activity/edit_activity_page.dart';
+import 'package:my_trip_it/features/trip/ui/edit_trip_page/edit_trip_page.dart';
 import 'package:my_trip_it/features/trip/ui/past_trip_page/past_trip_page.dart';
 import 'package:my_trip_it/features/trip/ui/past_trips/past_trips_list.dart';
 
@@ -105,6 +106,15 @@ class _MyAppState extends State<MyApp> {
           builder: (context, state) {
             return EditActivityPage(
               activity: state.extra! as Activity,
+            );
+          },
+        ),
+        GoRoute(
+          path: '/edittrip/:id',
+          name: AppRoute.edittrip.name,
+          builder: (context, state) {
+            return EditTripPage(
+              trip: state.extra! as Trip,
             );
           },
         ),
