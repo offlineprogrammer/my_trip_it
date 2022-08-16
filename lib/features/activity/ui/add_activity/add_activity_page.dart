@@ -149,21 +149,21 @@ class AddActivityPage extends StatelessWidget {
                           }
                         },
                         onTap: () async {
-                          final TimeOfDay? timeOfDay = await showTimePicker(
+                          await showTimePicker(
                             context: context,
-                            initialTime: TimeOfDay.now(),
+                            initialTime: activityTime,
                             initialEntryMode: TimePickerEntryMode.dial,
-                          );
+                          ).then((timeOfDay) {
+                            if (timeOfDay != null) {
+                              final localizations =
+                                  MaterialLocalizations.of(context);
+                              final formattedTimeOfDay =
+                                  localizations.formatTimeOfDay(timeOfDay);
 
-                          if (timeOfDay != null) {
-                            final localizations =
-                                MaterialLocalizations.of(context);
-                            final formattedTimeOfDay =
-                                localizations.formatTimeOfDay(timeOfDay);
-
-                            activityTimeController.text = formattedTimeOfDay;
-                            activityTime = timeOfDay;
-                          }
+                              activityTimeController.text = formattedTimeOfDay;
+                              activityTime = timeOfDay;
+                            }
+                          });
                         },
                       ),
                       const SizedBox(
