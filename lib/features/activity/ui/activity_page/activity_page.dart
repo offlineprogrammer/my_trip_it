@@ -11,7 +11,7 @@ import 'package:my_trip_it/features/activity/controller/activity_controller.dart
 import 'package:my_trip_it/common/utils/colors.dart' as constants;
 import 'package:my_trip_it/features/activity/ui/activity_category_icon.dart';
 import 'package:my_trip_it/features/activity/ui/activity_page/delete_activity_dialog.dart';
-import 'package:my_trip_it/features/activity/ui/activity_page/edit_activity_bottomsheet.dart';
+
 import 'package:my_trip_it/models/ModelProvider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -73,19 +73,6 @@ class ActivityPage extends ConsumerWidget {
           return const UploadProgressDialog();
         });
     await ref.read(activityControllerProvider).uploadFile(file, activity);
-  }
-
-  void editActivity(BuildContext context, Activity activity) async {
-    await showModalBottomSheet<void>(
-      isScrollControlled: true,
-      elevation: 5,
-      context: context,
-      builder: (BuildContext context) {
-        return EditActivityBottomSheet(
-          activity: activity,
-        );
-      },
-    );
   }
 
   @override
@@ -235,6 +222,7 @@ class ActivityPage extends ConsumerWidget {
                         context.goNamed(
                           AppRoute.editactivity.name,
                           params: {'id': activity.id},
+                          extra: activity,
                         );
                       },
                       child: const Text('Edit'),

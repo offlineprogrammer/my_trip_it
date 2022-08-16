@@ -103,8 +103,9 @@ class _MyAppState extends State<MyApp> {
           path: '/editactivity/:id',
           name: AppRoute.editactivity.name,
           builder: (context, state) {
-            final activityId = state.params['id']!;
-            return EditActivityPage(activityId: activityId);
+            return EditActivityPage(
+              activity: state.extra! as Activity,
+            );
           },
         ),
         GoRoute(
