@@ -44,6 +44,7 @@ class SelectedPastTripCard extends ConsumerWidget {
                     const Center(child: CircularProgressIndicator()),
                     CachedNetworkImage(
                       imageUrl: trip.tripImageUrl!,
+                      cacheKey: trip.tripImageKey,
                       width: double.maxFinite,
                       height: 500,
                       alignment: Alignment.topCenter,

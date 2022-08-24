@@ -88,6 +88,7 @@ class SelectedTripCard extends ConsumerWidget {
                 ? Stack(children: [
                     const Center(child: CircularProgressIndicator()),
                     CachedNetworkImage(
+                      cacheKey: trip.tripImageKey,
                       imageUrl: trip.tripImageUrl!,
                       width: double.maxFinite,
                       height: 500,

@@ -52,6 +52,7 @@ class TripCard extends StatelessWidget {
                                   errorWidget: (context, url, dynamic error) =>
                                       const Icon(Icons.error_outline_outlined),
                                   imageUrl: trip.tripImageUrl!,
+                                  cacheKey: trip.tripImageKey,
                                   width: double.maxFinite,
                                   height: 500,
                                   alignment: Alignment.topCenter,
