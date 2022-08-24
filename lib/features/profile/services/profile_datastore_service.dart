@@ -1,6 +1,7 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_trip_it/common/utils/logger.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
 
 final profileDataStoreServiceProvider =
@@ -17,7 +18,8 @@ class ProfileDatastoreService {
       Profile.classType,
     ).map((event) => event.items.first).handleError(
       (dynamic error) {
-        debugPrint('Error in subscription stream: $error');
+        logger.e('Error in subscription stream: $error');
+        throw Exception('A Stream error happened');
       },
     );
   }

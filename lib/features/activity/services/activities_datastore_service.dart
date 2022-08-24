@@ -1,6 +1,7 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter/material.dart';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_trip_it/common/utils/logger.dart';
 
 import 'package:my_trip_it/models/ModelProvider.dart';
 
@@ -26,8 +27,8 @@ class ActivitiesDataStoreService {
             event.items.where((element) => element.trip.id == tripId).toList())
         .handleError(
       (dynamic error) {
-        debugPrint('Error in subscription stream: $error');
-        return error;
+        logger.e('Error in subscription stream: $error');
+        throw Exception('A Stream error happened');
       },
     );
   }
@@ -41,7 +42,7 @@ class ActivitiesDataStoreService {
         .map((event) => event.items.where((element) => element.id == id).first)
         .handleError(
       (dynamic error) {
-        debugPrint('Error in subscription stream: $error');
+        logger.e('Error in subscription stream: $error');
       },
     );
   }
@@ -59,7 +60,7 @@ class ActivitiesDataStoreService {
     try {
       await Amplify.DataStore.save(activity);
     } on Exception catch (e) {
-      debugPrint(e.toString());
+      logger.e(e.toString());
     }
   }
 
@@ -67,7 +68,7 @@ class ActivitiesDataStoreService {
     try {
       await Amplify.DataStore.delete(activity);
     } on Exception catch (e) {
-      debugPrint(e.toString());
+      logger.e(e.toString());
     }
   }
 
@@ -90,7 +91,7 @@ class ActivitiesDataStoreService {
 
       await Amplify.DataStore.save(newActivity);
     } on Exception catch (e) {
-      debugPrint(e.toString());
+      logger.e(e.toString());
     }
   }
 }

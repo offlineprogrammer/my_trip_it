@@ -2,6 +2,7 @@ import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_trip_it/common/utils/logger.dart';
 import 'dart:io';
 
 import 'package:uuid/uuid.dart';
@@ -34,7 +35,7 @@ class StorageService {
 
       return key;
     } on Exception catch (e) {
-      debugPrint(e.toString());
+      logger.e(e.toString());
       return null;
     }
   }

@@ -1,6 +1,7 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter/material.dart';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_trip_it/common/utils/logger.dart';
 import 'package:my_trip_it/models/Trip.dart';
 
 final tripsDataStoreServiceProvider = Provider<TripsDataStoreService>((ref) {
@@ -20,7 +21,8 @@ class TripsDataStoreService {
             .toList())
         .handleError(
       (error) {
-        debugPrint('Error in subscription stream: $error');
+        logger.e('Error in subscription stream: $error');
+        throw Exception('A Stream error happened');
       },
     );
   }
@@ -36,7 +38,7 @@ class TripsDataStoreService {
             .toList())
         .handleError(
       (error) {
-        debugPrint('Error in subscription stream: $error');
+        logger.e('Error in subscription stream: $error');
       },
     );
   }
@@ -53,7 +55,7 @@ class TripsDataStoreService {
     try {
       await Amplify.DataStore.save(trip);
     } on Exception catch (e) {
-      debugPrint(e.toString());
+      logger.e(e.toString());
     }
   }
 
@@ -61,7 +63,7 @@ class TripsDataStoreService {
     try {
       await Amplify.DataStore.delete(trip);
     } on Exception catch (e) {
-      debugPrint(e.toString());
+      logger.e(e.toString());
     }
   }
 
@@ -85,7 +87,7 @@ class TripsDataStoreService {
 
       await Amplify.DataStore.save(newTrip);
     } on Exception catch (e) {
-      debugPrint(e.toString());
+      logger.e(e.toString());
     }
   }
 }
