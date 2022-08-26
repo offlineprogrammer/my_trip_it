@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_trip_it/common/exceptions/app_exception.dart';
 import 'package:my_trip_it/common/ui/navigation_drawer.dart';
 
 import 'package:my_trip_it/common/utils/colors.dart' as constants;
 import 'package:my_trip_it/features/profile/controller/profile_controller.dart';
+import 'package:my_trip_it/features/profile/ui/profile_page/add_profile_bottomsheet.dart';
 import 'package:my_trip_it/features/profile/ui/profile_page/edit_profile_bottomsheet.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
 
@@ -21,6 +23,17 @@ class ProfilePage extends ConsumerWidget {
         return EditProfileBottomSheet(
           profile: profile,
         );
+      },
+    );
+  }
+
+  void createProfile(BuildContext context) async {
+    await showModalBottomSheet<void>(
+      isScrollControlled: true,
+      elevation: 5,
+      context: context,
+      builder: (BuildContext context) {
+        return AddProfileBottomSheet();
       },
     );
   }
@@ -100,8 +113,30 @@ class ProfilePage extends ConsumerWidget {
               )
             ],
           ),
-          error: (e, st) => const Center(
-            child: Text('Error'),
+          error: (e, st) => Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    e is AppException ? e.details.message : 'Error',
+                    style: Theme.of(context).textTheme.titleMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    textStyle: const TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {
+                    createProfile(context);
+                  },
+                  child: const Text('Create'),
+                ),
+              ],
+            ),
           ),
           loading: () => const Center(
             child: CircularProgressIndicator(),

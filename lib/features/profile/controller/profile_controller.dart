@@ -22,4 +22,18 @@ class ProfileController {
   Future<void> edit(Profile updatedProfile) async {
     await ref.read(profileRepositoryProvider).update(updatedProfile);
   }
+
+  Future<void> add(
+      {required String firstName,
+      required String lastName,
+      required String homeCity}) async {
+    Profile profile = Profile(
+      firstName: firstName,
+      lastName: lastName,
+      homeCity: homeCity,
+      email: '',
+    );
+
+    await ref.read(profileRepositoryProvider).add(profile);
+  }
 }

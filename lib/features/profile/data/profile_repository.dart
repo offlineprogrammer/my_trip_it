@@ -24,4 +24,8 @@ class ProfileRepository {
   Future<void> update(Profile updatedProfile) async {
     await profileDatastoreService.updateProfile(updatedProfile);
   }
+
+  add(Profile profile) async {
+    await profileDatastoreService.addProfile(profile);
+  }
 }

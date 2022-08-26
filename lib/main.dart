@@ -12,7 +12,6 @@ import 'package:my_trip_it/common/utils/logger.dart';
 import 'amplifyconfiguration.dart';
 import 'models/ModelProvider.dart';
 
-final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool isAmplifySuccessfullyConfigured = false;
