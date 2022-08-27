@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_trip_it/features/profile/controller/profile_controller.dart';
-import 'package:my_trip_it/models/ModelProvider.dart';
 
 class AddProfileBottomSheet extends ConsumerWidget {
   AddProfileBottomSheet({

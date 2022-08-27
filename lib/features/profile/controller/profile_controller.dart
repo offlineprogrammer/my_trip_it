@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_trip_it/common/service/auth_service.dart';
 import 'package:my_trip_it/features/profile/data/profile_repository.dart';
 import 'package:my_trip_it/models/ModelProvider.dart';
 
@@ -27,11 +29,13 @@ class ProfileController {
       {required String firstName,
       required String lastName,
       required String homeCity}) async {
+    String? userEmail = await ref.read(authServiceProvider).getUserEmail();
+    debugPrint(userEmail);
     Profile profile = Profile(
       firstName: firstName,
       lastName: lastName,
       homeCity: homeCity,
-      email: '',
+      email: userEmail!,
     );
 
     await ref.read(profileRepositoryProvider).add(profile);

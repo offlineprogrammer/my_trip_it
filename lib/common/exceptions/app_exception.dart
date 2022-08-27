@@ -6,6 +6,7 @@ part 'app_exception.freezed.dart';
 @freezed
 class AppException with _$AppException {
   const factory AppException.profileNotFound() = ProfileNotFound;
+  const factory AppException.userfetchError() = UserFetchError;
   const factory AppException.unKnownError() = UnKnownError;
 }
 
@@ -28,6 +29,10 @@ extension AppExceptionDetails on AppException {
       unKnownError: () => AppExceptionData(
         'unknown-error',
         'Something wrong, Please try again',
+      ),
+      userfetchError: () => AppExceptionData(
+        'user-fetch-error',
+        'Error on getting the user atrributes, Please sign in again',
       ),
     );
   }

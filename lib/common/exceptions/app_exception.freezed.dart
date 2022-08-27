@@ -19,18 +19,21 @@ mixin _$AppException {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() profileNotFound,
+    required TResult Function() userfetchError,
     required TResult Function() unKnownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? profileNotFound,
+    TResult Function()? userfetchError,
     TResult Function()? unKnownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? profileNotFound,
+    TResult Function()? userfetchError,
     TResult Function()? unKnownError,
     required TResult orElse(),
   }) =>
@@ -38,18 +41,21 @@ mixin _$AppException {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ProfileNotFound value) profileNotFound,
+    required TResult Function(UserFetchError value) userfetchError,
     required TResult Function(UnKnownError value) unKnownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ProfileNotFound value)? profileNotFound,
+    TResult Function(UserFetchError value)? userfetchError,
     TResult Function(UnKnownError value)? unKnownError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProfileNotFound value)? profileNotFound,
+    TResult Function(UserFetchError value)? userfetchError,
     TResult Function(UnKnownError value)? unKnownError,
     required TResult orElse(),
   }) =>
@@ -114,6 +120,7 @@ class _$ProfileNotFound implements ProfileNotFound {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() profileNotFound,
+    required TResult Function() userfetchError,
     required TResult Function() unKnownError,
   }) {
     return profileNotFound();
@@ -123,6 +130,7 @@ class _$ProfileNotFound implements ProfileNotFound {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? profileNotFound,
+    TResult Function()? userfetchError,
     TResult Function()? unKnownError,
   }) {
     return profileNotFound?.call();
@@ -132,6 +140,7 @@ class _$ProfileNotFound implements ProfileNotFound {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? profileNotFound,
+    TResult Function()? userfetchError,
     TResult Function()? unKnownError,
     required TResult orElse(),
   }) {
@@ -145,6 +154,7 @@ class _$ProfileNotFound implements ProfileNotFound {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ProfileNotFound value) profileNotFound,
+    required TResult Function(UserFetchError value) userfetchError,
     required TResult Function(UnKnownError value) unKnownError,
   }) {
     return profileNotFound(this);
@@ -154,6 +164,7 @@ class _$ProfileNotFound implements ProfileNotFound {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ProfileNotFound value)? profileNotFound,
+    TResult Function(UserFetchError value)? userfetchError,
     TResult Function(UnKnownError value)? unKnownError,
   }) {
     return profileNotFound?.call(this);
@@ -163,6 +174,7 @@ class _$ProfileNotFound implements ProfileNotFound {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProfileNotFound value)? profileNotFound,
+    TResult Function(UserFetchError value)? userfetchError,
     TResult Function(UnKnownError value)? unKnownError,
     required TResult orElse(),
   }) {
@@ -175,6 +187,117 @@ class _$ProfileNotFound implements ProfileNotFound {
 
 abstract class ProfileNotFound implements AppException {
   const factory ProfileNotFound() = _$ProfileNotFound;
+}
+
+/// @nodoc
+abstract class _$$UserFetchErrorCopyWith<$Res> {
+  factory _$$UserFetchErrorCopyWith(
+          _$UserFetchError value, $Res Function(_$UserFetchError) then) =
+      __$$UserFetchErrorCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$UserFetchErrorCopyWithImpl<$Res>
+    extends _$AppExceptionCopyWithImpl<$Res>
+    implements _$$UserFetchErrorCopyWith<$Res> {
+  __$$UserFetchErrorCopyWithImpl(
+      _$UserFetchError _value, $Res Function(_$UserFetchError) _then)
+      : super(_value, (v) => _then(v as _$UserFetchError));
+
+  @override
+  _$UserFetchError get _value => super._value as _$UserFetchError;
+}
+
+/// @nodoc
+
+class _$UserFetchError implements UserFetchError {
+  const _$UserFetchError();
+
+  @override
+  String toString() {
+    return 'AppException.userfetchError()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$UserFetchError);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() profileNotFound,
+    required TResult Function() userfetchError,
+    required TResult Function() unKnownError,
+  }) {
+    return userfetchError();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? profileNotFound,
+    TResult Function()? userfetchError,
+    TResult Function()? unKnownError,
+  }) {
+    return userfetchError?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? profileNotFound,
+    TResult Function()? userfetchError,
+    TResult Function()? unKnownError,
+    required TResult orElse(),
+  }) {
+    if (userfetchError != null) {
+      return userfetchError();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ProfileNotFound value) profileNotFound,
+    required TResult Function(UserFetchError value) userfetchError,
+    required TResult Function(UnKnownError value) unKnownError,
+  }) {
+    return userfetchError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ProfileNotFound value)? profileNotFound,
+    TResult Function(UserFetchError value)? userfetchError,
+    TResult Function(UnKnownError value)? unKnownError,
+  }) {
+    return userfetchError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ProfileNotFound value)? profileNotFound,
+    TResult Function(UserFetchError value)? userfetchError,
+    TResult Function(UnKnownError value)? unKnownError,
+    required TResult orElse(),
+  }) {
+    if (userfetchError != null) {
+      return userfetchError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UserFetchError implements AppException {
+  const factory UserFetchError() = _$UserFetchError;
 }
 
 /// @nodoc
@@ -219,6 +342,7 @@ class _$UnKnownError implements UnKnownError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() profileNotFound,
+    required TResult Function() userfetchError,
     required TResult Function() unKnownError,
   }) {
     return unKnownError();
@@ -228,6 +352,7 @@ class _$UnKnownError implements UnKnownError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? profileNotFound,
+    TResult Function()? userfetchError,
     TResult Function()? unKnownError,
   }) {
     return unKnownError?.call();
@@ -237,6 +362,7 @@ class _$UnKnownError implements UnKnownError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? profileNotFound,
+    TResult Function()? userfetchError,
     TResult Function()? unKnownError,
     required TResult orElse(),
   }) {
@@ -250,6 +376,7 @@ class _$UnKnownError implements UnKnownError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ProfileNotFound value) profileNotFound,
+    required TResult Function(UserFetchError value) userfetchError,
     required TResult Function(UnKnownError value) unKnownError,
   }) {
     return unKnownError(this);
@@ -259,6 +386,7 @@ class _$UnKnownError implements UnKnownError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ProfileNotFound value)? profileNotFound,
+    TResult Function(UserFetchError value)? userfetchError,
     TResult Function(UnKnownError value)? unKnownError,
   }) {
     return unKnownError?.call(this);
@@ -268,6 +396,7 @@ class _$UnKnownError implements UnKnownError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ProfileNotFound value)? profileNotFound,
+    TResult Function(UserFetchError value)? userfetchError,
     TResult Function(UnKnownError value)? unKnownError,
     required TResult orElse(),
   }) {
