@@ -125,10 +125,14 @@ class EditActivityPage extends HookConsumerWidget {
                   },
                   onTap: () async {
                     DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime(2101));
+                      context: context,
+                      initialDate:
+                          DateTime.parse(activity.activityDate.toString()),
+                      firstDate:
+                          DateTime.parse(activity.trip.startDate.toString()),
+                      lastDate:
+                          DateTime.parse(activity.trip.endDate.toString()),
+                    );
 
                     if (pickedDate != null) {
                       String formattedDate =
