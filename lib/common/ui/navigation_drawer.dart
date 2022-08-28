@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:my_trip_it/common/service/auth_service.dart';
 import '../navigation/router/routes.dart';
 import 'package:my_trip_it/common/utils/colors.dart' as constants;
 
-class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({Key? key}) : super(key: key);
+class NavigationDrawer extends ConsumerWidget {
+  const NavigationDrawer({
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -52,9 +56,10 @@ class NavigationDrawer extends StatelessWidget {
               );
             },
           ),
-          const ListTile(
-            leading: Icon(Icons.exit_to_app),
-            title: Text('Logout'),
+          ListTile(
+            leading: const Icon(Icons.exit_to_app),
+            title: const Text('Logout'),
+            onTap: () => ref.read(authServiceProvider).signOut(),
           ),
         ],
       ),

@@ -22,4 +22,12 @@ class AuthService {
     }
     return null;
   }
+
+  Future<void> signOut() async {
+    try {
+      await Amplify.Auth.signOut();
+    } on Exception catch (e) {
+      logger.e(e.toString());
+    }
+  }
 }
