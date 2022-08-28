@@ -7,7 +7,6 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:my_trip_it/amplify_tripit_app.dart';
-import 'package:my_trip_it/common/utils/logger.dart';
 
 import 'amplifyconfiguration.dart';
 import 'models/ModelProvider.dart';
@@ -19,7 +18,7 @@ Future<void> main() async {
     await _configureAmplify();
     isAmplifySuccessfullyConfigured = true;
   } on AmplifyAlreadyConfiguredException {
-    logger.e('Amplify configuration failed.');
+    //TODO Log the error ;
   }
 
   runApp(

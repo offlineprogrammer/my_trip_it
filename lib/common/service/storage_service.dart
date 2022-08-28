@@ -2,13 +2,20 @@ import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_trip_it/common/utils/logger.dart';
+import 'package:my_trip_it/common/exceptions/error_logger.dart';
+
 import 'dart:io';
 
 import 'package:uuid/uuid.dart';
 import 'package:path/path.dart' as p;
 
 class StorageService {
+  StorageService({
+    required Ref ref,
+  }) : errorLogger = ref.read(errorLoggerProvider);
+
+  final ErrorLogger errorLogger;
+
   ValueNotifier<double> uploadProgress = ValueNotifier<double>(0);
   Future<String> getImageUrl(String key) async {
     final GetUrlResult result = await Amplify.Storage.getUrl(
@@ -35,7 +42,7 @@ class StorageService {
 
       return key;
     } on Exception catch (e) {
-      logger.e(e.toString());
+      errorLogger.logError(e);
       return null;
     }
   }
@@ -46,7 +53,7 @@ class StorageService {
 }
 
 final storageServiceProvider = Provider<StorageService>((ref) {
-  return StorageService();
+  return StorageService(ref: ref);
 });
 
 final imageUrlProvider =

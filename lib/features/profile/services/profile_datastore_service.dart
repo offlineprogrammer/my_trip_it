@@ -1,25 +1,29 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_trip_it/common/exceptions/app_exception.dart';
-import 'package:my_trip_it/common/utils/logger.dart';
+import 'package:my_trip_it/common/exceptions/error_logger.dart';
+
 import 'package:my_trip_it/models/ModelProvider.dart';
 
 final profileDataStoreServiceProvider =
     Provider<ProfileDatastoreService>((ref) {
-  final service = ProfileDatastoreService();
+  final service = ProfileDatastoreService(ref: ref);
   return service;
 });
 
 class ProfileDatastoreService {
-  ProfileDatastoreService();
+  ProfileDatastoreService({
+    required Ref ref,
+  }) : errorLogger = ref.read(errorLoggerProvider);
+
+  final ErrorLogger errorLogger;
 
   Stream<Profile> listenToProfile() {
     return Amplify.DataStore.observeQuery(
       Profile.classType,
     ).map((event) => event.items.first).handleError(
       (dynamic error) {
-        logger.e('Error in subscription stream: $error');
+        errorLogger.logError(error);
         if (error.toString().contains('No element')) {
           throw const AppException.profileNotFound();
         }
@@ -44,7 +48,7 @@ class ProfileDatastoreService {
 
       await Amplify.DataStore.save(newProfile);
     } on Exception catch (e) {
-      debugPrint(e.toString());
+      errorLogger.logError(e);
     }
   }
 
@@ -52,7 +56,7 @@ class ProfileDatastoreService {
     try {
       await Amplify.DataStore.save(profile);
     } on Exception catch (e) {
-      logger.e(e.toString());
+      errorLogger.logError(e);
     }
   }
 }

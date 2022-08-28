@@ -1,18 +1,22 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_trip_it/common/utils/logger.dart';
+import 'package:my_trip_it/common/exceptions/error_logger.dart';
 
 import 'package:my_trip_it/models/ModelProvider.dart';
 
 final activitiesDataStoreServiceProvider =
     Provider<ActivitiesDataStoreService>((ref) {
-  final service = ActivitiesDataStoreService();
+  final service = ActivitiesDataStoreService(ref: ref);
   return service;
 });
 
 class ActivitiesDataStoreService {
-  ActivitiesDataStoreService();
+  ActivitiesDataStoreService({
+    required Ref ref,
+  }) : errorLogger = ref.read(errorLoggerProvider);
+
+  final ErrorLogger errorLogger;
 
   Stream<List<Activity>> listenToActivites(String tripId) {
     return Amplify.DataStore.observeQuery(
@@ -27,7 +31,7 @@ class ActivitiesDataStoreService {
             event.items.where((element) => element.trip.id == tripId).toList())
         .handleError(
       (dynamic error) {
-        logger.e('Error in subscription stream: $error');
+        errorLogger.logError(error);
         throw Exception('A Stream error happened');
       },
     );
@@ -42,7 +46,7 @@ class ActivitiesDataStoreService {
         .map((event) => event.items.where((element) => element.id == id).first)
         .handleError(
       (dynamic error) {
-        logger.e('Error in subscription stream: $error');
+        errorLogger.logError(error);
       },
     );
   }
@@ -59,16 +63,16 @@ class ActivitiesDataStoreService {
   Future<void> addActivity(Activity activity) async {
     try {
       await Amplify.DataStore.save(activity);
-    } on Exception catch (e) {
-      logger.e(e.toString());
+    } on Exception catch (error) {
+      errorLogger.logError(error);
     }
   }
 
   Future<void> deleteActivity(Activity activity) async {
     try {
       await Amplify.DataStore.delete(activity);
-    } on Exception catch (e) {
-      logger.e(e.toString());
+    } on Exception catch (error) {
+      errorLogger.logError(error);
     }
   }
 
@@ -90,8 +94,8 @@ class ActivitiesDataStoreService {
           activityImageUrl: updatedActivity.activityImageUrl);
 
       await Amplify.DataStore.save(newActivity);
-    } on Exception catch (e) {
-      logger.e(e.toString());
+    } on Exception catch (error) {
+      errorLogger.logError(error);
     }
   }
 }

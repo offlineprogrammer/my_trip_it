@@ -1,15 +1,22 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_trip_it/common/utils/logger.dart';
+import 'package:my_trip_it/common/exceptions/error_logger.dart';
+
 import 'package:my_trip_it/models/Trip.dart';
 
 final tripsDataStoreServiceProvider = Provider<TripsDataStoreService>((ref) {
-  final service = TripsDataStoreService();
+  final service = TripsDataStoreService(ref: ref);
   return service;
 });
 
 class TripsDataStoreService {
+  TripsDataStoreService({
+    required Ref ref,
+  }) : errorLogger = ref.read(errorLoggerProvider);
+
+  final ErrorLogger errorLogger;
+
   Stream<List<Trip>> listenToTrips() {
     return Amplify.DataStore.observeQuery(
       Trip.classType,
@@ -21,7 +28,7 @@ class TripsDataStoreService {
             .toList())
         .handleError(
       (error) {
-        logger.e('Error in subscription stream: $error');
+        errorLogger.logError(error);
         throw Exception('A Stream error happened');
       },
     );
@@ -38,7 +45,7 @@ class TripsDataStoreService {
             .toList())
         .handleError(
       (error) {
-        logger.e('Error in subscription stream: $error');
+        errorLogger.logError(error);
       },
     );
   }
@@ -54,16 +61,16 @@ class TripsDataStoreService {
   Future<void> addTrip(Trip trip) async {
     try {
       await Amplify.DataStore.save(trip);
-    } on Exception catch (e) {
-      logger.e(e.toString());
+    } on Exception catch (error) {
+      errorLogger.logError(error);
     }
   }
 
   Future<void> deleteTrip(Trip trip) async {
     try {
       await Amplify.DataStore.delete(trip);
-    } on Exception catch (e) {
-      logger.e(e.toString());
+    } on Exception catch (error) {
+      errorLogger.logError(error);
     }
   }
 
@@ -86,8 +93,8 @@ class TripsDataStoreService {
           Activities: updatedTrip.Activities);
 
       await Amplify.DataStore.save(newTrip);
-    } on Exception catch (e) {
-      logger.e(e.toString());
+    } on Exception catch (error) {
+      errorLogger.logError(error);
     }
   }
 }
