@@ -23,7 +23,7 @@ class ActivityPage extends ConsumerWidget {
 
   final String activityId;
 
-  Future<void> deleteActivity(
+  Future<bool> deleteActivity(
       BuildContext context, WidgetRef ref, Activity activity) async {
     var value = await showDialog<bool>(
         context: context,
@@ -35,6 +35,8 @@ class ActivityPage extends ConsumerWidget {
     if (value) {
       await ref.read(activityControllerProvider).delete(activity);
     }
+
+    return value;
   }
 
   Future<void> openFile({
@@ -233,10 +235,14 @@ class ActivityPage extends ConsumerWidget {
                       ),
                       onPressed: () {
                         deleteActivity(context, ref, activity).then(
-                          (value) => context.goNamed(
-                            AppRoute.trip.name,
-                            params: {'id': activity.trip.id},
-                          ),
+                          (value) {
+                            if (value) {
+                              context.goNamed(
+                                AppRoute.trip.name,
+                                params: {'id': activity.trip.id},
+                              );
+                            }
+                          },
                         );
                       },
                       child: const Text('Delete'),

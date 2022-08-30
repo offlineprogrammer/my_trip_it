@@ -43,7 +43,7 @@ class SelectedTripCard extends ConsumerWidget {
     await ref.read(tripControllerProvider).uploadFile(file, trip);
   }
 
-  Future<void> deleteTrip(
+  Future<bool> deleteTrip(
       BuildContext context, WidgetRef ref, Trip trip) async {
     var value = await showDialog<bool>(
         context: context,
@@ -55,6 +55,7 @@ class SelectedTripCard extends ConsumerWidget {
     if (value) {
       await ref.read(tripControllerProvider).delete(trip);
     }
+    return value;
   }
 
   @override
@@ -127,10 +128,13 @@ class SelectedTripCard extends ConsumerWidget {
               ),
               IconButton(
                 onPressed: () {
-                  deleteTrip(context, ref, trip)
-                      .then((value) => context.goNamed(
-                            AppRoute.home.name,
-                          ));
+                  deleteTrip(context, ref, trip).then((value) {
+                    if (value) {
+                      context.goNamed(
+                        AppRoute.home.name,
+                      );
+                    }
+                  });
                 },
                 icon: const Icon(Icons.delete),
               ),
