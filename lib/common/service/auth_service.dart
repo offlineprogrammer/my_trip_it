@@ -32,6 +32,7 @@ class AuthService {
   Future<void> signOut() async {
     try {
       await Amplify.Auth.signOut();
+      await Amplify.DataStore.clear();
     } on Exception catch (e) {
       errorLogger.logError(e);
     }
