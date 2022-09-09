@@ -9,29 +9,46 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:my_trip_it/amplify_tripit_app.dart';
+import 'package:my_trip_it/common/exceptions/error_logger.dart';
 
 import 'amplifyconfiguration.dart';
 import 'models/ModelProvider.dart';
 
 Future<void> main() async {
-  runZonedGuarded(() async {
+  late ErrorLogger errorLogger;
+
+  await runZonedGuarded(() async {
     WidgetsFlutterBinding.ensureInitialized();
     bool isAmplifySuccessfullyConfigured = false;
-    // try {
+
     await _configureAmplify();
     isAmplifySuccessfullyConfigured = true;
-    // } on AmplifyAlreadyConfiguredException {
-    //   //TODO Log the error ;
-    // }
-    runApp(
-      ProviderScope(
-        child: AmplifyTripITApp(
-          isAmplifySuccessfullyConfigured: isAmplifySuccessfullyConfigured,
-        ),
+    final container = ProviderContainer();
+
+    errorLogger = container.read(errorLoggerProvider);
+
+    runApp(UncontrolledProviderScope(
+      container: container,
+      child: AmplifyTripITApp(
+        isAmplifySuccessfullyConfigured: isAmplifySuccessfullyConfigured,
       ),
-    );
+    ));
+
+    FlutterError.onError = (FlutterErrorDetails details) {
+      FlutterError.presentError(details);
+    };
+
+    ErrorWidget.builder = (FlutterErrorDetails details) {
+      return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.red,
+          title: const Text('An error occurred'),
+        ),
+        body: Center(child: Text(details.toString())),
+      );
+    };
   }, (error, stack) {
-    // myBackend.sendError(error, stack);
+    errorLogger.logError(error);
   });
 }
 
